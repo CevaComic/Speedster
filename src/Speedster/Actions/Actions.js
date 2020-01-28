@@ -36,3 +36,9 @@ export const setSettingsValue = value => ({type: ActionType.SET_SETTINGS_VALUE, 
 export const setUpdateProfileValue = value => ({type: ActionType.TRY_SET_UPDATE_PROFILE_VALUE, value})
 export const setEditProfileModal = status => ({type: ActionType.SET_OPEN_EDIT_PROFILE_MODAL, status})
 export const uploadAvatar = avatar => ({type: ActionType.TRY_CHANGE_AVATAR, avatar})
+
+// scheduleReducer
+
+export const setScheduleValues = () => ({type: ActionType.SET_SCHEDULE_VALUES})
+export const setScheduleTempValue = value => ({type: ActionType.SET_SCHEDULE_TEMP_VALUE, value})
+export const resetScheduleTempValues = () => ({type: ActionType.RESET_SCHEDULE_TEMP_VALUES})

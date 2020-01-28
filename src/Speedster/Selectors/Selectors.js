@@ -12,6 +12,12 @@ export const newPassSelector = createSelector(state => state.temporary, temporar
     return {newPass, newPass2, newPassError, newPassError2, hashError}
 })
 
+export const viewModalProfileSelector = createSelector(state => state.temporary.viewModalProfile, id => id)
+
+export const viewModalCarPictureSelector = createSelector(state => state.temporary.viewModalCarPicture, id => id)
+
+export const searchValueSelector = createSelector(state => state.temporary.searchValue, search => search)
+
 export const activeTabSelector = createSelector(state => state.temporary.activeTab, tab => tab)
 
 export const isLoadingSelector = createSelector(state => state.temporary.isLoadingSelector, isLoading => isLoading)
@@ -45,3 +51,7 @@ export const showNotificationsSelector = createSelector(state => state.settings.
 // updateProfileReducer
 
 export const isLoadingProfileSelector = createSelector(state => state.updateProfile, isLoading => isLoading)
+
+// scheduleReducer
+
+export const scheduleSelector = createSelector(state => state.schedule, schedule => schedule)

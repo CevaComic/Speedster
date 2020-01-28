@@ -14,14 +14,18 @@ import List from '@material-ui/core/List'
 import HomeRow from './HomeRow'
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded'
 import { becomeCourier, sendPack, myPacks, couriersAround, packRequests } from '../../Images'
+import { MyPacks,SendPack,CouriersAround,PackRequests } from './Pages'
+import { useHistory } from 'react-router-dom'
 
 function Home(props) {
 
 	const classes = useClasses()
+	const history = useHistory()
+	const isBack = history.location.pathname.split('/')[2] !== undefined
 	const { become, setSettingsValue, courier } = props
 
     return (
-		<Box className={classes.home}>
+		<Box className={[classes.home,isBack ? classes.goBack : ''].join(' ')}>
 			<Collapse in={become && !courier} className={classes.becomeCourier}>
 				<img src={becomeCourier} width="100%" />
 				<Box className={classes.becomeCourierContent}>
@@ -59,6 +63,7 @@ function Home(props) {
 			</Collapse>
 
 			<List className={classes.homeList}>
+
 				<HomeRow title="Send pack" icon={sendPack} callback={() => navigate('/home/sendpack')} />
 				<HomeRow title="My packs" icon={myPacks} callback={() => navigate('/home/mypacks')} />
 				<HomeRow title="Couriers in the area" icon={couriersAround} callback={() => navigate('/home/couriersaround')} />
@@ -66,6 +71,11 @@ function Home(props) {
 					courier && <HomeRow title="Pack requests" icon={packRequests} callback={() => navigate('/home/packrequests')} />
 				}
 			</List>
+
+			<MyPacks />
+			<SendPack />
+			<PackRequests />
+			<CouriersAround />
 
 		</Box>
 	)

@@ -6,7 +6,7 @@ const useClasses = makeStyles(theme => ({
         flexDirection: 'column',
         width: '100%',
         height: '100%',
-        overflowX: 'scroll'
+		overflowX: 'scroll',
     },
     avatarBox: {
         padding: '20px',
@@ -108,6 +108,8 @@ const useClasses = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+		backgroundColor: 'rgba(0,0,0, 0.54)',
+		zIndex: '1500!important',
 		// width: 'calc(100% - 40px)',
     },
     modalInner: {
@@ -116,7 +118,14 @@ const useClasses = makeStyles(theme => ({
         boxShadow: theme.shadows[5],
 		width: 'calc(100% - 40px)',
 		padding: '10px',
+		textAlign: 'center',
+		position: 'relative',
     },
+	modalVehicle: {
+		width: 'calc(100% - 20px)',
+		padding: 0,
+		overflow: 'hidden',
+	},
 	modalTitle: {
 		fontSize: '10pt',
 		lineHeight: 0,
@@ -125,6 +134,9 @@ const useClasses = makeStyles(theme => ({
 		color: `${theme.palette.secondary.main}`,
 		fontStyle: 'italic',
 		marginBottom: '15px',
+	},
+	modalTitleMargin: {
+		marginTop: '20px',
 	},
 	modalInput: {
 		width: '100%',
@@ -145,6 +157,122 @@ const useClasses = makeStyles(theme => ({
 	},
 	uploadInput: {
 		display: 'none',
+	},
+	startPicker: {
+		width: '70px',
+		backgroundColor: `${theme.palette.secondary.main}!important`,
+		borderRadius: '5px',
+		'& .MuiOutlinedInput-input': {
+			padding: '8px!important',
+			fontSize: '15pt',
+			fontWeight: 600,
+			color: `${theme.palette.primary.main}!important`,
+			'& > * > *': {
+				borderWidth: '0!important',
+			}
+		},
+		'& .MuiFormLabel-root': {
+			transform: 'translate(2px, -11px) scale(0.80)!important',
+			fontWeight: 600,
+			color: `${theme.palette.secondary.main}!important`,
+		},
+		'& legend': {
+			width: '0px!important',
+		},
+		'& fieldset': {
+			borderWidth: '0px!important',
+		}
+	},
+	schedulePicker: {
+		display: 'flex',
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	startPickerSep: {
+		paddingTop: '5px',
+		fontSize: '21pt',
+	},
+	days: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		width: '280px',
+		marginLeft: 'auto',
+		marginRight: 'auto',
+	},
+	day: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		fontSize: '15pt',
+		borderRadius: '5px',
+		fontWeight: 900,
+		width: '32px',
+		height: '32px',
+		backgroundColor: '#f0f0f0',
+		boxShadow: theme.shadows[2],
+		marginTop: '10px',
+		marginBottom: '10px',
+	},
+	dayActive: {
+		backgroundColor: `${theme.palette.primary.main}!important`,
+	},
+	topImageBox: {
+		position: 'relative',
+		width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        // overflow: 'hidden',
+		border: '15px solid #f0f0f0',
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		marginTop: '-40px',
+		'&:before': {
+			content: '" "',
+			position: 'absolute',
+			border: '5px solid rgba(0,0,0,.7)',
+			top: '-15px',
+			left: '-15px',
+			right: '-15px',
+			bottom: '-15px',
+			zIndex: 2,
+			borderRadius: '50%',
+		},
+	},
+	topImageBoxInner: {
+		width: '100%',
+		height: '100%',
+		display: 'flex',
+
+	},
+	topImage: {
+		width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+	},
+	topImageVehicle: {
+		marginBottom: '-5px',
+	},
+	courierList: {
+		padding: 0,
+	},
+	closeVehicle: {
+		position: 'absolute',
+		bottom: '10px',
+		right: '10px',
+	},
+	closeButton: {
+		margin: '20px',
+	},
+	spacer: {
+		height: '15px',
+		visibility: 'hidden',
+		fontSize: '1pt',
+	},
+	rating: {
+		fontSize: '8pt!important',
+		color: `${theme.palette.primary.dark}!important`,
 	}
 }))
 

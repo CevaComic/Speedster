@@ -20,6 +20,8 @@ const INITIAL_STATE = {
 	courier: false,
 	working: false,
 	outside: false,
+	share: false,
+	becomeCourier: true,
 }
 
 const loginReducer = (state = INITIAL_STATE, action) => {

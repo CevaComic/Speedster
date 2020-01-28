@@ -9,25 +9,24 @@ import useClasses from './Profile.classes'
 import PhotoCameraRoundedIcon from '@material-ui/icons/PhotoCameraRounded'
 import List from '@material-ui/core/List'
 import ListRow from './ListRow'
+import Schedule from './Schedule'
 import { loginSelector, isLoadingProfileSelector, showNotificationsSelector } from '../../Selectors'
 import { doLogout, setUpdateProfileValue, setSettingsValue, uploadAvatar } from '../../Actions'
 import moment from 'moment'
 import ListSubheader from '@material-ui/core/ListSubheader'
-import {isLoadingIcon,icons} from '../../Images'
+import {isLoadingIcon,icons,defaultAvatar} from '../../Images'
 
 function Profile(props) {
 
 	const classes = useClasses()
 	var upload
-	const { displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar } = props
+	const { displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier } = props
 	const { doLogout, setUpdateProfileValue, isLoading, showNotifications, setSettingsValue, uploadAvatar } = props
 
 	const renderAvatar = () => {
 		if(isLoading.avatar)
 			return isLoadingIcon
-		return (avatar && avatar.length > 32)
-			? 'https://speedster.cristi.club/media/' + avatar
-			: require('../../Images/eu.jpg')
+		return avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar
 	}
 
     return (
@@ -116,32 +115,47 @@ function Profile(props) {
 						<>
 						<ListSubheader className={classes.stickHeader}>Courier settings</ListSubheader>
 						<ListRow
+							title="Share your e-mail and phone number"
+							value={share ? "Yes" : "No"}
+							icon={icons.status} toggle checked={share}
+							onClick={() => setUpdateProfileValue({share:!share})}
+							isLoading={isLoading.share}
+							black
+						/>
+						<ListRow
 							title="Working status" value={working ? "At work" : "Break time"}
-							icon={icons.status} toggle black checked={working}
+							icon={icons.status} toggle checked={working}
 							onClick={() => setUpdateProfileValue({working:!working})}
 							isLoading={isLoading.working}
 						/>
 						<ListRow
 							title="Shipping outside city"
 							value={outside ? "Yes" : "No"}
-							icon={icons.outside} toggle checked={outside}
+							icon={icons.outside} toggle checked={outside} black
 							onClick={() => setUpdateProfileValue({outside:!outside})}
 							isLoading={isLoading.outside}
 						/>
-						<ListRow title="Prices" value="1$/kg + 0.5$/km outside city" icon={icons.price} black
+						<ListRow title="Prices" value="1$/kg + 0.5$/km outside city" icon={icons.price}
 							isLoading={isLoading.price}
 						/>
-						<ListRow title="Schedule" value="Mon - Fri 08:00-16:00" icon={icons.schedule}
+						<Schedule
 							isLoading={isLoading.schedule}
+							black
 						/>
-						<ListRow title="Vehicle" value="Ferrari Enzo" icon={icons.vehicle} black
+						<ListRow title="Vehicle" value="Ferrari Enzo" icon={icons.vehicle}
 							isLoading={isLoading.vehicle}
 						/>
 						</>
 					) : (
 						<>
 						<ListSubheader className={classes.stickHeader}>Become a courier</ListSubheader>
-						<ListRow title="Become a courier now" value="Apply to your new job" icon={icons.vehicle} black />
+						{
+							becomeCourier ? (
+								<ListRow title="Pending" value="You're request is being analized" icon={icons.vehicle} black />
+							) : (
+								<ListRow title="Become a courier now" value="Apply for FREE" icon={icons.vehicle} black />
+							)
+						}
 						</>
 					)
 				}

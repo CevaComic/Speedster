@@ -7,6 +7,7 @@ import Notification from './Notification'
 import ForgotPassword from './ForgotPassword'
 import Footer from './Footer'
 import Profile from './Profile'
+import Couriers from './Couriers'
 
 export {
 	Home,
@@ -17,5 +18,6 @@ export {
 	Register,
 	Notification,
 	ForgotPassword,
-	Profile
+	Profile,
+	Couriers,
 }

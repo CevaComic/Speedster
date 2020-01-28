@@ -1,3 +1,9 @@
+// header
+
+export const box = require('./box.png')
+export const envelope = require('./envelope.png')
+export const bell = require('./bell.png')
+
 // Home
 export const becomeCourier = require('./becomecourier.png')
 export const couriersAround = require('./couriersaround.svg')
@@ -26,6 +32,7 @@ const user = require('./icons/profile.svg')
 const schedule = require('./icons/schedule.svg')
 const status = require('./icons/status.svg')
 const vehicle = require('./icons/vehicle.svg')
+const star = require('./icons/star.svg')
 
 export const icons = {
 	address,
@@ -39,7 +46,8 @@ export const icons = {
 	user,
 	schedule,
 	status,
-	vehicle
+	vehicle,
+	star
 }
 
 export const isLoadingIcon = require('./loading.svg')
@@ -51,3 +59,29 @@ export const cristi = require('./eu.jpg')
 export const eubooks = require('./eubooks.png')
 export const euphone = require('./euphone.png')
 export const eumail = require('./eumail.png')
+
+// vehicles
+
+const bike = require('./vehicles/bike.svg')
+const minivan = require('./vehicles/minivan.svg')
+const motorbyke = require('./vehicles/motorbyke.svg')
+const pickup = require('./vehicles/pickup.svg')
+const scooter = require('./vehicles/scooter.svg')
+const sedan = require('./vehicles/sedan.svg')
+const tourer = require('./vehicles/tourer.svg')
+const truck = require('./vehicles/truck.svg')
+
+export const vehicles = {
+	bike,
+	minivan,
+	motorbyke,
+	pickup,
+	scooter,
+	sedan,
+	tourer,
+	truck
+}
+
+// misc
+
+export const defaultAvatar = require('./defaultAvatar.svg')

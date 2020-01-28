@@ -12,6 +12,9 @@ const INITIAL_STATE = {
 	hashError: false,
 	activeTab: 'home',
 	isLoading: false,
+	searchValue: '',
+	viewModalProfile: 0,
+	viewModalCarPicture: 0,
 }
 
 const temporaryReducer = (state = INITIAL_STATE, action) => {

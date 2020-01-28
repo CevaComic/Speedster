@@ -1,7 +1,6 @@
 CREATE TABLE users (
     `id_user` int unsigned AUTO_INCREMENT NOT NULL,
     `create_on` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `courier_since` DATETIME,
     `google_id` varchar(32),
     `facebook_id` varchar(32),
     `avatar` varchar(64),
@@ -29,6 +28,8 @@ CREATE TABLE users_options (
     `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
     `is_working` tinyint(1) NOT NULL DEFAULT 0,
     `is_busy` tinyint(1) NOT NULL DEFAULT 0,
+    `courier_since` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `share_private_info` tinyint(1) NOT NULL DEFAULT 0,
     `goes_outside_city` tinyint(1) NOT NULL DEFAULT 0,
 );
 
@@ -58,6 +59,7 @@ CREATE TABLE vehicles (
     `is_aproved` tinyint(1) NOT NULL DEFAULT 0,
     -- Un singur vehicul poate fii activ, celelalte vor fii inactive (la alegerea curierului)
     `is_active` tinyint(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (id_vehicle)
 );
 
 CREATE TABLE vehicle_types (
@@ -112,11 +114,11 @@ CREATE TABLE prices (
 
 CREATE TABLE packs (
     `id_pack` int unsigned AUTO_INCREMENT NOT NULL,
-    -- FK la users (expeditor)a
+    -- FK la users (expeditor)
     `user_id_expeditor` int unsigned NOT NULL,
     -- id curier (users)
     `user_id_courier` int unsigned NOT NULL,
-    `address` varchar(100),
+    `address_sender` varchar(100),
     `phone` varchar(20),
     -- FK la pack_types
     `pack_type_id` int unsigned NOT NULL,
@@ -129,22 +131,22 @@ CREATE TABLE packs (
     -- destinatar
     `first_name` varchar(30) NOT NULL,
     `last_name` varchar(30) NOT NULL,
-    `address` varchar(100) NOT NULL,
+    `address_receiver` varchar(100) NOT NULL,
     `phone` varchar(20) NOT NULL,
     -- daca curierul refuza comanda
     `denied_reason` varchar(200),
     PRIMARY KEY (id_pack)
 );
 
-CREATE TABLE packs_pack_statuses {
+CREATE TABLE packs_pack_statuses (
     `id_pack_status` int unsigned AUTO_INCREMENT NOT NULL,
     -- FK la packs
     `pack_id` int unsigned AUTO_INCREMENT NOT NULL,
     -- FK la pack_status
-    `status_id` int unsigned NOT,
+    `status_id` int unsigned NOT NULL,
     `date` DATETIME NOT NULL,
     PRIMARY KEY (id_pack_statuses)
-}
+)
 
 CREATE TABLE pack_status (
     `id_status` int unsigned AUTO_INCREMENT NOT NULL,
@@ -161,5 +163,24 @@ CREATE TABLE pack_types (
 
 VIEWS
 
-CREATE VIEW view_users AS
-SELECT id_user AS id,`password`,email,first_name AS firstname,last_name AS lastname,avatar,concat(last_name,' ',first_name) AS displayname, create_on AS membersince,google_id AS googleid,facebook_id AS facebookid,phone,address,city,latitude AS lat, longitude AS lng,is_courier AS courier,is_working AS working FROM users u LEFT JOIN users_options o ON o.user_id = u.id_user;
+CREATE VIEW view_logged AS
+SELECT
+`u`.`id_user` AS `id`,
+`u`.`password` AS `password`,
+`u`.`email` AS `email`,
+`u`.`first_name` AS `firstName`,
+`u`.`last_name` AS `lastName`,
+`u`.`avatar` AS `avatar`,
+concat(`u`.`last_name`,' ',`u`.`first_name`) AS `displayName`,
+`u`.`create_on` AS `memberSince`,
+`u`.`google_id` AS `googleId`,
+`u`.`facebook_id` AS `facebookId`,
+`u`.`phone` AS `phone`,`u`.`address` AS `address`,
+`u`.`city` AS `city`,
+`u`.`latitude` AS `lat`,
+`u`.`longitude` AS `lng`,
+`o`.`is_courier` AS `courier`,
+`o`.`is_working` AS `working`,
+`o`.`share_private_info` AS `share`,
+`o`.`goes_outside_city` AS `outside`
+from (`users` `u` left join `users_options` `o` on(`o`.`user_id` = `u`.`id_user`));

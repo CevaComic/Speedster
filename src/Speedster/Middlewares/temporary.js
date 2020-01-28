@@ -2,6 +2,7 @@ import { ActionType } from '../Constants'
 import { validateEmail } from '../Utils'
 import React from 'react'
 import Badge from '@material-ui/core/Badge'
+import moment from 'moment'
 
 export default function temporaryMiddleware({ dispatch, getState }) {
   return function(next) {
@@ -67,6 +68,26 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 			const showNotifications = getState().settings.showNotifications
 			if(!showNotifications)
 				return
+		}
+
+
+		if(action.type === ActionType.SET_SCHEDULE_TEMP_VALUE) {
+			if(action.value && action.value.start)
+				action.value.start = moment(action.value.start).format('HH:mm')
+
+			if(action.value && action.value.end)
+				action.value.end = moment(action.value.end).format('HH:mm')
+
+			if(action.value.end === null)
+				action.value.end = "00:00"
+
+			if(action.value.start === null)
+				action.value.start = "00:00"
+		}
+
+		if(action.type === ActionType.RESET_SCHEDULE_TEMP_VALUES) {
+			const { temp, ...values } = getState().schedule
+			action.values = values
 		}
 
 		next(action)

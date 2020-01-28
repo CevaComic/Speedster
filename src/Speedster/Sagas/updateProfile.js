@@ -61,6 +61,8 @@ function* update(action) {
 			...action.value,
 			working: data.working ? 1 : 0,
 			outside: data.outside ? 1 : 0,
+			share: data.share ? 1 : 0,
+			becomeCourier: data.becomeCourier ? 1 : 0,
 		}}
 
 		const login = yield axios.post('https://speedster.cristi.club/api/update/', qs.stringify(send))
@@ -69,6 +71,7 @@ function* update(action) {
 			...login.data.success,
 			working: login.data.success.working !== "0",
 			outside: login.data.success.outside !== "0",
+			share: login.data.success.share !== "0",
 		}
 
 		yield put({type: ActionType.SET_LOGIN_VALUE, value})

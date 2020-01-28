@@ -27,14 +27,18 @@ const useClasses = makeStyles(theme => ({
 		fontSize: 40,
 	},
 	menu: {
-		padding: theme.spacing(3),
-		[theme.breakpoints.up('sm')]: {
-	      display: 'none',
-	    },
+		// padding: theme.spacing(3),
+		zIndex: '2000!important',
 		backgroundColor: `${theme.palette.primary.dark}!important`,
 		"& > a": {
 			textDecoration: 'none',
 		},
+	},
+	notify: {
+		position: 'absolute',
+		top: '56px',
+		left: 0,
+		right: 0,
 	},
 	menuLinkIcon: {
 		color: 'white!important',
@@ -45,14 +49,38 @@ const useClasses = makeStyles(theme => ({
 	title: {
 		paddingLeft: theme.spacing(5),
 		fontWeight: 700,
+		transition: 'all 0.2s',
 	},
 	bellBadge: {
 		height: '12px',
 		minWidth: '12px',
-		marginTop: '5px',
-		marginRight: '5px',
+		marginTop: '2px',
+		marginRight: '1px',
 		border: '2px solid white',
-	}
+	},
+	bellBadgeBox: {
+		height: '12px',
+		minWidth: '12px',
+		marginTop: '2px',
+		border: '2px solid white',
+	},
+	goBackBox: {
+		width: 0,
+		overflow: 'hidden',
+		transition: 'all 0.2s',
+	},
+	goBackOpen: {
+		width: '30px',
+	},
+	goBack: {
+		paddingRight: 0,
+	},
+	titleGoBack: {
+		paddingLeft: '10px',
+	},
+	goBackIcon: {
+		color: `${theme.palette.secondary.main}!important`,
+	},
 }))
 
 export default useClasses

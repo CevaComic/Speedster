@@ -18,8 +18,7 @@ export default function Menu(props) {
 
   return (
 	  <List
-		component="nav"
-		aria-labelledby="menu-mobile"
+		component="div"
 		className={classes.menu}
 	  >
 		  <Link to="/">

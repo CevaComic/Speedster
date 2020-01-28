@@ -5,64 +5,75 @@ import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import useClasses from './Header.classes'
 import AppBar from '@material-ui/core/AppBar'
-import Badge from '@material-ui/core/Badge'
+import Badge from './Elements/Badge'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Collapse from '@material-ui/core/Collapse'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import MenuRoundedIcon from '@material-ui/icons/MenuRounded'
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded'
 import Menu from './Elements/Menu'
-import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded'
+import { goBack } from '../../Utils'
+import { useHistory } from 'react-router-dom'
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded'
+import { box,envelope,bell } from '../../Images'
 
-function Header(props) {
+const Header = (props) => {
 
-	const [menu, toggleMenu] = useState(false)
+	const [notify, setNotify] = useState(false)
 	const classes = useClasses()
+	const history = useHistory()
 
 	const onClickAway = () => {
-		menu && toggleMenu(false)
+		notify && setNotify(false)
 	}
 
-	const isMobile = false
+	const isBack = history.location.pathname.split('/')[2] !== undefined
 
     return (
 		<>
-		<ClickAwayListener onClickAway={onClickAway} touchEvent={false}>
-			  <AppBar position="fixed" color="primary" classes={{colorPrimary: classes.colorHeader}}>
+			<ClickAwayListener onClickAway={onClickAway}>
+			  <AppBar style={{zIndex: 1400}} position="fixed" color="primary" classes={{colorPrimary: classes.colorHeader}}>
 				   <Toolbar className={classes.mainBox} disableGutters={true}>
 						   <Box className={classes.middleGrow} >
 							   <Box style={{display: 'flex',flexDirection: 'row',alignItems: 'center'}}>
-								   <Typography variant="h6" className={classes.title}>
+
+								   <Box className={[classes.goBackBox,isBack ? classes.goBackOpen : ''].join(' ')}>
+									   <IconButton onClick={goBack} className={classes.goBack}>
+										   <ArrowBackIosRoundedIcon className={classes.goBackIcon}/>
+									   </IconButton>
+								   </Box>
+
+
+								   <Typography variant="h6" className={[classes.title,isBack && classes.titleGoBack]}>
 									  SPEEDSTER
 								  </Typography>
-								  <Badge variant="dot" color="primary" classes={{
-									  dot: classes.bellBadge
-								  }}>
-									  <NotificationsRoundedIcon style={{marginLeft: '6px'}}/>
-								  </Badge>
 							   </Box>
 						   </Box>
 
 						   <IconButton className={classes.menuButton}
-							   edge="start" color="inherit" aria-label="open menu"
-							   onClick={() => toggleMenu(prevMenu => !prevMenu)}>
-
-							  { menu ? <CloseRoundedIcon className={classes.landingMore} />
-							  : <MenuRoundedIcon className={classes.landingMore} /> }
-
+							   edge="start" color="inherit" aria-label="open pack messages"
+							   onClick={() => setNotify(!notify)}>
+							   <Badge variant="dot" color="primary">
+								   <img src={box} height="20px" width="20px"/>
+							   </Badge>
 						  </IconButton>
 
+						  <IconButton className={classes.menuButton}
+							  edge="start" color="inherit" aria-label="open notify"
+							  onClick={() => setNotify(!notify)}>
+							  <Badge variant="dot" color="primary">
+								  <img src={bell} height="20px" width="18px"/>
+							  </Badge>
+						 </IconButton>
 					   </Toolbar>
-						<Collapse in={menu}>
-							<Menu close={onClickAway}/>
-						</Collapse>
+					   <Collapse in={notify} classes={{container:classes.notify}}>
+					   	<Menu close={onClickAway}/>
+					    </Collapse>
 				</AppBar>
-
-			</ClickAwayListener>
+				</ClickAwayListener>
 			<Box className={classes.spacer} />
 		</>
+
 	)
 }
 

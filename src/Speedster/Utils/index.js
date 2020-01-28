@@ -1,9 +1,12 @@
 import {validateEmail} from './validations'
-import navigate from './navigate'
+import navigate,{goBack} from './navigate'
 import usePosition from './usePosition'
+import contact from './contact'
 
 export {
 	validateEmail,
 	navigate,
-	usePosition
+	goBack,
+	usePosition,
+	contact,
 }

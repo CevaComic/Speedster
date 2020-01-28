@@ -5,8 +5,20 @@ const useClasses = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+		transition: 'all 0.5s',
+		'&$goBack': {
+			marginLeft: '-150px',
+		}
     },
+	myPages: {
+		backgroundColor: '#fafafa',
+		transition: 'all 0.5s',
+		'&$goBack': {
+			marginLeft: '-150px',
+		}
+	},
+	goBack: {},
 	becomeCourier: {
 		position: 'relative',
 	},
@@ -57,6 +69,58 @@ const useClasses = makeStyles(theme => ({
 	closeBecomeCourierIcon: {
 		color: '#fafafa',
 	},
+	myPacksRoot: {
+		backgroundColor: 'transparent!important',
+		marginTop: '25px',
+		height: 'calc(100% - 50px)',
+		'& .MuiBackdrop-root': {
+			backgroundColor: 'transparent!important',
+		}
+	},
+	myPacksContainer: {
+	},
+	myPacksPaper: {
+		width: '100%!important',
+		maxWidth: '100%!important',
+		height: '100%!important',
+		margin: '0!important',
+		backgroundColor: '#fafafa',
+		maxHeight: 'calc(100% - 62px)!important',
+		boxShadow: 'none',
+		borderRadius: '0!important',
+	},
+	noOnline: {
+        padding: theme.spacing(2),
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+		margin: theme.spacing(4),
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        border: '1px solid #ccc',
+        color: '#a6a6a6',
+        borderRadius: '6px'
+    },
+	listCouriersAroud: {
+		padding: '0!important',
+	},
+	modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+		backgroundColor: 'rgba(0,0,0, 0.54)',
+		zIndex: '1500!important',
+		// width: 'calc(100% - 40px)',
+    },
+    modalInner: {
+        backgroundColor: '#fafafa',
+		borderRadius: theme.spacing(2),
+        boxShadow: theme.shadows[5],
+		width: 'calc(100% - 20px)',
+		height: 'calc(100% - 125px)',
+		overflowY: 'scroll',
+		position: 'relative',
+    },
 }))
 
 export default useClasses

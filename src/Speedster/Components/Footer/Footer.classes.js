@@ -6,6 +6,7 @@ const useClasses = makeStyles(theme => ({
 		bottom: 0,
 		right: 0,
 		left: 0,
+		zIndex: 1400,
 		backgroundColor: `${theme.palette.primary.main}!important`,
 		color: `${theme.palette.secondary.main}!important`,
 	},

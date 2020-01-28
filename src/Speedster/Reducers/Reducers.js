@@ -5,6 +5,7 @@ import register from './register'
 import login from './login'
 import settings from './settings'
 import updateProfile from './updateProfile'
+import schedule from './schedule'
 
 const reducers = combineReducers({
 	temporary,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
 	register,
 	login,
 	settings,
-	updateProfile
+	updateProfile,
+	schedule,
 })
 
 export default reducers

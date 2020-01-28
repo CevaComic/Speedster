@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 	courier: false,
 	working: false,
 	outside: false,
+	share: false,
 	modal: false,
 }
 

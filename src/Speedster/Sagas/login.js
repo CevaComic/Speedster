@@ -37,12 +37,13 @@ function* login(data) {
 			isLogged: true,
 			working: login.data.success.working !== "0",
 			outside: login.data.success.outside !== "0",
-			courier: login.data.success.courier !== "0",
+			courier: login.data.success.courier !== null,
+			share: login.data.success.share !== "0",
+			becomeCourier: login.data.success.becomeCourier !== "0",
 		}
 
 		yield put({type: ActionType.SET_LOGIN_VALUE, value})
-		// yield navigate('/home')
-		// yield delay(100)
+
 		yield sendNotification({
 			type: 'success',
 			title: 'Information',

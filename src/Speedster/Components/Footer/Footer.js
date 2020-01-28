@@ -17,6 +17,7 @@ import { home, couriers, profile, about } from '../../Images'
 function Footer(props) {
 
 	const classes = useClasses()
+	const location = useLocation()
 	const { tab, changeTab } = props
 
 	React.useEffect(() => {
@@ -24,7 +25,7 @@ function Footer(props) {
 		if(tab !== path){
 			changeTab(path)
 		}
-	})
+	},[location])
 
     return (
 		<BottomNavigation value={tab} onChange={(e,tab) => changeTab(tab)} className={classes.footer}>
