@@ -121,6 +121,7 @@ const useClasses = makeStyles(theme => ({
 		overflowY: 'scroll',
 		position: 'relative',
     },
+	googleMap: {display: 'flex',width: '100%',height: '240px',backgroundColor: '#ccc'},
 }))
 
 export default useClasses

@@ -68,10 +68,7 @@ function* update(action) {
 		const login = yield axios.post('https://speedster.cristi.club/api/update/', qs.stringify(send))
 
 		const value = {
-			...login.data.success,
-			working: login.data.success.working !== "0",
-			outside: login.data.success.outside !== "0",
-			share: login.data.success.share !== "0",
+			...login.data.success
 		}
 
 		yield put({type: ActionType.SET_LOGIN_VALUE, value})
@@ -81,6 +78,9 @@ function* update(action) {
 			title: 'Information',
 			message: (<span>Profile updated.</span>),
 		})
+
+		if(key === 'working' && login.data.success.working === false)
+			yield put({type: ActionType.GO_OFFLINE_FROM_WORK})
 
 	} catch (error) {
 		// console.log('error', error)

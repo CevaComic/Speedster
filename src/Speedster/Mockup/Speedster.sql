@@ -163,24 +163,10 @@ CREATE TABLE pack_types (
 
 VIEWS
 
-CREATE VIEW view_logged AS
-SELECT
-`u`.`id_user` AS `id`,
-`u`.`password` AS `password`,
-`u`.`email` AS `email`,
-`u`.`first_name` AS `firstName`,
-`u`.`last_name` AS `lastName`,
-`u`.`avatar` AS `avatar`,
-concat(`u`.`last_name`,' ',`u`.`first_name`) AS `displayName`,
-`u`.`create_on` AS `memberSince`,
-`u`.`google_id` AS `googleId`,
-`u`.`facebook_id` AS `facebookId`,
-`u`.`phone` AS `phone`,`u`.`address` AS `address`,
-`u`.`city` AS `city`,
-`u`.`latitude` AS `lat`,
-`u`.`longitude` AS `lng`,
-`o`.`is_courier` AS `courier`,
-`o`.`is_working` AS `working`,
-`o`.`share_private_info` AS `share`,
-`o`.`goes_outside_city` AS `outside`
-from (`users` `u` left join `users_options` `o` on(`o`.`user_id` = `u`.`id_user`));
+VIEW_LOGGED
+select `u`.`id_user` AS `id`,`u`.`password` AS `password`,`u`.`email` AS `email`,`u`.`first_name` AS `firstName`,`u`.`last_name` AS `lastName`,`u`.`avatar` AS `avatar`,concat(`u`.`last_name`,' ',`u`.`first_name`) AS `displayName`,`u`.`create_on` AS `memberSince`,`u`.`google_id` AS `googleId`,`u`.`facebook_id` AS `facebookId`,`u`.`phone` AS `phone`,`u`.`address` AS `address`,`u`.`city` AS `city`,`u`.`latitude` AS `lat`,`u`.`longitude` AS `lng`,`o`.`is_courier` AS `courier`,`o`.`is_working` AS `working`,`o`.`share_private_info` AS `share`,`o`.`goes_outside_city` AS `outside`,`c`.`id_request` AS `becomeCourier` from ((`users` `u` left join `users_options` `o` on(`o`.`user_id` = `u`.`id_user`)) left join `courier_requests` `c` on(`c`.`user_id` = `u`.`id_user`))
+
+
+VIEW_VEHICLES
+
+select `v`.`id_vehicle` AS `id`,`u`.`id_user` AS `id_user`,`v`.`vehicle_type_id` AS `type`,`v`.`description` AS `description`,`v`.`picture` AS `picture` from (`vehicles` `v` join `users` `u` on(`v`.`user_id` = `u`.`id_user`))

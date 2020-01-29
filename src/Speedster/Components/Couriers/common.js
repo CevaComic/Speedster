@@ -14,15 +14,15 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Modal from '@material-ui/core/Modal'
 
-export const renderVehicles = vehicles => vehicles.map(({vehicle,id,description,...rest},index) => {
+export const renderVehicles = vehicles => vehicles.map(({vehicle,id,description,type,...rest},index) => {
 
-	console.log('rest', rest)
 	const path = window.location.pathname + '/' + id
 
 	return (
 		<ListRow
 			key={id}
 			id={id}
+			type={type}
 			title="Vehicle"
 			value={vehicle}
 			description={description}
@@ -36,16 +36,21 @@ export const renderVehicles = vehicles => vehicles.map(({vehicle,id,description,
 
 export const getVehicleImage = (vehicles, id) => {
 	let vehicle = vehicles.filter(vehicle => vehicle.id === id)[0]
+
 	if(!vehicle)
 		return null
-	return vehicle.image ? 'https://speedster.cristi.club/media/' + vehicle.image : defaultAvatar
+	return vehicle.picture ? 'https://speedster.cristi.club/media/' + vehicle.picture : defaultAvatar
 }
 
-export const renderVehicle = vehicle => {
-    const car = vehicles[vehicle] || null
-    if (car !== null)
-        return <Icon icon={car}/>
-    return null
+export const getVehicleId = (vehicles, id) => {
+	let vehicle = vehicles.filter(vehicle => vehicle.id === id)[0]
+	if(!vehicle)
+		return null
+	return vehicle
+}
+
+export const renderVehicle = type => {
+    return <Icon type={type}/>
 }
 
 export const renderCouriers = couriers => couriers.map((courier, index) =>

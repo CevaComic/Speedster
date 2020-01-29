@@ -6,6 +6,10 @@ import { CouriersAround } from '../Components/Home/Pages'
 import useClasses from './Navigation.classes'
 import { isMobileOnly } from 'react-device-detect'
 import { history } from '../Utils/navigate'
+import { useOnlyOnce } from '../Utils'
+import { ActionType } from '../Constants'
+import { startSync } from '../Actions'
+import {bindActionCreators} from 'redux'
 import PrivateRoute from './PrivateRoute'
 import { isLoggedSelector } from '../Selectors'
 import '../Themes/Global.css'
@@ -13,7 +17,12 @@ import '../Themes/Global.css'
 function Navigation(props) {
 
 	const classes = useClasses()
-	const { isLogged } = props
+	const { isLogged, startSync } = props
+
+	useOnlyOnce(() => {
+		if(isLogged)
+			startSync()
+	})
 
 	// if(!isMobileOnly)
 	// 	return (
@@ -59,10 +68,14 @@ function Navigation(props) {
 	)
 }
 
+const mapDispatchToProps = dispatch => (bindActionCreators({
+	startSync
+}, dispatch))
+
 const mapStateToProps = (state) => {
     return {
         isLogged: isLoggedSelector(state)
     }
 }
 
-export default connect(mapStateToProps)(Navigation)
+export default connect(mapStateToProps,mapDispatchToProps)(Navigation)

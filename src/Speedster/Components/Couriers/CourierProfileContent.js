@@ -1,7 +1,6 @@
 import React from 'react'
 import Icon from './Icon'
 import { vehicles, defaultAvatar, icons } from '../../Images'
-import CourierRow from './CourierRow'
 import DialogContent from '@material-ui/core/DialogContent'
 import useClasses from '../Profile/Profile.classes'
 import ListRow from './ListRow'
@@ -29,7 +28,7 @@ const CourierProfileContent = (props) => {
 
 	const courier = {
 		displayName: 'Gigel Fronel',
-		vehicle: 'sedan',
+		vehicle: 2,
 		id: 1,
 		courierSince: new Date(),
 		email: 'cineva@ceva.com',
@@ -40,15 +39,15 @@ const CourierProfileContent = (props) => {
 		vehicles: [
 			{
 				id:"1",
-				vehicle: 'sedan',
+				type: 2,
 				description: 'White fenyr',
-				image: 'fenyr.jpg',
+				picture: 'fenyr.jpg',
 			},
 			{
 				id:"2",
-				vehicle: 'pickup',
+				type: 1,
 				description: 'Red ferrari',
-				image: 'enzo.jpg',
+				picture: 'enzo.jpg',
 			}
 		]
 	}
@@ -139,7 +138,7 @@ const CourierProfileContent = (props) => {
 						Go back
 					</Button>
 				)}
-				
+
 				<Box className={classes.spacer}>
 					Spacer
 				</Box>

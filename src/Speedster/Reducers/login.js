@@ -21,7 +21,7 @@ const INITIAL_STATE = {
 	working: false,
 	outside: false,
 	share: false,
-	becomeCourier: true,
+	becomeCourier: false,
 }
 
 const loginReducer = (state = INITIAL_STATE, action) => {

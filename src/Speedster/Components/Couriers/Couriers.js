@@ -22,12 +22,12 @@ const Couriers = props => {
 	// dev
 	const onlineCouriers = [{
 		displayName: 'Gigel Fronel',
-		vehicle: 'sedan',
+		vehicle: 5,
 		id: 1,
 	},
 	{
 		displayName: 'Gigel Vasilescu',
-		vehicle: 'pickup',
+		vehicle: 1,
 		id: 2,
 	}]
 

@@ -6,8 +6,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import useClasses from '../Profile/Profile.classes'
 import Icon from '../Profile/Icon'
-import {Icon as VehicleIcon} from './Icon'
-import { vehicles } from '../../Images'
+import {Icon as VehicleIcon} from '../Couriers/Icon'
+import { vehicles, icons } from '../../Images'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -15,35 +15,28 @@ import { setTemporaryValue } from '../../Actions'
 import { viewModalCarPictureSelector } from '../../Selectors'
 
 
-const ListRow = ({ title, value, icon, black = false, isClickable = false, description = null, onClick = () => null, ...rest }) => {
+const CarRow = ({ title, value, type, black = false, description = "Vehicle", onClick = false, ...rest }) => {
 
-	const { setTemporaryValue, viewModalCarPicture, id, type } = rest
+	const { setTemporaryValue, viewModalCarPicture, id } = rest
 	const classes = useClasses()
-	if(title === 'Vehicle')
+	if(!onClick)
 		onClick = () => setTemporaryValue({viewModalCarPicture:id})
 
 	return (
-		<ListItem onClick={() => isClickable && onClick()} div={!isClickable} button={isClickable} classes={{root:[classes.listItem,!black ? classes.listItemWhite : classes.listItemBlack].join(' ')}}>
-		  <Icon icon={icon} />
-		  <ListItemText primary={title} secondary={title === 'Vehicle' ? description : value && value || "not set"}
+		<ListItem onClick={onClick} button classes={{root:[classes.listItem,!black ? classes.listItemWhite : classes.listItemBlack].join(' ')}}>
+		  <Icon icon={icons.vehicle} />
+		  <ListItemText primary="Vehicle" secondary={description}
 			  classes={{
 				  primary: classes.primaryText,
 				  secondary: classes.secondaryText
 			  }}
 		  />
-		  { isClickable && (
 				  <ListItemSecondaryAction>
-					<IconButton edge="end" onClick={() => isClickable && onClick()}>
-						{
-							title === 'Vehicle' && (
+					<IconButton edge="end" onClick={onClick}>
 								<VehicleIcon type={type}/>
-							)
-						}
 						<ChevronRightIcon />
 					</IconButton>
 				  </ListItemSecondaryAction>
-			  )
-		  }
 		</ListItem>
 	)
 }
@@ -58,4 +51,4 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
     setTemporaryValue
 }, dispatch))
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListRow)
+export default connect(mapStateToProps, mapDispatchToProps)(CarRow)

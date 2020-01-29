@@ -20,6 +20,7 @@ import { setTemporaryValue } from '../../../Actions'
 import { viewModalProfileSelector, viewModalCarPictureSelector } from '../../../Selectors'
 import { renderCouriersAround } from '../../Couriers/common'
 import CourierProfileContent from '../../Couriers/CourierProfileContent'
+import GoogleMap from './GoogleMap'
 
 const CouriersAround = props => {
 
@@ -30,9 +31,13 @@ const CouriersAround = props => {
 	const { setTemporaryValue, viewModalProfile, viewModalCarPicture } = props
 	const onlineCouriers = [{
 		displayName: 'Gigel Fronel',
-		vehicle: 'sedan',
+		vehicle: 2,
 		id: 1,
-	},]
+	},{
+		displayName: 'Alt Gigel',
+		vehicle: 5,
+		id: 2,
+	}]
 
 	return (
 		<Dialog
@@ -53,8 +58,8 @@ const CouriersAround = props => {
         keepMounted
       >
         <DialogContent style={{backgroundColor: '#fafafa',padding:0}}>
-			<Box style={{display: 'flex',width: '100%',height: '240px',backgroundColor: 'red'}}>
-
+			<Box className={classes.googleMap}>
+				<GoogleMap />
 			</Box>
 
 			<List className={classes.listCouriersAroud}>

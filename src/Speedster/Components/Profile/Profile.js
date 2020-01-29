@@ -11,17 +11,47 @@ import List from '@material-ui/core/List'
 import ListRow from './ListRow'
 import Schedule from './Schedule'
 import { loginSelector, isLoadingProfileSelector, showNotificationsSelector } from '../../Selectors'
-import { doLogout, setUpdateProfileValue, setSettingsValue, uploadAvatar } from '../../Actions'
+import { doLogout, setUpdateProfileValue, setSettingsValue, uploadAvatar,changeVehicleActive } from '../../Actions'
 import moment from 'moment'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import {isLoadingIcon,icons,defaultAvatar} from '../../Images'
+import AddNewCar from './AddNewCar'
+import CarRow from './CarRow'
+import MyCars from './MyCars'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
+
+const renderCarsTemp = props => {
+
+	const { vehicles,changeVehicleActive,onClose,setUpdateProfileValue } = props
+
+	return vehicles.map((vehicle,index) => (
+		<CarRow
+			onClick={() => {setUpdateProfileValue({working:true});changeVehicleActive(vehicle.id,true);onClose()}}
+			{...vehicle}
+			title="Vehicle"
+			key={vehicle.id}
+			black={index % 2 !== 0}
+		/>
+	))
+}
 
 function Profile(props) {
 
 	const classes = useClasses()
-	var upload
-	const { displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier } = props
+	var upload,newCourier
+	const { vehicles, displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier } = props
 	const { doLogout, setUpdateProfileValue, isLoading, showNotifications, setSettingsValue, uploadAvatar } = props
+
+	const [vehicle, setVehicle] = React.useState(false)
 
 	const renderAvatar = () => {
 		if(isLoading.avatar)
@@ -125,7 +155,7 @@ function Profile(props) {
 						<ListRow
 							title="Working status" value={working ? "At work" : "Break time"}
 							icon={icons.status} toggle checked={working}
-							onClick={() => setUpdateProfileValue({working:!working})}
+							onClick={() => working ? setUpdateProfileValue({working:!working}) : setVehicle(true)}
 							isLoading={isLoading.working}
 						/>
 						<ListRow
@@ -142,25 +172,51 @@ function Profile(props) {
 							isLoading={isLoading.schedule}
 							black
 						/>
-						<ListRow title="Vehicle" value="Ferrari Enzo" icon={icons.vehicle}
-							isLoading={isLoading.vehicle}
-						/>
+						<MyCars />
+						<ListSubheader className={classes.stickHeader}>Other</ListSubheader>
+						<AddNewCar />
 						</>
 					) : (
 						<>
 						<ListSubheader className={classes.stickHeader}>Become a courier</ListSubheader>
 						{
 							becomeCourier ? (
-								<ListRow title="Pending" value="You're request is being analized" icon={icons.vehicle} black />
+								<ListRow title="Pending" value="You're request is being analized" icon={icons.vehicle} black toggle checked={false}/>
 							) : (
-								<ListRow title="Become a courier now" value="Apply for FREE" icon={icons.vehicle} black />
+								<AddNewCar isFirstCourier/>
 							)
 						}
 						</>
 					)
 				}
 			</List>
+			<Dialog
+	          open={vehicle}
+	          TransitionComponent={Transition}
+	          keepMounted
+	  		PaperProps={{
+	  			classes:{
+					root: classes.dialogChoseVehicle
+				}
+	  		}}
+	          onClose={() => setVehicle(false)}
+	        >
+	          <DialogTitle>Important</DialogTitle>
+	          <DialogContent classes={{root: classes.dialogContentVehicle}}>
+	            <DialogContentText>
+	              {/* {
+					  renderCars(vehicles,() => { setUpdateProfileValue({working:true}) ; setVehicle(false)})
+				  } */}
 
+				  <Vehicles onClose={() => setVehicle(false)}/>
+	            </DialogContentText>
+	          </DialogContent>
+	          <DialogActions>
+	            <Button onClick={() => setVehicle(false)} color="secondary" variant="contained">
+	              Cancel
+	            </Button>
+	          </DialogActions>
+	        </Dialog>
 		</Box>
 	)
 }
@@ -169,6 +225,7 @@ const mapStateToProps = (state) => {
 	const userInfo = loginSelector(state)
     return {
         ...userInfo,
+		vehicles: state.myVehicle,
 		isLoading: isLoadingProfileSelector(state),
 		showNotifications: showNotificationsSelector(state),
     }
@@ -178,7 +235,10 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
     doLogout,
 	setUpdateProfileValue,
 	setSettingsValue,
-	uploadAvatar
+	uploadAvatar,
+	changeVehicleActive
 }, dispatch))
+
+const Vehicles = connect(mapStateToProps, mapDispatchToProps)(renderCarsTemp)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

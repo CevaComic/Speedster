@@ -1,12 +1,15 @@
 import React from 'react'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import useClasses from './Couriers.classes'
+import { vehiclesTypes } from '../../Utils/vehicleTypes'
 
-export const Icon = ({ icon }) => {
+export const Icon = ({ type }) => {
+
 	const classes = useClasses()
+	
 	return (
 		<ListItemIcon classes={{root: classes.icon}}>
-			<img src={icon} width="42px" height="25px"/>
+			<img src={vehiclesTypes[type-1].icon} width="42px" height="25px"/>
 		</ListItemIcon>
 	)
 }

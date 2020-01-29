@@ -55,3 +55,7 @@ export const isLoadingProfileSelector = createSelector(state => state.updateProf
 // scheduleReducer
 
 export const scheduleSelector = createSelector(state => state.schedule, schedule => schedule)
+
+// uploadVehicleReducer
+
+export const uploadVehicleSelector = createSelector(state => state.uploadVehicle, upload => upload)

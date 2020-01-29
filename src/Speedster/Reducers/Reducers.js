@@ -6,6 +6,9 @@ import login from './login'
 import settings from './settings'
 import updateProfile from './updateProfile'
 import schedule from './schedule'
+import uploadVehicle from './uploadVehicle'
+import myVehicle from './myVehicles'
+import couriers from './couriers'
 
 const reducers = combineReducers({
 	temporary,
@@ -15,6 +18,9 @@ const reducers = combineReducers({
 	settings,
 	updateProfile,
 	schedule,
+	uploadVehicle,
+	myVehicle,
+	couriers
 })
 
 export default reducers

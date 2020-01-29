@@ -139,6 +139,9 @@ const Schedule = (props) => {
 					<Box className={classes.schedulePicker}>
 
 						<TimePicker
+							DialogProps={{
+								className: classes.zIndexBig,
+							}}
 							clearable
 							clearLabel="Reset"
 							minutesStep={5}
@@ -154,6 +157,10 @@ const Schedule = (props) => {
 				        />
 						<RemoveRoundedIcon classes={{root:classes.startPickerSep}} />
 						<TimePicker
+							DialogProps={{
+								className: classes.zIndexBig,
+							}}
+							clearable
 							minutesStep={5}
 							label="to"
 							classes={{

@@ -42,3 +42,15 @@ export const uploadAvatar = avatar => ({type: ActionType.TRY_CHANGE_AVATAR, avat
 export const setScheduleValues = () => ({type: ActionType.SET_SCHEDULE_VALUES})
 export const setScheduleTempValue = value => ({type: ActionType.SET_SCHEDULE_TEMP_VALUE, value})
 export const resetScheduleTempValues = () => ({type: ActionType.RESET_SCHEDULE_TEMP_VALUES})
+
+// uploadVehicleReducer
+
+export const setUploadVehicleValue = value => ({type: ActionType.SET_UPLOAD_VEHICLES_VALUE, value})
+export const resetUploadVehicle = () => ({type: ActionType.RESET_UPLOAD_VEHICLES})
+export const uploadVehicle = isFirst => ({type: ActionType.TRY_UPLOAD_VEHICLE,isFirst})
+export const tryDeleteVehicle = vehicle => ({type: ActionType.TRY_DELETE_VEHICLE,vehicle})
+export const changeVehicleActive = (id,status) => ({type: ActionType.CHANGE_VEHICLE_STATUS,id,status})
+
+// MASTER
+
+export const startSync = () => ({type:ActionType.START_SYNC_APP})

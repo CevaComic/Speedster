@@ -70,6 +70,8 @@ const scooter = require('./vehicles/scooter.svg')
 const sedan = require('./vehicles/sedan.svg')
 const tourer = require('./vehicles/tourer.svg')
 const truck = require('./vehicles/truck.svg')
+const sportcar = require('./vehicles/sportcar.svg')
+const towtruck = require('./vehicles/towtruck.svg')
 
 export const vehicles = {
 	bike,
@@ -79,9 +81,12 @@ export const vehicles = {
 	scooter,
 	sedan,
 	tourer,
-	truck
+	truck,
+	sportcar,
+	towtruck
 }
 
 // misc
 
 export const defaultAvatar = require('./defaultAvatar.svg')
+export const logoCar = require('./logocar.png')

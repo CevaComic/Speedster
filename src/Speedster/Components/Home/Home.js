@@ -16,6 +16,7 @@ import CancelRoundedIcon from '@material-ui/icons/CancelRounded'
 import { becomeCourier, sendPack, myPacks, couriersAround, packRequests } from '../../Images'
 import { MyPacks,SendPack,CouriersAround,PackRequests } from './Pages'
 import { useHistory } from 'react-router-dom'
+import AddNewCar from '../Profile/AddNewCar'
 
 function Home(props) {
 
@@ -48,9 +49,7 @@ function Home(props) {
 							<a href="tel:0712123123">0712123123</a>
 						</Typography>
 
-						<Button size="small" variant="contained" color="primary" className={classes.apply}>
-							APPLY
-						</Button>
+						<AddNewCar isFirst />
 
 						<IconButton
 							classes={{root:classes.closeBecomeCourier,label:classes.closeBecomeCourierIcon}}
