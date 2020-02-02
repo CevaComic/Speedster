@@ -26,10 +26,10 @@ export const renderVehicles = vehicles => vehicles.map(({vehicle,id,description,
 			title="Vehicle"
 			value={vehicle}
 			description={description}
-			icon={icons.vehicle}
+			icon={rest.active ? icons.activevehicle : icons.vehicle}
 			isClickable
 			onClick={() => navigate(path)}
-			black={index % 2 !== 0}
+			black={index % 2 === 0}
 		/>
 	)
 })
@@ -59,4 +59,8 @@ export const renderCouriers = couriers => couriers.map((courier, index) =>
 
 export const renderCouriersAround = couriers => couriers.map((courier, index) =>
 	<CourierRow courier={courier} key={courier.id} black={index % 2 === 0} place={index+1}/>
+)
+
+export const renderCouriersSendPack = couriers => couriers.map((courier, index) =>
+	<CourierRow courier={courier} key={courier.id} black={index % 2 === 0} sendpack/>
 )

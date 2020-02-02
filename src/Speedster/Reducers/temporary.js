@@ -1,8 +1,8 @@
 import { ActionType } from '../Constants'
 
 const INITIAL_STATE = {
-	email: 'cristi@aaa.com',
-	password: '123123',
+	email: '',
+	password: '',
 	newPass: '',
 	newPass2: '',
 	emailError: false,
@@ -15,6 +15,19 @@ const INITIAL_STATE = {
 	searchValue: '',
 	viewModalProfile: 0,
 	viewModalCarPicture: 0,
+	route: '',
+	oldRoute: '',
+	packType: -1,
+	sendPackCourier: 0,
+	sendPackNrKg: 1,
+	senderName: '',
+	receiverName: '',
+	receiverAddress: '',
+	receiverPhone: '',
+	sendPackError: false,
+	senderAddress: '',
+	packId: 0,
+	packIdCourier: 0,
 }
 
 const temporaryReducer = (state = INITIAL_STATE, action) => {

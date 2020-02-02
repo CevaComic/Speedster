@@ -52,6 +52,15 @@ const scheduceReducer = (state = INITIAL_STATE, action) => {
 					...action.value,
 				}
 			}
+		case ActionType.SET_SCHEDULE_FROM_SERVER:
+			return {
+				...state,
+				...action.schedule,
+				temp: {
+					...state.temp,
+					...action.schedule,
+				}
+			}
         default:
             return state
     }

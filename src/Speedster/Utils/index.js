@@ -3,6 +3,9 @@ import navigate,{goBack} from './navigate'
 import usePosition from './usePosition'
 import contact from './contact'
 import useOnlyOnce from './useOnlyOnce'
+import isEqual from './isEqual'
+import isEqualLogin from './isEqualLogin'
+import addZeros from './addZeros'
 
 export {
 	validateEmail,
@@ -10,5 +13,8 @@ export {
 	goBack,
 	usePosition,
 	contact,
-	useOnlyOnce
+	useOnlyOnce,
+	isEqual,
+	isEqualLogin,
+	addZeros
 }

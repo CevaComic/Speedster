@@ -1,11 +1,11 @@
 import { ActionType } from '../Constants'
 
 const INITIAL_STATE = {
-	firstName: 'Gigel',
-	lastName: 'fronel',
-	email: 'ceva@nasa.gov',
-	newPass: '123123',
-	newPass2: '123123',
+	firstName: '',
+	lastName: '',
+	email: '',
+	newPass: '',
+	newPass2: '',
 	// phone: '',
 	// address: '',
 	firstNameError: false,

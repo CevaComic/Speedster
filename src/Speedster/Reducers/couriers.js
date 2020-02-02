@@ -8,10 +8,7 @@ const couriersReducer = (state = INITIAL_STATE, action) => {
 		case ActionType.RESET_COURIERS_REDUCER:
 			return state.filter(courier => courier.id !== courier.id)
 		case ActionType.SET_MY_COURIERS:
-			return [
-				...state,
-				...action.couriers,
-			]
+			return state.filter(courier => courier.id !== courier.id).concat(action.couriers)
         default:
             return state
     }

@@ -33,6 +33,8 @@ const schedule = require('./icons/schedule.svg')
 const status = require('./icons/status.svg')
 const vehicle = require('./icons/vehicle.svg')
 const star = require('./icons/star.svg')
+const activevehicle = require('./vehicles/activevehicle.svg')
+const password = require('./icons/password.svg')
 
 export const icons = {
 	address,
@@ -47,7 +49,9 @@ export const icons = {
 	schedule,
 	status,
 	vehicle,
-	star
+	star,
+	activevehicle,
+	password
 }
 
 export const isLoadingIcon = require('./loading.svg')
@@ -72,6 +76,19 @@ const tourer = require('./vehicles/tourer.svg')
 const truck = require('./vehicles/truck.svg')
 const sportcar = require('./vehicles/sportcar.svg')
 const towtruck = require('./vehicles/towtruck.svg')
+const helicopter = require('./vehicles/helicopter.svg')
+
+export const packs = {
+	envelope: require('./packs/envelope.svg'),
+	small: require('./packs/small.svg'),
+	medium: require('./packs/medium.svg'),
+	big: require('./packs/big.svg'),
+	furniture: require('./packs/furniture.svg'),
+	vehicle: require('./packs/vehicle.svg'),
+	accept: require('./packs/accept.png'),
+	denied: require('./packs/denied.png'),
+	unknown: require('./packs/unknown.png'),
+}
 
 export const vehicles = {
 	bike,
@@ -83,7 +100,8 @@ export const vehicles = {
 	tourer,
 	truck,
 	sportcar,
-	towtruck
+	towtruck,
+	helicopter
 }
 
 // misc

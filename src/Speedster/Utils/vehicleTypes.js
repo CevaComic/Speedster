@@ -41,4 +41,8 @@ export const vehiclesTypes = [
 		name: 'Tow truck',
 		icon: vehicles.towtruck,
 	},
+	{
+		name: 'Helicopter',
+		icon: vehicles.helicopter,
+	}
 ]

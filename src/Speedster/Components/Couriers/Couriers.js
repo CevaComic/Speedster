@@ -2,43 +2,30 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
+import Modal from '@material-ui/core/Modal'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
 import useClasses from './Couriers.classes'
 import {useHistory} from 'react-router-dom'
 import Search from './Search'
+import { setTemporaryValue } from '../../Actions'
 import { isLoadingIcon } from '../../Images'
-import CourierProfile from './CourierProfile'
-import { searchValueSelector } from '../../Selectors'
+import CourierProfileContent from './CourierProfileContent'
+import { searchValueSelector,onlineCouriersSelector,offlineCouriersSelector,couriersSelector } from '../../Selectors'
+import { viewModalProfileSelector, viewModalCarPictureSelector } from '../../Selectors'
 import { renderCouriers } from './common'
 
 const Couriers = props => {
 
 	const classes = useClasses()
 	const history = useHistory()
-	const { searchValue } = props
-	const isBack = history.location.pathname.split('/')[2] !== undefined
-	// dev
-	const onlineCouriers = [{
-		displayName: 'Gigel Fronel',
-		vehicle: 5,
-		id: 1,
-	},
-	{
-		displayName: 'Gigel Vasilescu',
-		vehicle: 1,
-		id: 2,
-	}]
-
-	const offlineCouriers = []
-	const searchCouriers = []
-	const isLoading = true
-	// end dev
+	const { searchValue,onlineCouriers,offlineCouriers,searchCouriers } = props
+	const { viewModalProfile, viewModalCarPicture,setTemporaryValue } = props
 
     return (
 		<Box className={classes.couriers}>
-			<Box className={[classes.list,isBack?classes.listBack:null].join(' ')}>
+			<Box className={classes.list}>
 				<Search />
 
 				{
@@ -68,33 +55,42 @@ const Couriers = props => {
 						</List>
 					) : (
 						<List>
-							<ListSubheader className={[classes.stickHeader,classes.resultsText].join(' ')}>Search results{isLoading?<img src={isLoadingIcon} width="32" height="32" />:null}</ListSubheader>
-							{
-								!isLoading && (
-									<>
-										{renderCouriers(searchCouriers)}
-									</>
-								)
-							}
+							<ListSubheader className={[classes.stickHeader,classes.resultsText].join(' ')}>Search results</ListSubheader>
+							{ searchCouriers.length > 0 ? renderCouriers(searchCouriers) : null}
 						</List>
 					)
 				}
 			</Box>
 
 
-			<CourierProfile />
+			<Modal
+				className={classes.modal}
+				open={viewModalProfile > 0}
+				closeAfterTransition
+				keepMounted={false}
+				onBackdropClick={() => setTemporaryValue({viewModalProfile:0})}
+			  >
+				  <Box className={classes.modalInner}>
+					  <CourierProfileContent viewModalCarPicture={viewModalCarPicture}/>
+				  </Box>
+		  </Modal>
 		</Box>
 	)
 }
 
 const mapStateToProps = (state) => {
     return {
-		searchValue: searchValueSelector(state)
+		searchValue: searchValueSelector(state),
+		onlineCouriers:  onlineCouriersSelector(state),
+		offlineCouriers: offlineCouriersSelector(state),
+		searchCouriers: couriersSelector(state),
+		viewModalProfile: viewModalProfileSelector(state),
+		viewModalCarPicture: viewModalCarPictureSelector(state),
     }
 }
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-
+	setTemporaryValue
 }, dispatch))
 
 export default connect(mapStateToProps, mapDispatchToProps)(Couriers)

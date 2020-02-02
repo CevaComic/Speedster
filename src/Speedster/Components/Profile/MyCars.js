@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
 import Modal from '@material-ui/core/Modal'
+import Collapse from '@material-ui/core/Collapse'
 import Button from '@material-ui/core/Button'
 import useClasses from '../Profile/Profile.classes'
 import { getVehicleImage,getVehicleId } from '../Couriers/common'
@@ -56,17 +57,17 @@ const MyCars = props => {
 			closeAfterTransition
 			onBackdropClick={() => !viewModalCarPicture ? goBack() : setTemporaryValue({viewModalCarPicture:0})}
 		  >
-		<Box className={[classes.modalInner,classes.modalVehicle].join(' ')}>
-			<img src={getVehicleImage(vehicles,viewModalCarPicture)} className={[classes.topImage,classes.topImageVehicle].join(' ')}/>
-			<Button color="secondary" size="small" variant="contained" className={classes.deleteVehicle}
-				onClick={() => setConfirm(true)}>
-				delete
-			</Button>
-			<Button color="primary" size="small" variant="contained" className={classes.closeVehicle}
-				onClick={() => !viewModalCarPicture ? goBack() : setTemporaryValue({viewModalCarPicture:0})}>
-				close
-			</Button>
-		</Box>
+				  <Box className={[classes.modalInner,classes.modalVehicle].join(' ')}>
+		  			<img src={getVehicleImage(vehicles,viewModalCarPicture)} className={[classes.topImage,classes.topImageVehicle].join(' ')}/>
+		  			<Button color="secondary" size="small" variant="contained" className={classes.deleteVehicle}
+		  				onClick={() => setConfirm(true)}>
+		  				delete
+		  			</Button>
+		  			<Button color="primary" size="small" variant="contained" className={classes.closeVehicle}
+		  				onClick={() => !viewModalCarPicture ? goBack() : setTemporaryValue({viewModalCarPicture:0})}>
+		  				close
+		  			</Button>
+		  		</Box>
 	  </Modal>
 	  <Dialog
         open={confirm && viewModalCarPicture}

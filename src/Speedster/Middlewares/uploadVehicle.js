@@ -41,13 +41,6 @@ export default function uploadVehicleMiddleware({ dispatch, getState }) {
 
 		if(action.type === ActionType.TRY_DELETE_VEHICLE) {
 			const length = getState().myVehicle.length
-			if(action.vehicle.active)
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>INFORMATION</span>),
-					message: (<span>You must first go offline from work in order to delete this vehicle</span>),
-					isOpen: true,
-				}})
 
 			if(length === 1)
 			 	return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
@@ -56,6 +49,16 @@ export default function uploadVehicleMiddleware({ dispatch, getState }) {
 					message: (<span>You can't remove the last vehicle</span>),
 					isOpen: true,
 				}})
+				
+			if(action.vehicle.active)
+				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
+					type: 'error',
+					title: (<span style={{fontWeight: 900}}>INFORMATION</span>),
+					message: (<span>You must first go offline from work in order to delete this vehicle</span>),
+					isOpen: true,
+				}})
+
+
 		}
 
 		next(action)

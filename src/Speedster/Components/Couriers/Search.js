@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import { setTemporaryValue } from '../../Actions'
-import { searchValueSelector } from '../../Selectors'
+import { searchValueSelector,viewModalProfileSelector } from '../../Selectors'
 import useClasses from './Couriers.classes'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import { StylesProvider } from '@material-ui/core/styles'
@@ -12,7 +12,7 @@ import { StylesProvider } from '@material-ui/core/styles'
 const Search = props => {
 
 	const classes = useClasses()
-	const { setTemporaryValue, searchValue } = props
+	const { setTemporaryValue, searchValue,viewModalProfile } = props
 
 	return (
 		<StylesProvider injectFirst>
@@ -20,14 +20,14 @@ const Search = props => {
 			<div className={classes.searchIcon}>
 			  <SearchIcon />
 			</div>
-			<ClickAwayListener touchEvent={false} onClickAway={() => searchValue !== '' && setTemporaryValue({searchValue:''})}>
+			<ClickAwayListener touchEvent={false} onClickAway={() => searchValue !== '' && viewModalProfile === 0 && setTemporaryValue({searchValue:''})}>
 				<InputBase
 				  placeholder="Search couriers…"
 				  onChange={e => setTemporaryValue({searchValue:e.target.value})}
 				  value={searchValue}
 				  classes={{
 					  root: classes.inputRoot,
-					  input: [classes.primaryText,classes.inputInput].join(' '),
+					  input: [classes.primaryText,classes.inputInput,searchValue?classes.searchOpen:null].join(' '),
 				  }}
 				/>
 			</ClickAwayListener>
@@ -40,6 +40,7 @@ const Search = props => {
 const mapStateToProps = (state) => {
     return {
         searchValue: searchValueSelector(state),
+		viewModalProfile: viewModalProfileSelector(state),
     }
 }
 

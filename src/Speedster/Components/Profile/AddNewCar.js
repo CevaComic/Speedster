@@ -20,7 +20,7 @@ import { setUploadVehicleValue,resetUploadVehicle,uploadVehicle } from '../../Ac
 import { uploadVehicleSelector } from '../../Selectors'
 import PhotoCameraRoundedIcon from '@material-ui/icons/PhotoCameraRounded'
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
-import { Type, VehicleItem } from './VehicleTypes'
+import { Menu, MenuItem } from './VehicleTypes'
 import { vehiclesTypes } from '../../Utils/vehicleTypes'
 
 const AddNewCar = props => {
@@ -126,8 +126,6 @@ const AddNewCar = props => {
 							{ type ? <img src={vehiclesTypes[type-1].icon} width="30px" height="23px" className={[classes.typeImage,(isFirst||isFirstCourier)?classes.typeImageFirst:''].join(' ')}/> : ''}
 	      				</p>
 						  <Button
-	              aria-controls="customized-menu"
-	              aria-haspopup="true"
 	              variant="contained"
 	              color="secondary"
 				  className={classes.buttonType}
@@ -137,7 +135,7 @@ const AddNewCar = props => {
 	      			  vehiclesTypes[type-1].name
 	      		) : "Select type"}
 	            </Button>
-	      	  <Type
+	      	  <Menu
 	      		  style={{zIndex: 2000}}
 	              id="customized-menu"
 	              anchorEl={anchorEl}
@@ -150,17 +148,17 @@ const AddNewCar = props => {
 	      			  {
 	      				  vehiclesTypes.map((vehicle,index) => {
 	      					  return (
-	      						  <VehicleItem onClick={() => {setUploadVehicleValue({type:index+1});handleClose()}}>
+	      						  <MenuItem onClick={() => {setUploadVehicleValue({type:index+1});handleClose()}}>
 	      							  <ListItemIcon>
 	      					            <img src={vehicle.icon} width="30px" height="23px"/>
 	      					          </ListItemIcon>
 	      				          <ListItemText primary={vehicle.name} />
-	      				        </VehicleItem>
+	      				        </MenuItem>
 	      					  )
 	      				  })
 	      			  }
 
-	      	  </Type>
+	      	  </Menu>
 					  </Box>
 
   				</Box>
@@ -194,10 +192,10 @@ const AddNewCar = props => {
 
 					{
 						picture ? (
-							<img src={URL.createObjectURL(picture)} className={classes.uploadedImage}/>
+							<img src={URL.createObjectURL(picture)} className={classes.uploadedImage} onClick={() => upload.click()}/>
 						) : (
 							<Box className={classes.uploadPlaceholder}>
-								<img src={logoCar} className={classes.uploadPlaceholderCar}/>
+								<img src={logoCar} className={classes.uploadPlaceholderCar} onClick={() => upload.click()}/>
 								No picture selected
 							</Box>
 						)

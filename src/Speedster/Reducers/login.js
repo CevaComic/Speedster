@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 	lastName: '',
 	avatar: '',
 	email: '',
+	stars: 0,
 	displayName: '',
 	memberSince: '',
 	googleId: '',

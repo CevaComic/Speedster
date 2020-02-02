@@ -103,10 +103,10 @@ const useClasses = makeStyles(theme => ({
         fontSize: '10pt'
     },
     listItemBlack: {
-        backgroundColor: '#f0f0f0'
+        backgroundColor: '#f0f0f0!important'
     },
     listItemWhite: {
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa!important'
     },
     listItem: {
         paddingTop: '0px!important',
@@ -130,8 +130,13 @@ const useClasses = makeStyles(theme => ({
         width: 'calc(100% - 40px)',
         padding: '10px',
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+		'&$prices': {
+			display: 'flex',
+			flexDirection: 'column',
+		}
     },
+	prices: {},
     modalVehicle: {
         width: 'calc(100% - 20px)',
         padding: 0,
@@ -356,7 +361,25 @@ const useClasses = makeStyles(theme => ({
 	},
 	dialogContentVehicle: {
 		padding: 0,
-	}
+	},
+	modalInputPrice: {
+		backgroundColor: `${theme.palette.secondary.main}`,
+        borderRadius: '6px',
+        border: 'none',
+		width: '100px!important',
+		selfAlign: 'flex-start',
+		marginLeft: '10px',
+		color: `${theme.palette.primary.main}`,
+	},
+	modalRow: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: '10px',
+	},
+	priceSymbol: {
+		color: `${theme.palette.primary.main}`,
+	},
 }))
 
 export default useClasses

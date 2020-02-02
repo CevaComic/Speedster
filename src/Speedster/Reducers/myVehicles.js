@@ -10,10 +10,7 @@ const myVehicleReducer = (state = INITIAL_STATE, action) => {
 		case ActionType.RESET_MY_VEHICLES:
 			return state.filter(vehicle => vehicle.id !== vehicle.id)
 		case ActionType.SET_MY_VEHICLES:
-			return [
-				...state,
-				...action.vehicles,
-			]
+			return state.filter(vehicle => vehicle.id !== vehicle.id).concat(action.vehicles)
 		case ActionType.CHANGE_VEHICLE_STATUS:
 			return state.map(item => {
 				if (item.id !== action.id)

@@ -20,7 +20,7 @@ const useClasses = makeStyles(theme => ({
 	selected: {},
 	label: {
 		'&$selected': {
-			fontSize: '9pt',
+			fontSize: '9pt!important',
 			fontWeight: 700,
 		},
 	},

@@ -31,9 +31,8 @@ function* login(data) {
 	try {
 
 		const login = yield axios.post('https://speedster.cristi.club/api/login/', qs.stringify(send))
-		console.log('login.data.success', login.data.success)
 
-		let { vehicles, ...value } = login.data.success
+		let { prices, schedule, vehicles, ...value } = login.data.success
 		value.isLogged = true
 
 		yield put({type: ActionType.SET_LOGIN_VALUE, value})
@@ -44,9 +43,13 @@ function* login(data) {
 			message: (<span>Logged in successfully</span>),
 		})
 
-		yield put({type: ActionType.RESET_MY_VEHICLES})
 		yield put({type: ActionType.SET_MY_VEHICLES, vehicles})
 
+		yield put({type: ActionType.SET_SCHEDULE_FROM_SERVER, schedule})
+
+		yield put({type: ActionType.SET_PRICES_FROM_SERVER, prices})
+
+		yield put({type: ActionType.START_SYNC_APP})
 
 	} catch (error) {
 		console.log('error', error)

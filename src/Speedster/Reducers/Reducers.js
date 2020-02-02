@@ -9,6 +9,8 @@ import schedule from './schedule'
 import uploadVehicle from './uploadVehicle'
 import myVehicle from './myVehicles'
 import couriers from './couriers'
+import prices from './prices'
+import myPacks from './myPacks'
 
 const reducers = combineReducers({
 	temporary,
@@ -20,7 +22,9 @@ const reducers = combineReducers({
 	schedule,
 	uploadVehicle,
 	myVehicle,
-	couriers
+	couriers,
+	prices,
+	myPacks,
 })
 
 export default reducers

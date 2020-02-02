@@ -1,27 +1,26 @@
 import React from "react"
 import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import { Home, Footer, About, Init, Register, Notification, ForgotPassword, Header, Profile, Couriers } from '../Components'
 import { CouriersAround } from '../Components/Home/Pages'
 import useClasses from './Navigation.classes'
 import { isMobileOnly } from 'react-device-detect'
 import { history } from '../Utils/navigate'
-import { useOnlyOnce } from '../Utils'
-import { ActionType } from '../Constants'
-import { startSync } from '../Actions'
-import {bindActionCreators} from 'redux'
 import PrivateRoute from './PrivateRoute'
+import { setTemporaryValue,startSync } from '../Actions'
 import { isLoggedSelector } from '../Selectors'
+import {useOnlyOnce} from '../Utils'
+
 import '../Themes/Global.css'
 
 function Navigation(props) {
 
 	const classes = useClasses()
-	const { isLogged, startSync } = props
+	const { isLogged, setTemporaryValue, startSync } = props
 
 	useOnlyOnce(() => {
-		if(isLogged)
-			startSync()
+		isLogged && startSync()
 	})
 
 	// if(!isMobileOnly)
@@ -30,6 +29,10 @@ function Navigation(props) {
 	// 			This app works only on mobile
 	// 		</div>
 	// 	)
+
+	// const unlisten = history.listen((location, action) => {
+	// 	setTemporaryValue({route:location.pathname.split('/')[2]})
+	// })
 
 	return (
 		<Router history={history}>
@@ -46,8 +49,8 @@ function Navigation(props) {
 
 					<PrivateRoute path="/home/couriersaround/:id" component={CouriersAround} />
 
-					<PrivateRoute path="/couriers/:id/:carid" component={Couriers} />
-					<PrivateRoute path="/couriers/:id" component={Couriers} />
+					{/* <PrivateRoute path="/couriers/:id/:carid" component={Couriers} />
+					<PrivateRoute path="/couriers/:id" component={Couriers} /> */}
 					<PrivateRoute path="/couriers" component={Couriers} />
 
 					<PrivateRoute path="/about" component={About} />
@@ -68,14 +71,15 @@ function Navigation(props) {
 	)
 }
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-	startSync
-}, dispatch))
-
 const mapStateToProps = (state) => {
     return {
         isLogged: isLoggedSelector(state)
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Navigation)
+const mapDispatchToProps = dispatch => (bindActionCreators({
+    setTemporaryValue,
+	startSync
+}, dispatch))
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

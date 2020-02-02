@@ -2,8 +2,11 @@ import {fade, makeStyles} from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
     couriers: {
-        position: 'relative',
-        width: '100%'
+		display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        overflowX: 'scroll'
     },
     noOnline: {
         padding: theme.spacing(2),
@@ -21,17 +24,6 @@ const useClasses = makeStyles(theme => ({
     stickHeader: {
         backgroundColor: 'rgba(250,250,250,.94)!important'
     },
-    // search: {
-    //     position: 'absolute',
-    //     top: 0,
-    //     left: 0,
-    //     right: 0,
-    //     height: '40px',
-    //     backgroundColor: `${theme.palette.secondary.main}`,
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center'
-    // },
     list: {
         transition: 'all 0.5s',
         '&$listBack': {
@@ -44,10 +36,12 @@ const useClasses = makeStyles(theme => ({
         paddingRight: theme.spacing(4)
     },
     listItemBlack: {
-        backgroundColor: '#f0f0f0'
+        backgroundColor: '#f0f0f0',
+		listStyleType: 'none!important',
     },
     listItemWhite: {
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
+		listStyleType: 'none!important',
     },
     primaryText: {
         color: `${theme.palette.secondary.main}`,
@@ -68,12 +62,15 @@ const useClasses = makeStyles(theme => ({
         boxShadow: theme.shadows[1],
         zIndex: 2,
         marginTop: '5px',
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
     },
+	avatarAround: {
+		marginLeft: '26px!important',
+	},
     listItem: {
         paddingTop: '0px!important',
         paddingBottom: '0px!important',
-        height: '46px'
+        height: '46px',
     },
     icon: {
         maxWidth: '42px',
@@ -96,8 +93,14 @@ const useClasses = makeStyles(theme => ({
             backgroundColor: 'white',
             border: '1px solid #ccc',
             width: '100%'
-        }
+        },
+		'&$searchOpen': {
+			backgroundColor: 'white',
+            border: '1px solid #ccc',
+            width: '100%'
+		}
     },
+	searchOpen: {},
     search: {
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
@@ -134,9 +137,28 @@ const useClasses = makeStyles(theme => ({
     },
     badge: {
         zIndex: '2!important',
-        marginTop: '10px',
-        marginLeft: '-5px'
-    }
+        marginTop: '22px!important',
+        marginLeft: '11px!important',
+		top: 'auto!important',
+		left: 'auto!important',
+    },
+	modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0, 0.54)',
+        zIndex: '1500!important',
+        // width: 'calc(100% - 40px)',
+    },
+    modalInner: {
+        backgroundColor: '#fafafa',
+        borderRadius: theme.spacing(2),
+        boxShadow: theme.shadows[5],
+        width: 'calc(100% - 20px)',
+        height: 'calc(100% - 125px)',
+        overflowY: 'scroll',
+        position: 'relative'
+    },
 }))
 
 export default useClasses

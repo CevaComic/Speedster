@@ -16,44 +16,38 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { renderVehicles,getVehicleImage } from './common'
 import { setTemporaryValue } from '../../Actions'
-import { viewModalProfileSelector, viewModalCarPictureSelector } from '../../Selectors'
+import { viewModalProfileSelector, viewModalCarPictureSelector,profileCourierSelector } from '../../Selectors'
 import Rating from '@material-ui/lab/Rating'
 
 const CourierProfileContent = (props) => {
 
 	const classes = useClasses()
 	const { id,carid } = useParams()
-	const { avatar,viewModalCarPicture,setTemporaryValue,viewModalProfile } = props
+	const { viewModalCarPicture,setTemporaryValue,viewModalProfile,courier } = props
 	const cid = viewModalCarPicture > 0 ? viewModalCarPicture : carid
 
-	const courier = {
-		displayName: 'Gigel Fronel',
-		vehicle: 2,
-		id: 1,
-		courierSince: new Date(),
-		email: 'cineva@ceva.com',
-		phone: '0723....',
-		working: false,
-		outside: false,
-		stars: 2.9,
-		vehicles: [
-			{
-				id:"1",
-				type: 2,
-				description: 'White fenyr',
-				picture: 'fenyr.jpg',
-			},
-			{
-				id:"2",
-				type: 1,
-				description: 'Red ferrari',
-				picture: 'enzo.jpg',
-			}
-		]
+	if(!courier)
+		return null
+
+	const { name, courierSince, email, phone, working, outside, stars, avatar, schedule,prices } = courier
+	const { envelope, normal, extra } = prices
+
+	const getPrices = () => {
+		let message = ""
+		if(envelope !== "0.00")
+			message += "E: $" + envelope + " "
+		if(normal !== "0.00")
+			message += "P: $" + normal + "/kg "
+		if(extra !== "0.00" && outside)
+			message += "Extra km: $" + extra + "/km "
+		return message.trim() || "not set yet"
 	}
 
-	const { displayName, courierSince, email, phone, working, outside, stars } = courier
-
+	const getScheduleText = () => {
+		if(schedule.start === '00:00' && schedule.end === '00:00')
+			return "not set"
+		return "Usually working from " + schedule.start + " to " + schedule.end
+	}
 
 	return (
 		<DialogContent style={{backgroundColor: '#fafafa',padding: 0,margin:0}}>
@@ -66,14 +60,11 @@ const CourierProfileContent = (props) => {
 
 						<Box className={classes.avatarBoxInner}>
 							<Typography color="primary" variant="h6" className={classes.memberName}>
-								{displayName}
+								{name}
 							</Typography>
 							<Typography className={classes.memberSince}>
 								courier since {moment(courierSince).year()}
 							</Typography>
-							{ working && <Button variant="contained" size="small" color="primary" classes={{root: classes.logout}} onClick={() => null}>
-								SEND PACK
-							</Button>}
 						</Box>
 					</Box>
 				</Box>
@@ -95,15 +86,15 @@ const CourierProfileContent = (props) => {
 							title="Phone"
 							value={phone}
 							icon={icons.phone}
-							isClickable
-							onClick={() => contact("tel:" + phone)}
+							isClickable={phone}
+							onClick={() => phone ? contact("tel:" + phone) : null}
 						/>
 						</>
 					)}
 
 					<ListRow
 						title="Rating"
-						value={<Rating classes={{root:classes.rating}} name="read-only" value={stars} precision={0.5} readOnly />}
+						value={<Rating classes={{root:classes.rating}} name="read-only" value={stars} precision={0.5} max={7} readOnly />}
 						icon={icons.star}
 						black
 					/>
@@ -120,14 +111,19 @@ const CourierProfileContent = (props) => {
 					/>
 					<ListRow
 						title="Schedule"
-						value={"Usualy from X to Y"}
+						value={getScheduleText()}
 						icon={icons.schedule}
+					/>
+					<ListRow
+						title="Prices"
+						value={getPrices()}
+						icon={icons.price}
+						black
 					/>
 					<ListRow
 						title="Shipping outside city"
 						value={outside ? "Yes" : "No"}
 						icon={icons.outside}
-						black
 					/>
 					{renderVehicles(courier.vehicles)}
 				</List>
@@ -152,7 +148,7 @@ const CourierProfileContent = (props) => {
 			<Box className={[classes.modalInner,classes.modalVehicle].join(' ')}>
 				<img src={getVehicleImage(courier.vehicles,cid)} className={[classes.topImage,classes.topImageVehicle].join(' ')}/>
 				<Button color="primary" size="small" variant="contained" className={classes.closeVehicle}
-					onClick={() => !viewModalCarPicture ? goBack() : setTemporaryValue({viewModalCarPicture:0})}>
+					onClick={() => setTemporaryValue({viewModalCarPicture:0})}>
 					close
 				</Button>
 			</Box>
@@ -165,6 +161,7 @@ const mapStateToProps = (state) => {
     return {
         viewModalProfile: viewModalProfileSelector(state),
 		viewModalCarPicture: viewModalCarPictureSelector(state),
+		courier: profileCourierSelector(state),
     }
 }
 

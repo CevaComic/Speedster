@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import {MenuItem as Item} from '@material-ui/core'
+import {Menu as MainMenu} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 
-export const VehicleItem = withStyles(theme => ({
+export const MenuItem = withStyles(theme => ({
   root: {
     '&:focus': {
       backgroundColor: '#f0f0f0',
@@ -13,14 +13,14 @@ export const VehicleItem = withStyles(theme => ({
       },
     },
   },
-}))(MenuItem);
+}))(Item);
 
-export const Type = withStyles({
+export const Menu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
   },
 })(props => (
-  <Menu
+  <MainMenu
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{

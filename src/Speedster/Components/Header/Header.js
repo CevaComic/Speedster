@@ -11,34 +11,28 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Collapse from '@material-ui/core/Collapse'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import Menu from './Elements/Menu'
+import Notifications from './Elements/Notifications'
 import { goBack } from '../../Utils'
 import { useHistory } from 'react-router-dom'
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded'
 import { box,envelope,bell } from '../../Images'
+import { packRequestsSelector } from '../../Selectors'
 
-const Header = (props) => {
-
-	const [notify, setNotify] = useState(false)
+const Header = props => {
 	const classes = useClasses()
 	const history = useHistory()
-
-	const onClickAway = () => {
-		notify && setNotify(false)
-	}
-
+	const { packRequests,courier } = props
 	const isBack = history.location.pathname.split('/')[2] !== undefined
 
     return (
 		<>
-			<ClickAwayListener onClickAway={onClickAway}>
 			  <AppBar style={{zIndex: 1400}} position="fixed" color="primary" classes={{colorPrimary: classes.colorHeader}}>
 				   <Toolbar className={classes.mainBox} disableGutters={true}>
 						   <Box className={classes.middleGrow} >
 							   <Box style={{display: 'flex',flexDirection: 'row',alignItems: 'center'}}>
 
 								   <Box className={[classes.goBackBox,isBack ? classes.goBackOpen : ''].join(' ')}>
-									   <IconButton onClick={goBack} className={classes.goBack}>
+									   <IconButton onClick={() => goBack()} className={classes.goBack}>
 										   <ArrowBackIosRoundedIcon className={classes.goBackIcon}/>
 									   </IconButton>
 								   </Box>
@@ -47,30 +41,20 @@ const Header = (props) => {
 								   <Typography variant="h6" className={[classes.title,isBack && classes.titleGoBack]}>
 									  SPEEDSTER
 								  </Typography>
+
 							   </Box>
 						   </Box>
 
-						   <IconButton className={classes.menuButton}
-							   edge="start" color="inherit" aria-label="open pack messages"
-							   onClick={() => setNotify(!notify)}>
-							   <Badge variant="dot" color="primary">
+						   { courier && <IconButton className={classes.menuButton}
+							   edge="start"
+							   color="inherit"
+							   onClick={() => history.push('/home/packrequests')}>
+							   <Badge variant="dot" color="primary" invisible={!packRequests}>
 								   <img src={box} height="20px" width="20px"/>
 							   </Badge>
-						  </IconButton>
-
-						  <IconButton className={classes.menuButton}
-							  edge="start" color="inherit" aria-label="open notify"
-							  onClick={() => setNotify(!notify)}>
-							  <Badge variant="dot" color="primary">
-								  <img src={bell} height="20px" width="18px"/>
-							  </Badge>
-						 </IconButton>
+						  </IconButton>}
 					   </Toolbar>
-					   <Collapse in={notify} classes={{container:classes.notify}}>
-					   	<Menu close={onClickAway}/>
-					    </Collapse>
 				</AppBar>
-				</ClickAwayListener>
 			<Box className={classes.spacer} />
 		</>
 
@@ -78,13 +62,11 @@ const Header = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        // var: selector(state)
-    }
+	return {
+		packRequests: packRequestsSelector(state),
+		courier: state.login.courier,
+	}
 }
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-    // actions
-}, dispatch))
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps)(Header)

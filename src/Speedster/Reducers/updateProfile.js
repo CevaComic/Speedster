@@ -8,11 +8,13 @@ const INITIAL_STATE = {
 	phone: false,
 	address: false,
 	city: false,
+	schedule: false,
 	courier: false,
 	working: false,
 	outside: false,
 	share: false,
 	modal: false,
+	password: false,
 }
 
 const updateProfileReducer = (state = INITIAL_STATE, action) => {

@@ -90,6 +90,35 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 			action.values = values
 		}
 
+		if(action.type === ActionType.RESET_PRICES_TEMP_VALUES) {
+			const { temp, ...values } = getState().prices
+			action.values = values
+		}
+
+		if(action.type === ActionType.SET_TEMPORARY_VALUE) {
+			// const oldRoute = getState().temporary.route
+			// if(action.value && action.value.route)
+			// 	action.value = {
+			// 		route: action.value.route,
+			// 		oldRoute: oldRoute,
+			// 	}
+			if(action.value && action.value.sendPackNrKg) {
+				if(isNaN(action.value.sendPackNrKg))
+					return
+			}
+		}
+
+		if(action.type === ActionType.SET_MY_POSITION) {
+			if(!(action.position.lat && action.position.lng))
+				return
+		}
+
+		if(action.type === ActionType.CHANGE_TAB) {
+			const { activeTab } = getState().temporary
+			if(activeTab === action.tab)
+				return
+		}
+
 		next(action)
 
 

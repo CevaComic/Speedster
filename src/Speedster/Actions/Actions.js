@@ -36,12 +36,20 @@ export const setSettingsValue = value => ({type: ActionType.SET_SETTINGS_VALUE, 
 export const setUpdateProfileValue = value => ({type: ActionType.TRY_SET_UPDATE_PROFILE_VALUE, value})
 export const setEditProfileModal = status => ({type: ActionType.SET_OPEN_EDIT_PROFILE_MODAL, status})
 export const uploadAvatar = avatar => ({type: ActionType.TRY_CHANGE_AVATAR, avatar})
+export const changePasswordWith = password => ({type: ActionType.CHANGE_PASSWORD, password})
 
 // scheduleReducer
 
 export const setScheduleValues = () => ({type: ActionType.SET_SCHEDULE_VALUES})
 export const setScheduleTempValue = value => ({type: ActionType.SET_SCHEDULE_TEMP_VALUE, value})
 export const resetScheduleTempValues = () => ({type: ActionType.RESET_SCHEDULE_TEMP_VALUES})
+
+
+// pricesReducer
+
+export const setPricesValues = () => ({type: ActionType.SET_PRICES_VALUES})
+export const setPricesTempValue = value => ({type: ActionType.SET_PRICES_TEMP_VALUE, value})
+export const resetPricesTempValues = () => ({type: ActionType.RESET_PRICES_TEMP_VALUES})
 
 // uploadVehicleReducer
 
@@ -54,3 +62,17 @@ export const changeVehicleActive = (id,status) => ({type: ActionType.CHANGE_VEHI
 // MASTER
 
 export const startSync = () => ({type:ActionType.START_SYNC_APP})
+
+// nav
+
+export const setMyPosition = position => ({type:ActionType.SET_MY_POSITION, position})
+
+// sendPack
+
+export const trySendPack = () => ({type:ActionType.TRY_SEND_PACK})
+export const tryDeletePack = id => ({type:ActionType.TRY_CANCEL_PACK, id})
+export const tryRateDelivery = (pack,stars) => ({type:ActionType.TRY_RATE_DELIVERY, pack, stars})
+export const tryAcceptRequest = pack => ({type:ActionType.TRY_ACCEPT_REQUEST_PACK, pack})
+export const tryRefundRequest = (pack,message) => ({type:ActionType.TRY_REFUND_REQUEST_PACK, pack, message})
+export const tryDeclineRequest = (pack,message) => ({type:ActionType.TRY_DECLINE_REQUEST_PACK, pack, message})
+export const tryDoNextStep = pack => ({type: ActionType.TRY_PICKED_UP, pack})

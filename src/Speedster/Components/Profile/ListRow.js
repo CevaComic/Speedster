@@ -15,7 +15,7 @@ import Icon from './Icon'
 import {icons,isLoadingIcon} from '../../Images'
 import Switch from './Switch'
 import TextField from '@material-ui/core/TextField'
-import { setUpdateProfileValue } from '../../Actions'
+import { setUpdateProfileValue,changePasswordWith } from '../../Actions'
 
 const ListRow = ({ title, value, icon, black = false, toggle = false, checked, onClick, isLoading, label, ...rest }) => {
 	const classes = useClasses()
@@ -23,7 +23,7 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 	const [open, setOpen] = React.useState(false)
 	const [temp, setTemporaryValue] = React.useState(value)
 	const [temppass, setTemporaryPassword] = React.useState("")
-	const { setUpdateProfileValue } = rest
+	const { setUpdateProfileValue,changePasswordWith } = rest
 
 	const onClickInternal = () => {
 		if(!toggle) {
@@ -42,10 +42,17 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 	const onSave = async () => {
 		if(temp.length < 1)
 			return
-		if(label === "password" && temp !== temppass)
-			return
-		await setUpdateProfileValue({[label]:temp})
-		setOpen(false)
+
+		if(label === "password") {
+			if(temp !== temppass || temppass.length < 6)
+				return
+			await changePasswordWith(temppass)
+			setTemporaryPassword("")
+			setOpen(false)
+		} else {
+			await setUpdateProfileValue({[label]:temp})
+			setOpen(false)
+		}
 	}
 
 	return (
@@ -81,6 +88,11 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 		  >
 			<Fade in={open}>
 			  <Box className={classes.modalInner}>
+				  <Box className={classes.topImageBox}>
+					  <Box className={classes.topImageBoxInner}>
+						  <img src={require('../../Images/profile.png')} className={classes.topImage} />
+					  </Box>
+				  </Box>
 				<h2 className={classes.modalTitle}>{temp ? "Change" : "Set"} {title.toLowerCase()}</h2>
 				<TextField
 					disabled={isLoading}
@@ -90,7 +102,9 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 							input: classes.modalInputText
 						}
 					}}
-					value={temp}
+					type={label === "password" ? "password" : "text"}
+					defaultValue={label !== "password" ? temp : ""}
+					// value={temp}
 					onChange={e => setTemporaryValue(e.target.value)}
 					size="small"
 					variant="outlined"
@@ -107,7 +121,8 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 								input: classes.modalInputText
 							}
 						}}
-						value={temp}
+						type="password"
+						value={temppass}
 						onChange={e => setTemporaryPassword(e.target.value)}
 						size="small"
 						variant="outlined"
@@ -132,6 +147,7 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
 	setUpdateProfileValue,
+	changePasswordWith
 }, dispatch))
 
 export default connect(null, mapDispatchToProps)(ListRow)

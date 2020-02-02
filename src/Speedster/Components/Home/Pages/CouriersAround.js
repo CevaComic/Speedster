@@ -17,7 +17,7 @@ import Transition from '../../Slider/Transition'
 import { goBack } from '../../../Utils'
 import Modal from '@material-ui/core/Modal'
 import { setTemporaryValue } from '../../../Actions'
-import { viewModalProfileSelector, viewModalCarPictureSelector } from '../../../Selectors'
+import { viewModalProfileSelector, viewModalCarPictureSelector,onlineCouriersSelector } from '../../../Selectors'
 import { renderCouriersAround } from '../../Couriers/common'
 import CourierProfileContent from '../../Couriers/CourierProfileContent'
 import GoogleMap from './GoogleMap'
@@ -28,16 +28,16 @@ const CouriersAround = props => {
 	const classes = useClasses()
 	const isForward = page && page !== 'couriersaround'
 
-	const { setTemporaryValue, viewModalProfile, viewModalCarPicture } = props
-	const onlineCouriers = [{
-		displayName: 'Gigel Fronel',
-		vehicle: 2,
-		id: 1,
-	},{
-		displayName: 'Alt Gigel',
-		vehicle: 5,
-		id: 2,
-	}]
+	const { setTemporaryValue, viewModalProfile, viewModalCarPicture, onlineCouriers } = props
+	// const onlineCouriers = [{
+	// 	displayName: 'Gigel Fronel',
+	// 	vehicle: 2,
+	// 	id: 1,
+	// },{
+	// 	displayName: 'Alt Gigel',
+	// 	vehicle: 5,
+	// 	id: 2,
+	// }]
 
 	return (
 		<Dialog
@@ -98,6 +98,7 @@ const mapStateToProps = (state) => {
     return {
         viewModalProfile: viewModalProfileSelector(state),
 		viewModalCarPicture: viewModalCarPictureSelector(state),
+		onlineCouriers: onlineCouriersSelector(state),
     }
 }
 

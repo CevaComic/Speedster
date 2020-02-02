@@ -22,8 +22,6 @@ import DateFnsUtils from '@date-io/date-fns'
 import moment from 'moment'
 import RemoveRoundedIcon from '@material-ui/icons/RemoveRounded'
 
-
-
 const Schedule = (props) => {
 
 	const classes = useClasses()
@@ -152,7 +150,7 @@ const Schedule = (props) => {
 						  inputVariant="outlined"
 				          margin="normal"
 						  ampm={false}
-				          value={new Date('2020-01-01T' + props.temp.start)}
+				          value={moment(new Date('2020-01-01T' + props.temp.start + ":00+02:00"))}
 				          onChange={start => setScheduleTempValue({start})}
 				        />
 						<RemoveRoundedIcon classes={{root:classes.startPickerSep}} />
@@ -169,7 +167,7 @@ const Schedule = (props) => {
 						  inputVariant="outlined"
 				          margin="normal"
 						  ampm={false}
-				          value={new Date('2020-01-01T' + props.temp.end)}
+				          value={moment(new Date('2020-01-01T' + props.temp.end + ":00+02:00"))}
 				          onChange={end => setScheduleTempValue({end})}
 				        />
 					</Box>

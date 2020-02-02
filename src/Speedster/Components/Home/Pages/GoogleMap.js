@@ -2,41 +2,26 @@ import React from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import GoogleMapReact from 'google-map-react'
 import Box from '@material-ui/core/Box'
+import useClasses from '../Home.classes'
 import Badge from '@material-ui/core/Badge'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { setTemporaryValue } from '../../../Actions'
+import { setTemporaryValue,setMyPosition } from '../../../Actions'
+import { myPositionSelector,onlineCouriersSelector } from '../../../Selectors'
+import { defaultAvatar } from '../../../Images'
+import { usePosition } from '../../../Utils'
 
-
-const mapStyles = {display: 'flex',width: '100%',height: '240px'}
-
-const onlineCouriers = [{
-	displayName: 'Gigel Fronel',
-	vehicle: 2,
-	id: 1,
-	lat: '46.07',
-	lng: '23.55'
-},{
-	displayName: 'Alt Gigel',
-	vehicle: 5,
-	id: 2,
-	lat: null,
-	lng: null
-},
-{
-	displayName: 'Gigeloi',
-	vehicle: 2,
-	id: 3,
-
-	lat: '46.07',
-	lng: '23.56'
-}]
-
-const renderMarkers = (markers,setTemporaryValue) => markers.map((courier,index) => {
+const renderMarkers = (markers,setCenter) => markers.map((courier,index) => {
 	const { lat, lng } = courier
+
+	const onClick = () => {
+		// setTemporaryValue({viewModalProfile:courier.id})
+		setCenter({lat:parseFloat(lat),lng:parseFloat(lng)})
+	}
+
 	return (
 			<Badge
-				onClick={() => setTemporaryValue({viewModalProfile:courier.id})}
+				onClick={onClick}
 				badgeContent={index+1}
 				color="secondary"
 				overlap="circle"
@@ -44,8 +29,8 @@ const renderMarkers = (markers,setTemporaryValue) => markers.map((courier,index)
 					vertical: 'top',
 					horizontal: 'left',
 				}}
-				lat={lat}
-				lng={lng}
+				lat={lat || null}
+				lng={lng || null}
 			>
 			<Box />
 			</Badge>
@@ -54,16 +39,31 @@ const renderMarkers = (markers,setTemporaryValue) => markers.map((courier,index)
 
 const GoogleMap = props => {
 
-	const { setTemporaryValue } = props
+	const { setTemporaryValue,setMyPosition, lat, lng, avatar, onlineCouriers } = props
+	const position = usePosition()
+	const classes = useClasses()
+
+	const [center, setCenter] = React.useState({lat:46.068673, lng:23.56277})
+
+	React.useEffect(() => {
+		setMyPosition(position)
+	},[position])
 
 	return (
-		<Box style={mapStyles}>
+		<Box className={classes.googleMap}>
 			<GoogleMapReact
 	          bootstrapURLKeys={{ key: 'AIzaSyDMYycZaGY614AAtOeEUpScNnkiOAQ9EV0' }}
-	          defaultCenter={{ lat: 46.071686, lng: 23.556985}}
-	          defaultZoom={15}
+	          defaultZoom={14.6}
+			  center={center}
 	        >
-				{renderMarkers(onlineCouriers,setTemporaryValue)}
+				{renderMarkers(onlineCouriers,setCenter)}
+				{
+					lat && lng && (
+						<Box lat={lat} lng={lng} className={classes.gBox}>
+							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.gAvatar}/>
+						</Box>
+					)
+				}
 			</GoogleMapReact>
 		</Box>
     )
@@ -71,13 +71,16 @@ const GoogleMap = props => {
 }
 
 const mapStateToProps = (state) => {
+	const data = myPositionSelector(state)
     return {
-
+		...data,
+		onlineCouriers: onlineCouriersSelector(state),
     }
 }
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-    setTemporaryValue
+    setTemporaryValue,
+	setMyPosition
 }, dispatch))
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap)

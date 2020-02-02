@@ -47,7 +47,6 @@ function* add() {
 
 		const vehicles = result.data.success
 
-		yield put({type: ActionType.RESET_MY_VEHICLES})
 		yield put({type: ActionType.SET_MY_VEHICLES, vehicles})
 
 		if(first) {
@@ -91,7 +90,6 @@ function* remove(vehicle) {
 		const vehicles = result.data.success
 
 		yield put({type: ActionType.SET_TEMPORARY_VALUE, value:{viewModalCarPicture:0}})
-		yield put({type: ActionType.RESET_MY_VEHICLES})
 		yield put({type: ActionType.SET_MY_VEHICLES, vehicles})
 
 		yield sendNotification({

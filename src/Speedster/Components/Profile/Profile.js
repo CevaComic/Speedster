@@ -7,8 +7,10 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import useClasses from './Profile.classes'
 import PhotoCameraRoundedIcon from '@material-ui/icons/PhotoCameraRounded'
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded'
 import List from '@material-ui/core/List'
 import ListRow from './ListRow'
+import ListRowSimple from './ListRowSimple'
 import Schedule from './Schedule'
 import { loginSelector, isLoadingProfileSelector, showNotificationsSelector } from '../../Selectors'
 import { doLogout, setUpdateProfileValue, setSettingsValue, uploadAvatar,changeVehicleActive } from '../../Actions'
@@ -24,6 +26,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Rating from '@material-ui/lab/Rating'
+import Prices from './Prices'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
@@ -33,22 +37,29 @@ const renderCarsTemp = props => {
 
 	const { vehicles,changeVehicleActive,onClose,setUpdateProfileValue } = props
 
-	return vehicles.map((vehicle,index) => (
-		<CarRow
-			onClick={() => {setUpdateProfileValue({working:true});changeVehicleActive(vehicle.id,true);onClose()}}
-			{...vehicle}
-			title="Vehicle"
-			key={vehicle.id}
-			black={index % 2 !== 0}
-		/>
-	))
-}
+	return vehicles.map((vehicle,index) => {
+
+		let onClick = () =>  {changeVehicleActive(vehicle.id,true);setUpdateProfileValue({working:true});onClose()}
+		if(!vehicle.aproved)
+			onClick = false
+
+		return (
+			<CarRow
+				onClick={onClick}
+				{...vehicle}
+				title="Vehicle"
+				key={vehicle.id}
+				black={index % 2 !== 0}
+			/>
+		)
+	})
+	}
 
 function Profile(props) {
 
 	const classes = useClasses()
 	var upload,newCourier
-	const { vehicles, displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier } = props
+	const { vehicles, displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier,stars } = props
 	const { doLogout, setUpdateProfileValue, isLoading, showNotifications, setSettingsValue, uploadAvatar } = props
 
 	const [vehicle, setVehicle] = React.useState(false)
@@ -63,9 +74,16 @@ function Profile(props) {
 		<Box className={classes.profile}>
 			<Box className={classes.list}>
 				<Box className={classes.avatarBox}>
-					<Box className={classes.avatarImageBox} onClick={() => upload.click()}>
-						<img src={renderAvatar()} className={classes.avatar} />
-						<PhotoCameraRoundedIcon className={classes.cameraIcon} color="primary"/>
+					<Box className={classes.avatarImageBox}>
+						<img src={renderAvatar()} className={classes.avatar} onClick={() => upload.click()}/>
+						{
+							avatar ? (
+								<DeleteRoundedIcon className={classes.cameraIcon} color="primary" onClick={() => uploadAvatar("none")}/>
+							) : (
+								<PhotoCameraRoundedIcon className={classes.cameraIcon} color="primary" onClick={() => upload.click()}/>
+							)
+						}
+
 						<input
 							type="file"
 							accept="image/x-png,image/jpeg,image/gif"
@@ -155,7 +173,7 @@ function Profile(props) {
 						<ListRow
 							title="Working status" value={working ? "At work" : "Break time"}
 							icon={icons.status} toggle checked={working}
-							onClick={() => working ? setUpdateProfileValue({working:!working}) : setVehicle(true)}
+							onClick={() => working ? setUpdateProfileValue({working:false}) : setVehicle(true)}
 							isLoading={isLoading.working}
 						/>
 						<ListRow
@@ -165,23 +183,20 @@ function Profile(props) {
 							onClick={() => setUpdateProfileValue({outside:!outside})}
 							isLoading={isLoading.outside}
 						/>
-						<ListRow title="Prices" value="1$/kg + 0.5$/km outside city" icon={icons.price}
-							isLoading={isLoading.price}
-						/>
+						<Prices />
 						<Schedule
 							isLoading={isLoading.schedule}
 							black
 						/>
 						<MyCars />
-						<ListSubheader className={classes.stickHeader}>Other</ListSubheader>
-						<AddNewCar />
+
 						</>
 					) : (
 						<>
 						<ListSubheader className={classes.stickHeader}>Become a courier</ListSubheader>
 						{
 							becomeCourier ? (
-								<ListRow title="Pending" value="You're request is being analized" icon={icons.vehicle} black toggle checked={false}/>
+								<ListRowSimple title="Pending" value="You're request is being analized" icon={icons.vehicle} black/>
 							) : (
 								<AddNewCar isFirstCourier/>
 							)
@@ -189,6 +204,25 @@ function Profile(props) {
 						</>
 					)
 				}
+				<ListSubheader className={classes.stickHeader}>Other</ListSubheader>
+
+				<ListRow title="Password" value="Change your password" icon={icons.password}
+					label="password" black
+					isLoading={isLoading.password}
+				/>
+
+				{ courier && (
+					<>
+					<AddNewCar />
+					<ListRowSimple
+						title="Your rating"
+						black
+						value={<Rating classes={{root:classes.rating}} value={stars} precision={0.5} max={7} readOnly />}
+						icon={icons.star}
+					/>
+					</>
+				)}
+
 			</List>
 			<Dialog
 	          open={vehicle}
@@ -201,13 +235,9 @@ function Profile(props) {
 	  		}}
 	          onClose={() => setVehicle(false)}
 	        >
-	          <DialogTitle>Important</DialogTitle>
+	          <DialogTitle>Choose working vehicle</DialogTitle>
 	          <DialogContent classes={{root: classes.dialogContentVehicle}}>
 	            <DialogContentText>
-	              {/* {
-					  renderCars(vehicles,() => { setUpdateProfileValue({working:true}) ; setVehicle(false)})
-				  } */}
-
 				  <Vehicles onClose={() => setVehicle(false)}/>
 	            </DialogContentText>
 	          </DialogContent>

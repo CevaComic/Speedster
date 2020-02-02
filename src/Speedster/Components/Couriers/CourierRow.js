@@ -16,13 +16,14 @@ import { setTemporaryValue } from '../../Actions'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-const CourierRow = ({courier, black, place, setTemporaryValue}) => {
+const CourierRow = ({courier, black, place, setTemporaryValue, sendpack = false, onClick = false}) => {
 
     const classes = useClasses()
 	const { avatar } = courier
-	let onClick = () => navigate(window.location.pathname + '/' + courier.id)
-	if(place>0)
-		onClick = () => setTemporaryValue({viewModalProfile:courier.id})
+	onClick = () => setTemporaryValue({viewModalProfile:courier.id})
+	if(sendpack)
+		onClick = () => setTemporaryValue({sendPackCourier:courier.id})
+
 
     return (
 		<ListItem button="button"
@@ -41,7 +42,7 @@ const CourierRow = ({courier, black, place, setTemporaryValue}) => {
 						    vertical: 'top',
 						    horizontal: 'left',
 						}} classes={{badge: classes.badge}}>
-							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.avatar}/>
+							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={[classes.avatar,classes.avatarAround].join(' ')}/>
 						</Badge>
 					) : (
 						<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.avatar}/>
@@ -49,7 +50,7 @@ const CourierRow = ({courier, black, place, setTemporaryValue}) => {
 				}
 	        </Box>
 
-	        <ListItemText primary={courier.displayName} classes={{
+	        <ListItemText primary={courier.name} classes={{
 	                primary: classes.primaryText
 	            }}
 			/>

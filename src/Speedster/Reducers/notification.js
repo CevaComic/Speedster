@@ -19,12 +19,8 @@ const notificationReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isOpen: false,
 			}
-		case ActionType.SEND_NOTIFICATION:
-			return {
-				...state,
-				...action.notification,
-			}
 		case ActionType.SEND_PERSISTENT_NOTIFICATION:
+		case ActionType.SEND_NOTIFICATION:
 			return {
 				...state,
 				...action.notification,

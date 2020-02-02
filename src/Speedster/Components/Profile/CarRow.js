@@ -21,11 +21,11 @@ const CarRow = ({ title, value, type, black = false, description = "Vehicle", on
 	const classes = useClasses()
 	if(!onClick)
 		onClick = () => setTemporaryValue({viewModalCarPicture:id})
-
+		
 	return (
-		<ListItem onClick={onClick} button classes={{root:[classes.listItem,!black ? classes.listItemWhite : classes.listItemBlack].join(' ')}}>
+		<ListItem disabled={!rest.aproved} onClick={onClick} button classes={{root:[classes.listItem,!black ? classes.listItemWhite : classes.listItemBlack].join(' ')}}>
 		  <Icon icon={icons.vehicle} />
-		  <ListItemText primary="Vehicle" secondary={description}
+		  <ListItemText primary="Vehicle" secondary={!rest.aproved ? "Pending aproval" : description}
 			  classes={{
 				  primary: classes.primaryText,
 				  secondary: classes.secondaryText

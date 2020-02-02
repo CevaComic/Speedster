@@ -115,8 +115,8 @@ function Init(props) {
 			</Box>
 
 			<FacebookLogin
-	          appId="619469435483075"
-			  redirectUri="https://localhost:3000/"
+	          appId="303540063884445"
+			  // redirectUri="https://localhost:3000/"
 	          autoLoad={false}
 	          fields="name,first_name,last_name,email,picture.width(500)"
 	          callback={response => fbLogin({...response,platform:'Facebook'})}

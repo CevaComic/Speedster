@@ -10,8 +10,10 @@ import MailOutlinedIcon from '@material-ui/icons/MailOutlined'
 import SendIcon from '@material-ui/icons/Send'
 import { Link } from 'react-router-dom'
 import useClasses from '../Header.classes'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
-export default function Menu(props) {
+const Notifications = (props) => {
 
 	const classes = useClasses()
 	const { close } = props
@@ -60,3 +62,16 @@ export default function Menu(props) {
 	  </List>
   )
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = dispatch => (bindActionCreators({
+
+}, dispatch))
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

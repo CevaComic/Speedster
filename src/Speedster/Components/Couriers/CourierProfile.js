@@ -4,12 +4,14 @@ import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
 import Transition from '../Slider/Transition'
 import CourierProfileContent from './CourierProfileContent'
-import { useParams } from 'react-router-dom'
+import { viewModalProfileSelector } from '../../Selectors'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
-export default props => {
+const CourierProfile = props => {
 
 	const slide = useSlideClass()
-	const { id } = useParams()
+	const { viewModalProfile } = props
 
 	return (
 		<Dialog
@@ -25,7 +27,7 @@ export default props => {
 			fullWidth={true}
 			maxWidth={false}
 			disableBackdropClick
-	        open={id > 0}
+	        open={viewModalProfile > 0}
 	        TransitionComponent={Transition}
 	        keepMounted={false}
       >
@@ -33,3 +35,11 @@ export default props => {
       </Dialog>
 	)
 }
+
+const mapStateToProps = (state) => {
+    return {
+        viewModalProfile: viewModalProfileSelector(state),
+    }
+}
+
+export default connect(mapStateToProps)(CourierProfile)

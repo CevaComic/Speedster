@@ -1,12 +1,27 @@
 import React from 'react'
-import { takeEvery, take, call, put, select } from 'redux-saga/effects'
+import { takeEvery, take, call, put, select, delay } from 'redux-saga/effects'
 import { ActionType } from '../Constants'
 import { serverErrorNotification, updateProfileLoading, sendNotification } from './common'
 import axios from 'axios'
+import { isEqual } from '../Utils'
 import qs from 'qs'
 
 export function* updateProfileSaga() {
 	yield takeEvery(ActionType.UPDATE_PROFILE, update)
+}
+
+export function* updateScheduleSaga() {
+	while(true) {
+		yield take(ActionType.SET_SCHEDULE_VALUES)
+		yield call(schedule)
+	}
+}
+
+export function* updatePricesSaga() {
+	while(true) {
+		yield take(ActionType.SET_PRICES_VALUES)
+		yield call(prices)
+	}
 }
 
 export function* updateAvatarSaga() {
@@ -16,28 +31,159 @@ export function* updateAvatarSaga() {
 	}
 }
 
+export function* changePasswordSaga() {
+	while(true) {
+		const { password } = yield take(ActionType.CHANGE_PASSWORD)
+		yield call(changePassword, password)
+	}
+}
+
+export function* updatePositionSaga() {
+	while(true) {
+		const { position } = yield take(ActionType.SET_MY_POSITION)
+		yield call(changePosition, position)
+		yield delay(10000)
+ 	}
+}
+
+function* changePassword(password) {
+	yield updateProfileLoading("password",true)
+	try {
+		const login = yield select(state => state.login)
+
+		const data = new FormData()
+		data.append('token', login.token)
+		data.append('id', login.id)
+		data.append('password', password)
+
+		yield axios.post('https://speedster.cristi.club/api/password/', data)
+
+		yield sendNotification({
+			type: 'success',
+			title: 'Information',
+			message: (<span>Password changed successfully.</span>),
+		})
+
+	} catch (error) {
+		console.log('error', error)
+		console.log('error.response', error.response)
+		if(error.response && error.response.data && error.response.data.error)
+			yield serverErrorNotification(error.response.data.error)
+		else
+			yield serverErrorNotification()
+	} finally {
+		yield updateProfileLoading("password",false)
+	}
+}
+
+function* prices() {
+	yield updateProfileLoading("prices",true)
+	try {
+		const login = yield select(state => state.login)
+		const { temp, ...oldPrices } = yield select(state => state.prices)
+
+		const data = {
+			data: {
+				...oldPrices,
+				id: login.id,
+				token: login.token,
+			}
+		}
+
+		const result = yield axios.post('https://speedster.cristi.club/api/prices/update.php', qs.stringify(data))
+
+		const prices = result.data.success
+		if(!isEqual(prices,oldPrices))
+			yield put({type: ActionType.SET_PRICES_FROM_SERVER, prices})
+
+		yield sendNotification({
+			type: 'success',
+			title: 'Information',
+			message: (<span>Prices updated successfully.</span>),
+		})
+	} catch (error) {
+		if(error.response && error.response.data && error.response.data.error)
+			yield serverErrorNotification(error.response.data.error)
+		else
+			yield serverErrorNotification()
+	} finally {
+		yield updateProfileLoading("prices",false)
+	}
+}
+
+function* schedule() {
+	yield updateProfileLoading("schedule",true)
+	try {
+		const login = yield select(state => state.login)
+		const { temp, ...rest } = yield select(state => state.schedule)
+
+		const data = {
+			data: {
+				...rest,
+				id: login.id,
+				token: login.token,
+			}
+		}
+
+		const result = yield axios.post('https://speedster.cristi.club/api/schedule/update.php', qs.stringify(data))
+
+	} catch (error) {
+		// console.log('error', error)
+		// console.log('error.response', error.response)
+		if(error.response && error.response.data && error.response.data.error)
+			yield serverErrorNotification(error.response.data.error)
+		else
+			yield serverErrorNotification()
+	} finally {
+		yield updateProfileLoading("schedule",false)
+	}
+}
+
+function* changePosition({lat,lng}) {
+	try {
+		const login = yield select(state => state.login)
+
+		const data = new FormData()
+		data.append('token', login.token)
+		data.append('id', login.id)
+		data.append('latitude', lat)
+		data.append('longitude', lng)
+
+		const result = yield axios.post('https://speedster.cristi.club/api/position/', data)
+
+		yield put({type: ActionType.SET_LOGIN_VALUE, value:{lat,lng}})
+
+	} catch (error) {
+
+	}
+}
+
 function* changeAvatar(avatar) {
 	yield updateProfileLoading("avatar",true)
 	try {
 		const login = yield select(state => state.login)
 
 		let filename = "notvalid"
-		if(login.avatar !== null)
+		if(login.avatar !== null && avatar !== "none")
 			filename = login.avatar.split('.')[0]
+
 
 		const data = new FormData()
   	  	data.append('avatar', avatar)
 		data.append('token', login.token)
 		data.append('id', login.id)
-		data.append('filename', filename)
+		if(avatar !== "none")
+			data.append('filename', filename)
 
 		// 	  for (var pair of data.entries()) {
 		//     console.log(pair[0]+ ', ' + pair[1]);
 		// }
 
 		const result = yield axios.post('https://speedster.cristi.club/api/avatar/', data)
-
-		yield put({type: ActionType.SET_LOGIN_VALUE, value:{avatar:result.data.success.avatar} })
+		if(avatar !== "none")
+			yield put({type: ActionType.SET_LOGIN_VALUE, value:{avatar:result.data.success.avatar} })
+		else
+			yield put({type: ActionType.SET_LOGIN_VALUE, value:{avatar:null} })
 
 	} catch (error) {
 		if(error.response && error.response.data && error.response.data.error)
@@ -56,6 +202,7 @@ function* update(action) {
 		yield put({type:ActionType.SET_LOGIN_VALUE, value: action.value})
 
 		const data = yield select(state => state.login)
+
 		const send = {data: {
 			...data,
 			...action.value,
@@ -79,13 +226,14 @@ function* update(action) {
 			message: (<span>Profile updated.</span>),
 		})
 
-		if(key === 'working' && login.data.success.working === false)
+		if(key === 'working' && value.working === false)
 			yield put({type: ActionType.GO_OFFLINE_FROM_WORK})
 
+
 	} catch (error) {
-		// console.log('error', error)
-		// console.log('error.resp', error.response)
-		// console.log('error.data', error.data)
+		console.log('error', error)
+		console.log('error.resp', error.response)
+		console.log('error.data', error.data)
 		yield put({type:ActionType.SET_LOGIN_VALUE, value: action.reverse})
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)

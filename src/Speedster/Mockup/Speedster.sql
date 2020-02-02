@@ -104,8 +104,6 @@ CREATE TABLE prices (
     `id_price` int unsigned AUTO_INCREMENT NOT NULL,
     -- FK la users
     `user_id` int unsigned NOT NULL,
-    -- FK la vehicles
-    `vehicle_id` int unsigned NOT NULL,
     `price_envelope` DOUBLE(7,2) NOT NULL DEFAULT 0,
     `price_kg` DOUBLE(7,2) NOT NULL DEFAULT 0,
     `price_extra_distance` DOUBLE(7,2) DEFAULT 0,
@@ -118,34 +116,34 @@ CREATE TABLE packs (
     `user_id_expeditor` int unsigned NOT NULL,
     -- id curier (users)
     `user_id_courier` int unsigned NOT NULL,
-    `address_sender` varchar(100),
-    `phone` varchar(20),
+    `address_sender` varchar(100) NOT NULL,
+    `status` tinyint(1) DEFAULT 0,
+    `pack_type` tinyint(1) NOT NULL,
     -- FK la pack_types
-    `pack_type_id` int unsigned NOT NULL,
+    -- `pack_type_id` int unsigned NOT NULL,
     -- dimensiuni sau plic
-    `height` DOUBLE(7,2),
-    `width` DOUBLE(7,2),
-    `depth` DOUBLE(7,2),
-    `kg` DOUBLE(7,2),
-    `price` DOUBLE(7,2) NOT NULL,
+    -- `height` DOUBLE(7,2),
+    -- `width` DOUBLE(7,2),
+    -- `depth` DOUBLE(7,2),
+    `quantity` DOUBLE(7,2) NOT NULL,
+    -- `price` DOUBLE(7,2) NOT NULL,
     -- destinatar
-    `first_name` varchar(30) NOT NULL,
-    `last_name` varchar(30) NOT NULL,
-    `address_receiver` varchar(100) NOT NULL,
-    `phone` varchar(20) NOT NULL,
+    `receivername` varchar(30) NOT NULL,
+    `receiveraddress` varchar(100) NOT NULL,
+    `receiverphone` varchar(20) NOT NULL,
     -- daca curierul refuza comanda
     `denied_reason` varchar(200),
     PRIMARY KEY (id_pack)
 );
 
-CREATE TABLE packs_pack_statuses (
+CREATE TABLE pack_status (
     `id_pack_status` int unsigned AUTO_INCREMENT NOT NULL,
     -- FK la packs
-    `pack_id` int unsigned AUTO_INCREMENT NOT NULL,
+    `pack_id` int unsigned NOT NULL,
     -- FK la pack_status
-    `status_id` int unsigned NOT NULL,
-    `date` DATETIME NOT NULL,
-    PRIMARY KEY (id_pack_statuses)
+    `status` int unsigned NOT NULL,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_pack_status)
 )
 
 CREATE TABLE pack_status (
