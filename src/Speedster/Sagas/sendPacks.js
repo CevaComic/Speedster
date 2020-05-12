@@ -1,5 +1,4 @@
-import React from 'react'
-import { take, call, put, delay, select } from 'redux-saga/effects'
+import { take, call, put, select } from 'redux-saga/effects'
 import { serverErrorNotification, isLoading, sendNotification } from './common'
 import { ActionType } from '../Constants'
 import axios from 'axios'
@@ -72,13 +71,11 @@ function* nextstep(pack, action, message) {
 			data.append('status', status)
 		}
 
-		let result = yield axios.post('https://speedster.cristi.club/api/packs/next.php', data)
+		yield axios.post('https://speedster.cristi.club/api/packs/next.php', data)
 
 		yield put({type: ActionType.CHANGE_PACK_STATUS, id:pack.id, status})
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else
@@ -103,19 +100,16 @@ function* rate(pack,stars) {
 		data.append('courier', pack.courier)
 		data.append('stars', stars)
 
-		let result = yield axios.post('https://speedster.cristi.club/api/packs/rate.php', data)
+		yield axios.post('https://speedster.cristi.club/api/packs/rate.php', data)
 
 		yield put({type: ActionType.CHANGE_PACK_RATED, id:pack.id, stars})
 
 		yield sendNotification({
 			type: 'success',
-			title: 'Information',
-			message: (<span>Pack rated successfully.</span>),
+			message: 'Pack rated successfully.',
 		})
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else
@@ -138,19 +132,16 @@ function* cancelpack(id){
 		data.append('id', login.id)
 		data.append('pack', id)
 
-		let result = yield axios.post('https://speedster.cristi.club/api/packs/delete.php', data)
+		yield axios.post('https://speedster.cristi.club/api/packs/delete.php', data)
 
 		yield put({type: ActionType.CHANGE_PACK_STATUS, id, status: 6})
 
 		yield sendNotification({
 			type: 'success',
-			title: 'Information',
-			message: (<span>Pack deleted successfully.</span>),
+			message: 'Pack deleted successfully.',
 		})
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else
@@ -190,10 +181,6 @@ function* sendpack() {
 		data.append('receiverphone', receiverPhone)
 		data.append('address', senderAddress)
 
-		// 	  for (var pair of data.entries()) {
-		//     console.log(pair[0]+ ', ' + pair[1]);
-		// }
-
 		let result = yield axios.post('https://speedster.cristi.club/api/packs/', data)
 
 		const packs = result.data.success
@@ -212,14 +199,11 @@ function* sendpack() {
 		}})
 
 		yield sendNotification({
-			type: 'success',
-			title: 'Information',
-			message: (<span>Pack request sent successfully.</span>),
+			type: 'info',
+			message: 'Pack request sent successfully.',
 		})
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else

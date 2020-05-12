@@ -1,4 +1,5 @@
 import { ActionType } from '../Constants'
+import { enqueueSnackbar } from '../Actions'
 import { validateEmail } from '../Utils'
 import React from 'react'
 import Badge from '@material-ui/core/Badge'
@@ -14,10 +15,6 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 				email,
 				newPass,
 				newPass2,
-				// phone,
-				// address,
-				firstNameError,
-				lastNameError,
 				emailError,
 				newPassError,
 				newPassError2  } = getState().register
@@ -54,22 +51,33 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 				dispatch({type:ActionType.SET_REGISTER_VALUE,value: {lastNameError:false} })
 
 			if(error.length)
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>SIGN UP ERROR{error.length > 1 && 'S'}</span>),
+				return dispatch(enqueueSnackbar({
 					message: (<div>
 								{error.map((message,index) => {
-		   							return (<p style={{lineHeight: 0}} key={index}>
-		   								<Badge style={{marginLeft: '3px',marginRight: '3px'}} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
+		   							return (<p style={style.p} key={index}>
+		   								<Badge style={style.badge} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
 		   							</p>)
 		   						})}
 							</div>),
-					isOpen: true,
-				}})
+					options: {
+						variant: 'info',
+						key: 'registererrors'
+					},
+				}))
 		}
 
 		next(action)
 
 	}
   }
+}
+
+const style = {
+    p: {
+        lineHeight: 0
+    },
+    badge: {
+        marginLeft: '3px',
+        marginRight: '3px'
+    }
 }

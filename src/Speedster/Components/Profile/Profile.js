@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
-import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import useClasses from './Profile.classes'
@@ -58,8 +57,8 @@ const renderCarsTemp = props => {
 function Profile(props) {
 
 	const classes = useClasses()
-	var upload,newCourier
-	const { vehicles, displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier,stars } = props
+	var upload
+	const { displayName, firstName, lastName, email, phone, city, address, courier, outside, working,memberSince, avatar, share, becomeCourier,stars } = props
 	const { doLogout, setUpdateProfileValue, isLoading, showNotifications, setSettingsValue, uploadAvatar } = props
 
 	const [vehicle, setVehicle] = React.useState(false)
@@ -75,7 +74,7 @@ function Profile(props) {
 			<Box className={classes.list}>
 				<Box className={classes.avatarBox}>
 					<Box className={classes.avatarImageBox}>
-						<img src={renderAvatar()} className={classes.avatar} onClick={() => upload.click()}/>
+						<img alt="avatar" src={renderAvatar()} className={classes.avatar} onClick={() => upload.click()}/>
 						{
 							avatar ? (
 								<DeleteRoundedIcon className={classes.cameraIcon} color="primary" onClick={() => uploadAvatar("none")}/>

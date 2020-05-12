@@ -14,12 +14,21 @@ const useClasses = makeStyles(theme => ({
         display: 'flex',
         width: '100%',
         alignItems: 'center',
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
     loginWith: {
         minWidth: '280px',
         height: '40px',
-		minHeight: '40px',
+        minHeight: '40px'
+    },
+    loginRecover: {
+        textAlign: 'center'
+    },
+    loginGrow: {
+        flexGrow: 1
+    },
+    loginIcon: {
+        fontSize: '10pt'
     },
     loginWithFacebook: {
         background: '#425BB4',
@@ -28,19 +37,19 @@ const useClasses = makeStyles(theme => ({
         "&:hover": {
             backgroundColor: '#425BB4'
         },
-		"&$disabled": {
-	      background: '#7788e7',
-		  color: 'white',
-	    }
+        "&$disabled": {
+            background: '#7788e7',
+            color: 'white'
+        }
     },
-	disabled: {},
+    disabled: {},
     loginWithGoogle: {
         backgroundColor: 'white',
         color: 'black',
         marginBottom: theme.spacing(2),
         "&:hover": {
             backgroundColor: 'white'
-        },
+        }
     },
     loginWithFacebookIcon: {
         marginRight: '30px'
@@ -52,7 +61,7 @@ const useClasses = makeStyles(theme => ({
         color: '#ccc',
         fontSize: 12,
         marginBottom: '20px',
-		textDecoration: 'none',
+        textDecoration: 'none'
     },
     spanRegister: {
         color: '#ccc',
@@ -91,7 +100,7 @@ const useClasses = makeStyles(theme => ({
     },
     signUp: {
         marginLeft: '10px',
-		marginBottom: '2px'
+        marginBottom: '2px'
     },
     placeholder: {
         '&::placeholder': {
@@ -108,51 +117,57 @@ const useClasses = makeStyles(theme => ({
         },
         '&:hover:not($disabled):not($focused):not($error):before': {
             borderBottom: `1px solid ${theme.palette.secondary.main}!important`
-        },
+        }
     },
-	logoText: {
-		fontSize: '27pt',
-		fontWeight: 900,
-		color: `${theme.palette.secondary.main}`,
-	},
-	logoTextSubtitle: {
-		fontSize: '10pt',
-		fontWeight: 'lighter',
-		marginTop: '-15px',
-		marginBottom: '15px',
-		color: `${theme.palette.secondary.main}`,
-	},
-	labelGoogle: {
-		marginLeft: '-6px',
-	},
-	input: {
-		textIndent: '10px',
-		marginTop: '15px'
-	},
-	goBackButton: {
-		backgroundColor: '#eee',
-		color: 'black',
-		'&:hover': {
-			backgroundColor: '#eee',
-			color: 'black',
-		}
-	},
-	recoverButton: {
-		marginTop: '40px',
-		marginBottom: '15px',
-	},
-	loading: {
-		marginRight: '10px',
-	},
-	startOver: {
-		color: `${theme.palette.secondary.main}`,
-	},
-	title: {
-		fontWeight: 700,
-		fontSize: '12pt',
-		color: `${theme.palette.secondary.main}`,
-		marginBottom: '20px',
-	}
+    error: {
+        color: 'red',
+        margin: 0,
+        fontSize: '10pt'
+    },
+    logoText: {
+        fontSize: '27pt',
+        fontWeight: 900,
+        color: `${theme.palette.secondary.main}`
+    },
+    logoTextSubtitle: {
+        fontSize: '10pt',
+        fontWeight: 'lighter',
+        marginTop: '-15px',
+        marginBottom: '15px',
+        color: `${theme.palette.secondary.main}`
+    },
+    labelGoogle: {
+        marginLeft: '-6px'
+    },
+    input: {
+        textIndent: '10px',
+        marginTop: '15px'
+    },
+	inputIcon: {fontSize: '10pt'},
+    goBackButton: {
+        backgroundColor: '#eee',
+        color: 'black',
+        '&:hover': {
+            backgroundColor: '#eee',
+            color: 'black'
+        }
+    },
+    recoverButton: {
+        marginTop: '40px',
+        marginBottom: '15px'
+    },
+    loading: {
+        marginRight: '10px'
+    },
+    startOver: {
+        color: `${theme.palette.secondary.main}`
+    },
+    title: {
+        fontWeight: 700,
+        fontSize: '12pt',
+        color: `${theme.palette.secondary.main}`,
+        marginBottom: '20px'
+    }
 }))
 
 export default useClasses

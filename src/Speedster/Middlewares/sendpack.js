@@ -1,5 +1,5 @@
 import { ActionType } from '../Constants'
-import { validateEmail } from '../Utils'
+import { enqueueSnackbar } from '../Actions'
 import React from 'react'
 import Badge from '@material-ui/core/Badge'
 
@@ -15,7 +15,6 @@ export default function sendPackMiddleware({ dispatch, getState }) {
 				receiverName,
 				receiverAddress,
 				receiverPhone,
-				sendPackError,
 				senderAddress
 			} = getState().temporary
 
@@ -36,18 +35,19 @@ export default function sendPackMiddleware({ dispatch, getState }) {
 
 			if(error.length) {
 				dispatch({type:ActionType.SET_TEMPORARY_VALUE, value:{sendPackError:true}})
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>SENDING PACK ERROR{error.length > 1 && 'S'}</span>),
+				return dispatch(enqueueSnackbar({
 					message: (<div>
 								{error.map((message,index) => {
-		   							return (<p style={{lineHeight: 0}} key={index}>
-		   								<Badge style={{marginLeft: '3px',marginRight: '3px'}} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
+		   							return (<p style={style.p} key={index}>
+		   								<Badge style={style.badge} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
 		   							</p>)
 		   						})}
 							</div>),
-					isOpen: true,
-				}})
+					options: {
+						variant: 'error',
+						key: 'sendpackerrors',
+					}
+				}))
 			}
 
 			dispatch({type:ActionType.SET_TEMPORARY_VALUE, value:{sendPackError:false}})
@@ -57,4 +57,14 @@ export default function sendPackMiddleware({ dispatch, getState }) {
 
 	}
   }
+}
+
+const style = {
+    p: {
+        lineHeight: 0
+    },
+    badge: {
+        marginLeft: '3px',
+        marginRight: '3px'
+    }
 }

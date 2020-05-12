@@ -7,7 +7,7 @@
 		ng-attr-stroke-width="{{config.width}}"
 		ng-attr-r="{{config.radius}}"
 		ng-attr-stroke-dasharray="{{config.dasharray}}"
-		stroke="#5aff8c"
+		stroke="#69f0ae"
 		stroke-width="8"
 		r="35"
 		stroke-dasharray="164.93361431346415 56.97787143782138">

@@ -1,5 +1,5 @@
 import { ActionType } from '../Constants'
-import { validateEmail } from '../Utils'
+import { enqueueSnackbar } from '../Actions'
 import React from 'react'
 import Badge from '@material-ui/core/Badge'
 
@@ -11,8 +11,7 @@ export default function uploadVehicleMiddleware({ dispatch, getState }) {
 			const {
 				description,
 				picture,
-				type,
-				close
+				type
 			} = getState().uploadVehicle
 
 			if(description.length < 6)
@@ -25,38 +24,41 @@ export default function uploadVehicleMiddleware({ dispatch, getState }) {
 				error.push("Select a picture")
 
 			if(error.length)
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>VEHICLE ERROR{error.length > 1 && 'S'}</span>),
+				return dispatch(enqueueSnackbar({
 					message: (<div>
 								{error.map((message,index) => {
-		   							return (<p style={{lineHeight: 0}} key={index}>
-		   								<Badge style={{marginLeft: '3px',marginRight: '3px'}} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
+		   							return (<p style={style.p} key={index}>
+		   								<Badge style={style.badge} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> {message}
 		   							</p>)
 		   						})}
 							</div>),
-					isOpen: true,
-				}})
+					options: {
+						variant: 'error',
+						key: 'lastvehicleerror',
+					}
+				}))
 		}
 
 		if(action.type === ActionType.TRY_DELETE_VEHICLE) {
 			const length = getState().myVehicle.length
 
 			if(length === 1)
-			 	return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>INFORMATION</span>),
-					message: (<span>You can't remove the last vehicle</span>),
-					isOpen: true,
-				}})
-				
+			 	return dispatch(enqueueSnackbar({
+					message: "You can't remove the last vehicle",
+					options: {
+						variant: 'error',
+						key: 'lastvehicleerror',
+					}
+				}))
+
 			if(action.vehicle.active)
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>INFORMATION</span>),
-					message: (<span>You must first go offline from work in order to delete this vehicle</span>),
-					isOpen: true,
-				}})
+				return dispatch(enqueueSnackbar({
+					message: "You must first go offline from work in order to delete this vehicle",
+					options: {
+						variant: 'info',
+						key: 'goofflineinfo',
+					}
+				}))
 
 
 		}
@@ -65,4 +67,14 @@ export default function uploadVehicleMiddleware({ dispatch, getState }) {
 
 	}
   }
+}
+
+const style = {
+    p: {
+        lineHeight: 0
+    },
+    badge: {
+        marginLeft: '3px',
+        marginRight: '3px'
+    }
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
@@ -43,6 +42,9 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 		if(temp.length < 1)
 			return
 
+		if(label === "phone" && isNaN(temp))
+			return
+
 		if(label === "password") {
 			if(temp !== temppass || temppass.length < 6)
 				return
@@ -74,7 +76,7 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 			<IconButton edge="end" aria-label="edit" onClick={onClickInternal}>
 			  {
 				  !toggle
-				  ? (<img src={icons.edit} width="21px" height="27px"/>)
+				  ? (<img alt="edit" src={icons.edit} width="21px" height="27px"/>)
 				  : (<Switch color="primary" checked={checked}/>)
 			  }
 			</IconButton>
@@ -90,9 +92,14 @@ const ListRow = ({ title, value, icon, black = false, toggle = false, checked, o
 			  <Box className={classes.modalInner}>
 				  <Box className={classes.topImageBox}>
 					  <Box className={classes.topImageBoxInner}>
-						  <img src={require('../../Images/profile.png')} className={classes.topImage} />
+						  <img alt="profile" src={require('../../Images/profile.png')} className={classes.topImage} />
 					  </Box>
 				  </Box>
+				  {
+					  label === "phone" && isNaN(temp) && (
+						  <h2 className={classes.phoneError}>Phone can contain only digits</h2>
+					  )
+				  }
 				<h2 className={classes.modalTitle}>{temp ? "Change" : "Set"} {title.toLowerCase()}</h2>
 				<TextField
 					disabled={isLoading}

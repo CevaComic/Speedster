@@ -8,9 +8,9 @@ const myVehicleReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
 		case ActionType.DO_LOGOUT_CLEANUP:
 		case ActionType.RESET_MY_VEHICLES:
-			return state.filter(vehicle => vehicle.id !== vehicle.id)
+			return []
 		case ActionType.SET_MY_VEHICLES:
-			return state.filter(vehicle => vehicle.id !== vehicle.id).concat(action.vehicles)
+			return [].concat(action.vehicles)
 		case ActionType.CHANGE_VEHICLE_STATUS:
 			return state.map(item => {
 				if (item.id !== action.id)

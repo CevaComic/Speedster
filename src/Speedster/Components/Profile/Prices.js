@@ -1,12 +1,10 @@
 import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
-import InputAdornment from '@material-ui/core/InputAdornment'
 import Button from '@material-ui/core/Button'
 import useClasses from './Profile.classes'
 import Icon from './Icon'
@@ -20,7 +18,7 @@ import {bindActionCreators} from 'redux'
 import Fade from '@material-ui/core/Fade'
 import Modal from '@material-ui/core/Modal'
 import EuroSymbolRoundedIcon from '@material-ui/icons/EuroSymbolRounded'
-
+import { car } from '../../Images'
 
 const Prices = props => {
 
@@ -69,7 +67,7 @@ const Prices = props => {
 			  />
 			  <ListItemSecondaryAction>
 				  <IconButton edge="end" aria-label="edit" onClick={() => setOpen(true)}>
-		  			 <img src={icons.edit} width="21px" height="27px"/>
+		  			 <img src={icons.edit} width="21px" height="27px" alt="edit"/>
 	  			</IconButton>
 			  </ListItemSecondaryAction>
 			</ListItem>
@@ -84,7 +82,7 @@ const Prices = props => {
 				  <Box className={[classes.modalInner,classes.prices].join(' ')}>
 					  <Box className={classes.topImageBox}>
 						  <Box className={classes.topImageBoxInner}>
-							  <img src={require('../../Images/car.png')} className={classes.topImage} />
+							  <img src={car} className={classes.topImage} alt="car"/>
 						  </Box>
 					  </Box>
 
@@ -96,7 +94,7 @@ const Prices = props => {
 
 
 					<Box className={classes.modalRow}>
-						<img src={envelopeIcon} width="36px" height="24px"/>
+						<img src={envelopeIcon} width="36px" height="24px" alt="envelope"/>
 						<TextField
 							disabled={isLoading}
 							classes={{root: classes.modalInputPrice }}
@@ -118,7 +116,7 @@ const Prices = props => {
 					</Box>
 
 					<Box className={classes.modalRow}>
-						<img src={box} width="36px" height="36px"/>
+						<img src={box} width="36px" height="36px" alt="box"/>
 						<TextField
 							disabled={isLoading}
 							classes={{root: classes.modalInputPrice }}
@@ -141,7 +139,7 @@ const Prices = props => {
 
 					{ outside &&
 						<Box className={classes.modalRow}>
-							<img src={icons.outside} width="36px" height="36px"/>
+							<img src={icons.outside} width="36px" height="36px" alt="outside"/>
 							<TextField
 								disabled={isLoading}
 								classes={{root: classes.modalInputPrice }}

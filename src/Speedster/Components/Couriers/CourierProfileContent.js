@@ -1,6 +1,5 @@
 import React from 'react'
-import Icon from './Icon'
-import { vehicles, defaultAvatar, icons } from '../../Images'
+import { defaultAvatar, icons } from '../../Images'
 import DialogContent from '@material-ui/core/DialogContent'
 import useClasses from '../Profile/Profile.classes'
 import ListRow from './ListRow'
@@ -8,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { navigate, goBack, contact } from '../../Utils'
+import { goBack, contact } from '../../Utils'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Modal from '@material-ui/core/Modal'
@@ -50,12 +49,12 @@ const CourierProfileContent = (props) => {
 	}
 
 	return (
-		<DialogContent style={{backgroundColor: '#fafafa',padding: 0,margin:0}}>
-			<Box className={classes.profile}>
+		<DialogContent classes={{root: classes.profile2Box}}>
+			<Box className={classes.profile2}>
 				<Box className={classes.list}>
 					<Box className={classes.avatarBox}>
 						<Box className={classes.avatarImageBox}>
-							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.avatar}/>
+							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} alt="avatar" className={classes.avatar}/>
 						</Box>
 
 						<Box className={classes.avatarBoxInner}>
@@ -146,7 +145,7 @@ const CourierProfileContent = (props) => {
 				onBackdropClick={() => !viewModalCarPicture ? goBack() : setTemporaryValue({viewModalCarPicture:0})}
 			  >
 			<Box className={[classes.modalInner,classes.modalVehicle].join(' ')}>
-				<img src={getVehicleImage(courier.vehicles,cid)} className={[classes.topImage,classes.topImageVehicle].join(' ')}/>
+				<img src={getVehicleImage(courier.vehicles,cid)} alt="vehicle" className={[classes.topImage,classes.topImageVehicle].join(' ')}/>
 				<Button color="primary" size="small" variant="contained" className={classes.closeVehicle}
 					onClick={() => setTemporaryValue({viewModalCarPicture:0})}>
 					close

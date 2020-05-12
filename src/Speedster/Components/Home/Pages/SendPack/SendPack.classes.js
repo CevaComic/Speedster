@@ -2,13 +2,13 @@ import {makeStyles} from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
     myPages: {
-		// marginTop: '10px',
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
+        // marginTop: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         backgroundColor: '#fafafa',
         transition: 'all 0.5s',
-		padding: '0!important',
+        padding: '0!important',
         '&$goBack': {
             marginLeft: '-150px'
         }
@@ -33,6 +33,12 @@ const useClasses = makeStyles(theme => ({
         boxShadow: 'none',
         borderRadius: '0!important'
     },
+    isLoadingIcon: {
+        marginRight: '10px'
+    },
+    menu: {
+        zIndex: 2000
+    },
     noOnline: {
         padding: theme.spacing(2),
         paddingLeft: theme.spacing(4),
@@ -44,7 +50,10 @@ const useClasses = makeStyles(theme => ({
         border: '1px solid #ccc',
         color: '#a6a6a6',
         borderRadius: '6px',
-		marginTop: 0,
+        marginTop: 0
+    },
+    noOnlineMissingPhone: {
+        marginTop: '10px'
     },
     listCouriersAroud: {
         padding: '0!important'
@@ -66,27 +75,27 @@ const useClasses = makeStyles(theme => ({
         overflowY: 'scroll',
         position: 'relative'
     },
-	buttonType: {
-		width: 'calc(100% - 20px)',
-		marginTop: '10px',
-	},
-	listCouriers: {
-		width: '100%!important',
-		marginTop: '10px',
-	},
-	primaryText: {
+    buttonType: {
+        width: 'calc(100% - 20px)',
+        marginTop: '10px'
+    },
+    listCouriers: {
+        width: '100%!important',
+        marginTop: '10px'
+    },
+    primaryText: {
         color: `${theme.palette.secondary.main}`,
         fontWeight: '500',
         fontSize: '11pt',
         marginLeft: '5px',
         lineHeight: '0px!important'
     },
-	inputRoot: {
-        color: 'inherit',
+    inputRoot: {
+        color: 'inherit'
     },
     inputInput: {
         padding: theme.spacing(3, 3, 3, 3),
-		width: '100px!important',
+        width: '100px!important',
         backgroundColor: 'white!important',
         border: `1px solid ${theme.palette.secondary.light}!important`,
         borderRadius: '6px',
@@ -94,58 +103,58 @@ const useClasses = makeStyles(theme => ({
         marginLeft: 0,
         '&:focus': {
             backgroundColor: 'white',
-            border: `1px solid ${theme.palette.primary.dark}!important`,
-        },
+            border: `1px solid ${theme.palette.primary.dark}!important`
+        }
     },
-	row: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginTop: '10px',
-		justifyContent: 'space-between!important',
-		width: '100%',
-	},
-	column: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		width: '100%',
-	},
-	collapse: {
-		width: 'calc(100% - 20px)',
-	},
-	rowTitle: {
-		fontSize: '10pt',
-		margin: '0!important',
-		marginTop: '5px!important',
-	},
-	columnStart: {
-		alignItems: 'flex-start!important',
-	},
-	inputLong: {
-		width: '100%!important',
-		marginTop: '5px!important',
-	},
-	bigTitle: {
-		alignSelf: 'flex-start',
-		margin: 0,
-		marginTop: '10px',
-		color: 'black',
-	},
-	badge: {
-		top: '13px!important',
-		marginRight: '-6px',
-	},
-	submitPack: {
-		width: '100%!important',
-		marginBottom: '20px',
-		marginTop: '10px',
-	},
-	avatarBox: {
+    row: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '10px',
+        justifyContent: 'space-between!important',
+        width: '100%'
+    },
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%'
+    },
+    collapse: {
+        width: 'calc(100% - 20px)'
+    },
+    rowTitle: {
+        fontSize: '10pt',
+        margin: '0!important',
+        marginTop: '5px!important'
+    },
+    columnStart: {
+        alignItems: 'flex-start!important'
+    },
+    inputLong: {
+        width: '100%!important',
+        marginTop: '5px!important'
+    },
+    bigTitle: {
+        alignSelf: 'flex-start',
+        margin: 0,
+        marginTop: '10px',
+        color: 'black'
+    },
+    badge: {
+        top: '13px!important',
+        marginRight: '-6px'
+    },
+    submitPack: {
+        width: '100%!important',
+        marginBottom: '20px',
+        marginTop: '10px'
+    },
+    avatarBox: {
         width: 'calc(100% - 20px)',
         display: 'flex',
         flexDirection: 'row',
-		margin: '0 auto',
+        margin: '0 auto'
     },
     avatarBoxInner: {
         backgroundColor: `${theme.palette.secondary.main}`,
@@ -182,12 +191,12 @@ const useClasses = makeStyles(theme => ({
         textOverflow: 'ellipsis',
         overflow: 'hidden'
     },
-	avatarImageBox: {
+    avatarImageBox: {
         width: '60px',
         height: '60px',
         position: 'relative',
         zIndex: 2
-    },
+    }
 }))
 
 export default useClasses

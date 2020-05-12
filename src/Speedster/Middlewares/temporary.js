@@ -1,4 +1,5 @@
 import { ActionType } from '../Constants'
+import { enqueueSnackbar } from '../Actions'
 import { validateEmail } from '../Utils'
 import React from 'react'
 import Badge from '@material-ui/core/Badge'
@@ -23,12 +24,13 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 				dispatch({type:ActionType.SET_TEMPORARY_VALUE,value: {passwordError:false} })
 
 			if(error)
-				return dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>INCOMPLETE INFORMATION</span>),
-					message: (<span>In order to access your account, fields marked with <Badge style={{marginLeft: '3px',marginRight: '3px'}} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> are mandatory.</span>),
-					isOpen: true,
-				}})
+				return dispatch(enqueueSnackbar({
+					message: (<span>In order to access your account, fields marked with <Badge style={style.badge} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> are mandatory.</span>),
+					options: {
+						variant: 'info',
+						key: 'createerrors',
+					}
+				}))
 
 			action.response = {
 				email,
@@ -40,12 +42,13 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 		if(action.type === ActionType.TRY_RECOVER_PASSWORD) {
 			const { email } = action
 			if(!validateEmail(email)) {
-				dispatch({type:ActionType.SEND_NOTIFICATION, notification: {
-					type: 'error',
-					title: (<span style={{fontWeight: 900}}>WRONG E-MAIL</span>),
-					message: (<span>In order to recover your account, fields marked with <Badge style={{marginLeft: '3px',marginRight: '3px'}} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> are mandatory.</span>),
-					isOpen: true,
-				}})
+				dispatch(enqueueSnackbar({
+					message: (<span>In order to recover your account, fields marked with <Badge style={style.badge} color="error" variant="dot" anchorOrigin={{vertical: 'top',horizontal:'left'}}> </Badge> are mandatory.</span>),
+					options: {
+						variant: 'info',
+						key: 'forgoterrors',
+					}
+				}))
 				return dispatch({type:ActionType.SET_TEMPORARY_VALUE,value: {emailError:true}})
 			}
 		}
@@ -54,7 +57,7 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 			const key = Object.keys(action.value)[0]
 			const value = getState().login[key]
 
-			if(value == action.value[key]) // don't dispatch anything if trying to update to same value
+			if(value === action.value[key]) // don't dispatch anything if trying to update to same value
 				return
 
 			action.reverse = { // backup just in case we get server error , so we can reverse the process
@@ -64,7 +67,7 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 			return dispatch({type:ActionType.UPDATE_PROFILE, value:action.value, reverse: action.reverse})
 		}
 
-		if(action.type === ActionType.SEND_NOTIFICATION) {
+		if(action.type === ActionType.ENQUEUE_SNACKBAR) {
 			const showNotifications = getState().settings.showNotifications
 			if(!showNotifications)
 				return
@@ -96,12 +99,6 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 		}
 
 		if(action.type === ActionType.SET_TEMPORARY_VALUE) {
-			// const oldRoute = getState().temporary.route
-			// if(action.value && action.value.route)
-			// 	action.value = {
-			// 		route: action.value.route,
-			// 		oldRoute: oldRoute,
-			// 	}
 			if(action.value && action.value.sendPackNrKg) {
 				if(isNaN(action.value.sendPackNrKg))
 					return
@@ -119,10 +116,24 @@ export default function temporaryMiddleware({ dispatch, getState }) {
 				return
 		}
 
+		if(action.type === ActionType.TRY_RESET_PASSWORD) {
+			const { newPass, newPass2 } = getState().temporary
+			if(newPass < 6 || newPass !== newPass2)
+				return
+			action.password = newPass
+		}
+
 		next(action)
 
 
 
 	}
   }
+}
+
+const style = {
+    badge: {
+        marginLeft: '3px',
+        marginRight: '3px'
+    }
 }

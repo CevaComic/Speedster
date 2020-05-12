@@ -2,11 +2,23 @@ import {makeStyles} from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
     profile: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        height: '100%',
-        overflowX: 'scroll'
+        display: 'initial',
+		flexDirection: 'column',
+		width: '100%',
+		height: '100%',
+		overflowX: 'scroll',
+    },
+    profile2: {
+		display: 'flex',
+		flexDirection: 'column',
+		width: '100%',
+		height: '100%',
+		overflowX: 'scroll',
+    },
+    profile2Box: {
+        backgroundColor: '#fafafa',
+        padding: 0,
+        margin: 0
     },
     avatarBox: {
         padding: '20px',
@@ -123,6 +135,22 @@ const useClasses = makeStyles(theme => ({
         zIndex: '1500!important',
         // width: 'calc(100% - 40px)',
     },
+    addNewCar: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    addNewCarInner: {
+        width: '80%'
+    },
+    addNewCarBadge: {
+        marginTop: '-3px',
+        marginRight: '3px'
+    },
+    menu: {
+        zIndex: 2000
+    },
     modalInner: {
         backgroundColor: '#fafafa',
         borderRadius: theme.spacing(2),
@@ -131,12 +159,12 @@ const useClasses = makeStyles(theme => ({
         padding: '10px',
         textAlign: 'center',
         position: 'relative',
-		'&$prices': {
-			display: 'flex',
-			flexDirection: 'column',
-		}
+        '&$prices': {
+            display: 'flex',
+            flexDirection: 'column'
+        }
     },
-	prices: {},
+    prices: {},
     modalVehicle: {
         width: 'calc(100% - 20px)',
         padding: 0,
@@ -278,11 +306,11 @@ const useClasses = makeStyles(theme => ({
         bottom: '10px',
         right: '10px'
     },
-	deleteVehicle: {
-		position: 'absolute',
+    deleteVehicle: {
+        position: 'absolute',
         bottom: '10px',
         left: '10px'
-	},
+    },
     closeButton: {
         margin: '20px'
     },
@@ -351,35 +379,40 @@ const useClasses = makeStyles(theme => ({
     secondaryTextCar: {
         marginTop: '3px'
     },
-	zIndexBig: {
-		zIndex: '1700!important',
-	},
-	dialogChoseVehicle: {
-		margin: 0,
-		padding: 0,
-		width: 'calc(100% - 20px)',
-	},
-	dialogContentVehicle: {
-		padding: 0,
-	},
-	modalInputPrice: {
-		backgroundColor: `${theme.palette.secondary.main}`,
+    zIndexBig: {
+        zIndex: '1700!important'
+    },
+    dialogChoseVehicle: {
+        margin: 0,
+        padding: 0,
+        width: 'calc(100% - 20px)'
+    },
+    dialogContentVehicle: {
+        padding: 0
+    },
+    modalInputPrice: {
+        backgroundColor: `${theme.palette.secondary.main}`,
         borderRadius: '6px',
         border: 'none',
-		width: '100px!important',
-		selfAlign: 'flex-start',
-		marginLeft: '10px',
-		color: `${theme.palette.primary.main}`,
-	},
-	modalRow: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginTop: '10px',
-	},
-	priceSymbol: {
-		color: `${theme.palette.primary.main}`,
-	},
+        width: '100px!important',
+        selfAlign: 'flex-start',
+        marginLeft: '10px',
+        color: `${theme.palette.primary.main}`
+    },
+    modalRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '10px'
+    },
+    priceSymbol: {
+        color: `${theme.palette.primary.main}`
+    },
+    phoneError: {
+        color: 'red',
+        margin: 0,
+        fontSize: '12pt'
+    }
 }))
 
 export default useClasses

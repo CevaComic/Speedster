@@ -1,18 +1,9 @@
 import React from 'react'
 import Icon from './Icon'
-import { vehicles, defaultAvatar, icons } from '../../Images'
+import { defaultAvatar, icons } from '../../Images'
 import CourierRow from './CourierRow'
-import DialogContent from '@material-ui/core/DialogContent'
-import useClasses from '../Profile/Profile.classes'
 import ListRow from './ListRow'
-import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import moment from 'moment'
-import { useParams } from 'react-router-dom'
-import { navigate, goBack, contact } from '../../Utils'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import Modal from '@material-ui/core/Modal'
+import { navigate } from '../../Utils'
 
 export const renderVehicles = vehicles => vehicles.map(({vehicle,id,description,type,...rest},index) => {
 

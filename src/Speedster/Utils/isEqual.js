@@ -1,5 +1,5 @@
 export default function isEqual(value, other) {
-	var debug = true
+	var debug = false
 	// Get the value type
 	var type = Object.prototype.toString.call(value);
 

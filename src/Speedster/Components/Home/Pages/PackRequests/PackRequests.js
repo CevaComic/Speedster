@@ -1,6 +1,5 @@
 import React from 'react'
-import { useParams, Link, useHistory } from 'react-router-dom'
-// import { navigate } from '../../../Utils'
+import { useParams } from 'react-router-dom'
 import useClasses from './PackRequests.classes'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
@@ -10,14 +9,13 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
 import Transition from '../../../Slider/Transition'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import ListRow from './ListRow'
 import { packTypes } from '../../../../Utils/packTypes'
-import { defaultAvatar,packs,logoCar,isLoadingIcon } from '../../../../Images'
+import { packs,logoCar,isLoadingIcon } from '../../../../Images'
 import List from '@material-ui/core/List'
 import { myPackRequestsSelector } from '../../../../Selectors'
 import ListSubheader from '@material-ui/core/ListSubheader'
@@ -29,6 +27,7 @@ import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
 import { setTemporaryValue,tryDeclineRequest,tryRefundRequest,tryAcceptRequest,tryDoNextStep } from '../../../../Actions'
 import { addZeros,contact } from '../../../../Utils'
+import clsx from 'clsx'
 
 function getSteps(status) {
   let statuses = [
@@ -189,12 +188,12 @@ const PackRequests = props => {
 	  	  >
 				<Box className={classes.topImageBox}>
 					<Box className={classes.topImageBoxInner}>
-						<img src={isLoading ? isLoadingIcon : getIcon()} className={classes.topImage} />
+						<img src={isLoading ? isLoadingIcon : getIcon()} className={classes.topImage} alt="loading"/>
 					</Box>
 				</Box>
 				<Box className={classes.packContent}>
 					<Box className={[classes.row,classes.packBoxTitle].join(' ')}>
-						<img src={logoCar} width="24px"/><h4 className={classes.packTitle}>SPEEDSTER</h4>
+						<img src={logoCar} width="24px" alt="logo"/><h4 className={classes.packTitle}>SPEEDSTER</h4>
 					</Box>
 					<h4 className={classes.packTitle}>Ref #{addZeros(current.id || 0)}</h4>
 
@@ -241,18 +240,19 @@ const PackRequests = props => {
       </Stepper>
 	  	{
 		  (current.status === 3 || current.status === 5) && (
-			  <Box className={classes.rowRating} style={{marginTop: '0!important'}}>
+			  <Box className={classes.rowRating}>
 				  {
 					  current.rated ? <Rating readOnly value={current.rated} max={7}/> :
-					  <Box className={classes.noOnline} style={{width: '100%'}}>
+					  <Box className={clsx(classes.noOnline,classes.fullWidth)}>
   					  Waiting user to review service
   				  	</Box>
 				  }
 		 </Box>
 	 	)}
-			<Box style={{visibility: 'hidden'}}>
+			<Box className={classes.hidden}>
 				space
 			</Box>
+
 				</Box>
 				<DialogActions classes={{root:classes.between}}>
 

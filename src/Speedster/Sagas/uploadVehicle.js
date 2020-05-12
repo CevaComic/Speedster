@@ -1,5 +1,4 @@
-import React from 'react'
-import { take, call, put, delay, select } from 'redux-saga/effects'
+import { take, call, put, select } from 'redux-saga/effects'
 import { serverErrorNotification, isLoading, sendNotification } from './common'
 import { ActionType } from '../Constants'
 import axios from 'axios'
@@ -55,9 +54,8 @@ function* add() {
 		}
 
 		yield sendNotification({
-			type: 'success',
-			title: 'Information',
-			message: (<span>Your car needs to be aproved in order to be used. Thank you</span>),
+			type: 'warning',
+			message: 'Your car needs to be aproved in order to be used. Thank you.',
 		})
 
 		yield put({type:ActionType.SET_UPLOAD_VEHICLES_VALUE,value:{close:true}})
@@ -94,8 +92,7 @@ function* remove(vehicle) {
 
 		yield sendNotification({
 			type: 'success',
-			title: 'Information',
-			message: (<span>Vehicle removed succesfully</span>),
+			message: 'Vehicle removed successfully.',
 		})
 
 	} catch(error) {
@@ -121,7 +118,7 @@ function* activate(id) {
 		data.append('token', login.token)
 		data.append('id', login.id)
 
-		const result = yield axios.post('https://speedster.cristi.club/api/activatevehicle/', data)
+		yield axios.post('https://speedster.cristi.club/api/activatevehicle/', data)
 
 	} catch(error) {
 		yield put({type: ActionType.CHANGE_VEHICLE_STATUS, id, status: false})

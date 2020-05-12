@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47" height="35" viewBox="0 0 47 35"><defs><clipPath id="b"><rect width="47" height="35"/></clipPath></defs><g id="a" clip-path="url(#b)"><g transform="translate(9.3 3)"><circle cx="14.5" cy="14.5" r="14.5" transform="translate(-0.3)" fill="#3f3f3f"/><g transform="translate(7.652 7.356)"><circle cx="3.32" cy="3.32" r="3.32" transform="translate(3.62)" fill="#5aff8c"/><path d="M30.536,31.152H16.653a6.942,6.942,0,0,1,13.883,0Z" transform="translate(-16.653 -16.871)" fill="#5aff8c"/></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47" height="35" viewBox="0 0 47 35">
+	<defs>
+		<style>
+			.a {
+				clip-path: url("#b");
+			}
+			.b {
+				fill: #3f3f3f;
+			}
+		</style>
+		<clipPath id="b"><rect width="47" height="35"/></clipPath>
+	</defs>
+	<g id="a" class="a">
+		<g transform="translate(8.341 88.444)"><path
+			class="b"
+			d="M13.152-85.3a16.064,16.064,0,0,0-7.5,4.013A14.088,14.088,0,0,0,9.5-58.819a13.99,13.99,0,0,0,15.986-2.763,13.881,13.881,0,0,0,3.947-12.1A13.763,13.763,0,0,0,16.7-85.4,17.96,17.96,0,0,0,13.152-85.3Zm4.7,7.039a3.578,3.578,0,0,1,.724,5.493,2.727,2.727,0,0,1-2.335.954c-1.71,0-2.5-.428-3.125-1.645A3.482,3.482,0,0,1,17.856-78.259ZM19.928-70.2a7.9,7.9,0,0,1,3.224,5.362v.921H9.336V-64.9a7.141,7.141,0,0,1,3.783-5.789,11.5,11.5,0,0,1,3.158-.461A5.269,5.269,0,0,1,19.928-70.2Z"
+			transform="translate(0)"/></g>
+	</g>
+</svg>

@@ -1,61 +1,50 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import Collapse from '@material-ui/core/Collapse'
-import Button from '@material-ui/core/Button'
-import useClasses from './Notification.classes'
-import { notificationSelector } from '../../Selectors'
-import { closeNotification } from '../../Actions'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSnackbar } from 'notistack'
+import { removeSnackbar } from '../../Actions'
 
-function Notification(props) {
+let displayed = []
 
-	const classes = useClasses()
-	const { type, title, message, isOpen, closeNotification } = props
+const Notifier = () => {
 
-	const getIcon = () => {
-		switch(type) {
-			case 'error':
-				return <img src={require('../../Images/error.png')} width="40px" height="40px" />
-			case 'success':
-				return <img src={require('../../Images/success.png')} width="40px" height="40px" />
-			default:
-				return <img src={require('../../Images/info.png')} width="40px" height="40px" />
-		}
-	}
+    const dispatch = useDispatch()
+    const notifications = useSelector(state => state.notifier.notifications || [])
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-
-    return (
-		<ClickAwayListener onClickAway={() => isOpen && closeNotification()} touchEvent={false} mouseEvent='onMouseDown'>
-			<Collapse in={isOpen} className={classes.notification} onClick={closeNotification} timeout={250}>
-				<Paper className={classes.paper} elevation={4}>
-					{getIcon()}
-					<Box className={classes.content}>
-						<Typography>
-							{title}
-						</Typography>
-						<Typography>
-							{message}
-						</Typography>
-					</Box>
-				</Paper>
-			</Collapse>
-		</ClickAwayListener>
-	)
-}
-
-const mapStateToProps = (state) => {
-	const notification = notificationSelector(state)
-    return {
-        ...notification
+    const storeDisplayed = (id) => {
+        displayed = [...displayed, id]
     }
+
+    const removeDisplayed = (id) => {
+        displayed = [...displayed.filter(key => id !== key)]
+    }
+
+    React.useEffect(() => {
+        notifications.forEach(({ key, message, options = {}, dismissed = false }) => {
+            if (dismissed) {
+                closeSnackbar(key)
+                return
+            }
+
+            if (displayed.includes(key)) return
+            enqueueSnackbar(message, {
+                key,
+                ...options,
+                onClose: (event, reason, myKey) => {
+                    if (options.onClose) {
+                        options.onClose(event, reason, myKey)
+                    }
+                },
+                onExited: (event, myKey) => {
+                    dispatch(removeSnackbar(myKey))
+                    removeDisplayed(myKey)
+                },
+            })
+            storeDisplayed(key)
+        })
+    }, [notifications, closeSnackbar, enqueueSnackbar, dispatch])
+
+    return null
 }
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-	closeNotification
-}, dispatch))
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notification)
+export default Notifier

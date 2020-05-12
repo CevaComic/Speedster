@@ -1,18 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import useClasses from './Footer.classes'
 import { Link, useLocation } from 'react-router-dom'
 import { activeTabSelector } from '../../Selectors'
 import { changeTab } from '../../Actions'
-import { navigate } from '../../Utils'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { home, couriers, profile, about } from '../../Images'
-
-
 
 function Footer(props) {
 
@@ -25,7 +20,7 @@ function Footer(props) {
 		if(tab !== path){
 			changeTab(path)
 		}
-	},[location])
+	},[location,changeTab,tab])
 
     return (
 		<BottomNavigation value={tab} onChange={(e,tab) => changeTab(tab)} className={classes.footer}>
@@ -34,7 +29,7 @@ function Footer(props) {
 				to="/"
 				label="HOME"
 				value="home"
-				icon={<img src={home} className={[classes.icon,tab !== 'home' && classes.iconInactive].join(' ')} />}
+				icon={<img src={home} className={[classes.icon,tab !== 'home' && classes.iconInactive].join(' ')} alt="home tab"/>}
 				classes={{
 					root: classes.tab,
 					selected: classes.selected,
@@ -46,7 +41,7 @@ function Footer(props) {
 				to="/couriers"
 				label="COURIERS"
 				value="couriers"
-				icon={<img src={couriers} className={[classes.icon,tab !== 'couriers' && classes.iconInactive].join(' ')} />}
+				icon={<img src={couriers} className={[classes.icon,tab !== 'couriers' && classes.iconInactive].join(' ')} alt="couriers tab"/>}
 				classes={{
 					root: classes.tab,
 					selected: classes.selected,
@@ -58,7 +53,7 @@ function Footer(props) {
 				to="/profile"
 				label="PROFILE"
 				value="profile"
-				icon={<img src={profile} className={[classes.icon,tab !== 'profile' && classes.iconInactive].join(' ')} />}
+				icon={<img src={profile} className={[classes.icon,tab !== 'profile' && classes.iconInactive].join(' ')} alt="profile tab"/>}
 				classes={{
 					root: classes.tab,
 					selected: classes.selected,
@@ -70,7 +65,7 @@ function Footer(props) {
 				to="/about"
 				label="ABOUT"
 				value="about"
-				icon={<img src={about} className={[classes.icon,tab !== 'about' && classes.iconInactive].join(' ')} />}
+				icon={<img src={about} className={[classes.icon,tab !== 'about' && classes.iconInactive].join(' ')} alt="about tab"/>}
 				classes={{
 					root: classes.tab,
 					selected: classes.selected,

@@ -1,4 +1,4 @@
-import { takeEvery, select , all} from 'redux-saga/effects' // debug purpouse only
+import { takeEvery, select } from 'redux-saga/effects' // debug purpouse only
 
 function addZero(x, n) {
   while (x.toString().length < n) {

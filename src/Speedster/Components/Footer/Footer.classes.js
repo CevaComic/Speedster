@@ -7,7 +7,7 @@ const useClasses = makeStyles(theme => ({
 		right: 0,
 		left: 0,
 		zIndex: 1400,
-		backgroundColor: `${theme.palette.primary.main}!important`,
+		backgroundImage: 'linear-gradient(96deg, ' + theme.palette.primary.light + ' 0%, ' + theme.palette.primary.main + ' 35%, ' + theme.palette.primary.dark + ' 100%)',
 		color: `${theme.palette.secondary.main}!important`,
 	},
 	tab: {

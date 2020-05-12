@@ -1,4 +1,3 @@
-import React from 'react'
 import { takeEvery, take, call, put, select, delay } from 'redux-saga/effects'
 import { ActionType } from '../Constants'
 import { serverErrorNotification, updateProfileLoading, sendNotification } from './common'
@@ -60,13 +59,10 @@ function* changePassword(password) {
 
 		yield sendNotification({
 			type: 'success',
-			title: 'Information',
-			message: (<span>Password changed successfully.</span>),
+			message: 'Password changed successfully.',
 		})
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else
@@ -97,9 +93,8 @@ function* prices() {
 			yield put({type: ActionType.SET_PRICES_FROM_SERVER, prices})
 
 		yield sendNotification({
-			type: 'success',
-			title: 'Information',
-			message: (<span>Prices updated successfully.</span>),
+			type: 'info',
+			message: 'Prices updated successfully.',
 		})
 	} catch (error) {
 		if(error.response && error.response.data && error.response.data.error)
@@ -125,11 +120,9 @@ function* schedule() {
 			}
 		}
 
-		const result = yield axios.post('https://speedster.cristi.club/api/schedule/update.php', qs.stringify(data))
+		yield axios.post('https://speedster.cristi.club/api/schedule/update.php', qs.stringify(data))
 
 	} catch (error) {
-		// console.log('error', error)
-		// console.log('error.response', error.response)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else
@@ -149,7 +142,7 @@ function* changePosition({lat,lng}) {
 		data.append('latitude', lat)
 		data.append('longitude', lng)
 
-		const result = yield axios.post('https://speedster.cristi.club/api/position/', data)
+		yield axios.post('https://speedster.cristi.club/api/position/', data)
 
 		yield put({type: ActionType.SET_LOGIN_VALUE, value:{lat,lng}})
 
@@ -221,9 +214,9 @@ function* update(action) {
 		yield put({type: ActionType.SET_LOGIN_VALUE, value})
 
 		yield sendNotification({
-			type: 'success',
-			title: 'Information',
-			message: (<span>Profile updated.</span>),
+			key: "updated",
+			type: 'info',
+			message: 'Profile updated',
 		})
 
 		if(key === 'working' && value.working === false)
@@ -231,9 +224,6 @@ function* update(action) {
 
 
 	} catch (error) {
-		console.log('error', error)
-		console.log('error.resp', error.response)
-		console.log('error.data', error.data)
 		yield put({type:ActionType.SET_LOGIN_VALUE, value: action.reverse})
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)

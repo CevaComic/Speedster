@@ -1,9 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import Badge from '@material-ui/core/Badge'
 import useClasses from './MyPacks.classes'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
@@ -11,8 +9,6 @@ import { defaultAvatar,packs } from '../../../../Images'
 import { addZeros } from '../../../../Utils'
 import { packTypes } from '../../../../Utils/packTypes'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 
 const ListRow = ({ black, ...rest }) => {
 
@@ -51,8 +47,6 @@ const ListRow = ({ black, ...rest }) => {
 		return packs.unknown
 	}
 
-	const courier = {}
-
 	return (
 		<ListItem button="button"
 			onClick={onClick}
@@ -64,8 +58,8 @@ const ListRow = ({ black, ...rest }) => {
         }}>
 
 	        <Box className={classes.avatarBox}>
-				<img src={courierAvatar ? 'https://speedster.cristi.club/media/' + courierAvatar : defaultAvatar} className={classes.avatar} width="31px" height="31px"/>
-				<img src={getIcon()} className={[classes.avatar,classes.packIcon].join(' ')} width="23px" height="23px"/>
+				<img alt="avatar" src={courierAvatar ? 'https://speedster.cristi.club/media/' + courierAvatar : defaultAvatar} className={classes.avatar} width="31px" height="31px"/>
+				<img alt="pack" src={getIcon()} className={[classes.avatar,classes.packIcon].join(' ')} width="23px" height="23px"/>
 	        </Box>
 
 	        <ListItemText

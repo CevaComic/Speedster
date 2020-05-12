@@ -1,8 +1,7 @@
-import React, {Component,useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
@@ -17,7 +16,8 @@ import IconButton from '@material-ui/core/IconButton'
 import useClasses from '../Init/Init.classes'
 import { temporarySelector, newPassSelector, isLoggedSelector } from '../../Selectors'
 import { navigate } from '../../Utils'
-import { closeNotification, setTemporaryValue, tryRecoverPassword, tryResetPassword } from '../../Actions'
+import { setTemporaryValue, tryRecoverPassword, tryResetPassword } from '../../Actions'
+import clsx from 'clsx'
 
 function ForgotPassword(props) {
 
@@ -43,9 +43,9 @@ function ForgotPassword(props) {
 	}
 
     return (
-		<Box className={classes.initContainer}>
+		<Box className={clsx(classes.initContainer,classes.loginRecover)}>
 
-			<img src={require('../../Images/logo.png')} className={classes.logo} />
+			<img src={require('../../Images/logo.png')} className={classes.logo} alt="logo"/>
 
 			<Typography className={classes.title}>
 				<i>RECOVER PASSWORD</i>
@@ -59,6 +59,11 @@ function ForgotPassword(props) {
 						{	hashError && (
 								<Button className={[classes.loginButton,classes.startOver].join(' ')} variant="contained" color="primary" onClick={() => navigate('/forgot')}>START OVER</Button>
 						)}
+						{
+							newPass !== newPass2 && (
+								<h2 className={classes.error}>Passwords don't match</h2>
+							)
+						}
 						<Grid container spacing={1} alignItems="flex-end">
 							<TextField
 								type="password"
@@ -72,7 +77,7 @@ function ForgotPassword(props) {
 									<IconButton>
 
 									  <Badge color="error" variant="dot" invisible={!newPassError} anchorOrigin={{vertical: 'top',horizontal:'left'}}>
-										  <LockRoundedIcon style={{fontSize: '10pt'}}/>
+										  <LockRoundedIcon className={classes.loginIcon}/>
 									   </Badge>
 									</IconButton>
 								  </InputAdornment>
@@ -99,7 +104,7 @@ function ForgotPassword(props) {
 								  <InputAdornment position="start">
 									<IconButton>
 									  <Badge color="error" variant="dot" invisible={!newPassError2} anchorOrigin={{vertical: 'top',horizontal:'left'}}>
-										  <LockRoundedIcon style={{fontSize: '10pt'}}/>
+										  <LockRoundedIcon className={classes.loginIcon}/>
 									   </Badge>
 									</IconButton>
 								  </InputAdornment>
@@ -115,7 +120,7 @@ function ForgotPassword(props) {
 							/>
 						</Grid>
 						<Button disabled={isLoading || hashError} className={[classes.loginButton,classes.recoverButton].join(' ')} variant="contained" color="secondary" onClick={() => tryResetPassword(hash,id)}>
-							{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading}/>}
+							{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading} alt="loading"/>}
 							{isLoading ? "LOADING..." : "RESET PASSWORD"}
 						</Button>
 						<Button className={[classes.loginButton,!hashError && classes.goBackButton].join(' ')} variant="contained" color="secondary" onClick={goToInit}>Go back</Button>
@@ -134,7 +139,7 @@ function ForgotPassword(props) {
 									<IconButton>
 
 									  <Badge color="error" variant="dot" invisible={!emailError} anchorOrigin={{vertical: 'top',horizontal:'left'}}>
-										  <PersonRoundedIcon style={{fontSize: '10pt'}}/>
+										  <PersonRoundedIcon className={classes.loginIcon}/>
 									   </Badge>
 									</IconButton>
 								  </InputAdornment>
@@ -151,7 +156,7 @@ function ForgotPassword(props) {
 						</Grid>
 
 						<Button disabled={isLoading} className={[classes.loginButton,classes.recoverButton].join(' ')} variant="contained" color="secondary" onClick={() => tryRecoverPassword(email)}>
-							{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading}/>}
+							{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading} alt="loading"/>}
 							{isLoading ? "SENDING..." : "SEND MAIL"}
 						</Button>
 
@@ -163,7 +168,7 @@ function ForgotPassword(props) {
 
 			</Box>
 
-			  <Box style={{flexGrow: 1}} />
+			  <Box className={classes.loginGrow}/>
 
 			  <Box className={classes.initFooter}>
 				  <Box className={classes.spacer} />
@@ -213,7 +218,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-	closeNotification,
 	setTemporaryValue,
 	tryRecoverPassword,
 	tryResetPassword

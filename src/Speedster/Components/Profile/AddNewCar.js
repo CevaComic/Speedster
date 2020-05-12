@@ -2,8 +2,6 @@ import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
 import Fade from '@material-ui/core/Fade'
 import Modal from '@material-ui/core/Modal'
 import Box from '@material-ui/core/Box'
@@ -13,8 +11,7 @@ import useClasses from './Profile.classes'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Icon from './Icon'
-import {icons,isLoadingIcon,logoCar,vehicles} from '../../Images'
-import Switch from './Switch'
+import {icons,isLoadingIcon,logoCar} from '../../Images'
 import TextField from '@material-ui/core/TextField'
 import { setUploadVehicleValue,resetUploadVehicle,uploadVehicle } from '../../Actions'
 import { uploadVehicleSelector } from '../../Selectors'
@@ -97,10 +94,10 @@ const AddNewCar = props => {
 					  </>
 				  ):null}
 
-				  <Box style={{display: 'flex',flexDirection: 'row',justifyContent: 'space-between',alignItems: 'center'}}>
-					  <Box style={{width: '80%'}}>
+				  <Box className={classes.addNewCar}>
+					  <Box className={classes.addNewCarInner}>
 						  <p className={classes.modalTitle}>
-	      					{ !description && <Badge variant="dot" color="error" style={{marginTop: '-3px',marginRight: '3px'}} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
+	      					{ !description && <Badge variant="dot" color="error" className={classes.addNewCarBadge} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
 	      						Short description
 	      				</p>
 	    				<TextField
@@ -121,9 +118,9 @@ const AddNewCar = props => {
 
 					  <Box>
 						  <p className={classes.modalTitle}>
-	      					{ !type && <Badge variant="dot" color="error" style={{marginTop: '-3px',marginRight: '3px'}} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
+	      					{ !type && <Badge variant="dot" color="error" className={classes.addNewCarBadge} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
 							Type
-							{ type ? <img src={vehiclesTypes[type-1].icon} width="30px" height="23px" className={[classes.typeImage,(isFirst||isFirstCourier)?classes.typeImageFirst:''].join(' ')}/> : ''}
+							{ type ? <img alt="vehicle type" src={vehiclesTypes[type-1].icon} width="30px" height="23px" className={[classes.typeImage,(isFirst||isFirstCourier)?classes.typeImageFirst:''].join(' ')}/> : ''}
 	      				</p>
 						  <Button
 	              variant="contained"
@@ -136,7 +133,7 @@ const AddNewCar = props => {
 	      		) : "Select type"}
 	            </Button>
 	      	  <Menu
-	      		  style={{zIndex: 2000}}
+	      		  className={classes.menu}
 	              id="customized-menu"
 	              anchorEl={anchorEl}
 	              keepMounted
@@ -148,9 +145,9 @@ const AddNewCar = props => {
 	      			  {
 	      				  vehiclesTypes.map((vehicle,index) => {
 	      					  return (
-	      						  <MenuItem onClick={() => {setUploadVehicleValue({type:index+1});handleClose()}}>
+	      						  <MenuItem key={`${vehicle.name}`} onClick={() => {setUploadVehicleValue({type:index+1});handleClose()}}>
 	      							  <ListItemIcon>
-	      					            <img src={vehicle.icon} width="30px" height="23px"/>
+	      					            <img alt="vehicle" src={vehicle.icon} width="30px" height="23px"/>
 	      					          </ListItemIcon>
 	      				          <ListItemText primary={vehicle.name} />
 	      				        </MenuItem>
@@ -166,7 +163,7 @@ const AddNewCar = props => {
 
 
 				<p className={classes.modalTitle}>
-					{ !picture && <Badge variant="dot" color="error" style={{marginTop: '-3px',marginRight: '3px'}} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
+					{ !picture && <Badge variant="dot" color="error" className={classes.addNewCarBadge} anchorOrigin={{vertical: 'top',horizontal:'left'}} />}
 						Vehicle picture
 				</p>
 
@@ -192,10 +189,10 @@ const AddNewCar = props => {
 
 					{
 						picture ? (
-							<img src={URL.createObjectURL(picture)} className={classes.uploadedImage} onClick={() => upload.click()}/>
+							<img alt="preview upload" src={URL.createObjectURL(picture)} className={classes.uploadedImage} onClick={() => upload.click()}/>
 						) : (
 							<Box className={classes.uploadPlaceholder}>
-								<img src={logoCar} className={classes.uploadPlaceholderCar} onClick={() => upload.click()}/>
+								<img alt="placeholder" src={logoCar} className={classes.uploadPlaceholderCar} onClick={() => upload.click()}/>
 								No picture selected
 							</Box>
 						)

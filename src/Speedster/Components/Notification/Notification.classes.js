@@ -1,24 +1,35 @@
 import {makeStyles} from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
-    notification: {
-        zIndex: 9999,
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'white'
+    success: {
+        backgroundColor: 'transparent',
+		backgroundImage: 'linear-gradient( 95deg, #00b248 0%, #00e676 60%, #66ffa6 100%)',
     },
-    paper: {
-        borderRadius: 0,
-        padding: '10px',
-        display: 'flex',
-        flexDirection: 'row'
+    error: {
+        backgroundColor: 'transparent',
+		backgroundImage: 'linear-gradient( 95deg, #c41c00 0%, #ff5722 60%, #ff8a50 100%)',
     },
-    content: {
-        flexDirection: 'column',
-		marginLeft: '10px',
-    }
+    warning: {
+        backgroundColor: 'transparent',
+		backgroundImage: 'linear-gradient( 95deg, #c56200 0%, #ff9100 60%, #ffc246 100%)',
+    },
+    info: {
+        backgroundColor: 'transparent',
+		backgroundImage: 'linear-gradient( 95deg, #0081cb 0%, #00b0ff 60%, #69e2ff 100%)',
+    },
+	root: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	action: {
+		marginRight: -8,
+		paddingLeft: 0,
+	},
+	message: {
+		width: '85%',
+	}
 }))
 
 export default useClasses

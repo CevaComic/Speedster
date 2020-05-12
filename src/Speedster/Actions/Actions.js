@@ -9,10 +9,22 @@ export const checkHash = (hash,id) => ({type: ActionType.CHECK_HASH_RESET_PASSWO
 export const tryResetPassword = (hash,id) => ({type: ActionType.TRY_RESET_PASSWORD, hash, id})
 export const changeTab = tab => ({type: ActionType.CHANGE_TAB, tab})
 
-// notificationReducer
+// notifierReducer
 
-export const sendNotification = notification => ({type: ActionType.SEND_NOTIFICATION, notification})
-export const closeNotification = () => ({type: ActionType.CLOSE_NOTIFICATION})
+export const enqueueSnackbar = notification => {
+    const key = notification.options && notification.options.key
+
+    return {
+        type: ActionType.ENQUEUE_SNACKBAR,
+        notification: {
+            ...notification,
+            key: key,
+        },
+    }
+}
+
+export const closeSnackbar = key => ({type: ActionType.CLOSE_SNACKBAR, dismissAll: !key, key })
+export const removeSnackbar = key => ({type: ActionType.REMOVE_SNACKBAR, key })
 
 // loginReducer
 

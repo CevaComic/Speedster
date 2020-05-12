@@ -11,13 +11,7 @@
     },
     "mixins": {
         "toolbar": {
-            "minHeight": 56,
-            "@media (min-width:0px) and (orientation: landscape)": {
-                "minHeight": 48
-            },
-            "@media (min-width:600px)": {
-                "minHeight": 64
-            }
+            "minHeight": 56
         }
     },
     "shadows": [
@@ -103,7 +97,7 @@
         },
         "fontWeightRegular": 400,
         "display1": {
-            "color": "rgba(0, 0, 0, 0.54)",
+            "color": "rgba(255, 255, 2555, 0.75)",
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
             "lineHeight": "1.20588em",
             "fontSize": "2.125rem",
@@ -113,7 +107,7 @@
             "textTransform": "uppercase",
             "color": "rgba(0, 0, 0, 0.87)",
             "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-            "fontSize": "0.875rem",
+            "fontSize": "11pt",
             "fontWeight": 500
         },
         "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
@@ -167,9 +161,7 @@
         "borderRadius": 4
     },
     "props": {},
-    "spacing": {
-        "unit": 8
-    },
+    "spacing": 4,
     "palette": {
         "tonalOffset": 0.2,
         "background": {
@@ -187,23 +179,23 @@
             "600": "#757575",
             "700": "#616161",
             "800": "#424242",
-            "900": "#212121",
+            "900": "#3f3f3f",
             "A700": "#616161",
             "A100": "#d5d5d5",
             "A400": "#303030",
             "A200": "#aaaaaa"
         },
         "text": {
-            "primary": "rgba(0, 0, 0, 0.87)",
-            "secondary": "rgba(0, 0, 0, 0.54)",
+            "primary": "rgba(0, 0, 0, 0.58)",
+            "secondary": "rgba(0, 0, 0, 0.38)",
             "disabled": "rgba(0, 0, 0, 0.38)",
             "hint": "rgba(0, 0, 0, 0.38)"
         },
         "divider": "rgba(0, 0, 0, 0.12)",
         "secondary": {
-            "main": "#f50057",
-            "light": "rgb(247, 51, 120)",
-            "dark": "rgb(171, 0, 60)",
+            "main": "#3f3f3f",
+            "light": "#6a6a6a",
+            "dark": "#191919",
             "contrastText": "#fff"
         },
         "common": {
@@ -226,10 +218,10 @@
             "active": "rgba(0, 0, 0, 0.54)"
         },
         "primary": {
-            "main": "#3f51b5",
-            "light": "rgb(101, 115, 195)",
-            "dark": "rgb(44, 56, 126)",
-            "contrastText": "#fff"
+			"light": "#9fffe0",
+            "main": "#69f0ae",
+            "dark": "#2bbd7e",
+            "contrastText": "#3b3b3b"
         }
     },
     "themeName": "San Marino Razzmatazz Tamandua"

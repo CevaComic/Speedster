@@ -8,31 +8,26 @@ import useClasses from './Navigation.classes'
 import { isMobileOnly } from 'react-device-detect'
 import { history } from '../Utils/navigate'
 import PrivateRoute from './PrivateRoute'
-import { setTemporaryValue,startSync } from '../Actions'
+import { startSync } from '../Actions'
 import { isLoggedSelector } from '../Selectors'
-import {useOnlyOnce} from '../Utils'
-
+import { useOnlyOnce } from '../Utils'
 import '../Themes/Global.css'
 
 function Navigation(props) {
 
 	const classes = useClasses()
-	const { isLogged, setTemporaryValue, startSync } = props
+	const { isLogged, startSync } = props
 
 	useOnlyOnce(() => {
 		isLogged && startSync()
 	})
 
-	// if(!isMobileOnly)
-	// 	return (
-	// 		<div>
-	// 			This app works only on mobile
-	// 		</div>
-	// 	)
-
-	// const unlisten = history.listen((location, action) => {
-	// 	setTemporaryValue({route:location.pathname.split('/')[2]})
-	// })
+	if(!isMobileOnly)
+		return (
+			<div>
+				This app works only on mobile
+			</div>
+		)
 
 	return (
 		<Router history={history}>
@@ -49,8 +44,6 @@ function Navigation(props) {
 
 					<PrivateRoute path="/home/couriersaround/:id" component={CouriersAround} />
 
-					{/* <PrivateRoute path="/couriers/:id/:carid" component={Couriers} />
-					<PrivateRoute path="/couriers/:id" component={Couriers} /> */}
 					<PrivateRoute path="/couriers" component={Couriers} />
 
 					<PrivateRoute path="/about" component={About} />
@@ -78,7 +71,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-    setTemporaryValue,
 	startSync
 }, dispatch))
 

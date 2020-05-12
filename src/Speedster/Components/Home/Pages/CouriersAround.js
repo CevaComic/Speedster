@@ -2,19 +2,12 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-// import { navigate } from '../../../Utils'
 import useClasses from '../Home.classes'
-import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import List from '@material-ui/core/List'
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Slide from '@material-ui/core/Slide'
 import Transition from '../../Slider/Transition'
-import { goBack } from '../../../Utils'
 import Modal from '@material-ui/core/Modal'
 import { setTemporaryValue } from '../../../Actions'
 import { viewModalProfileSelector, viewModalCarPictureSelector,onlineCouriersSelector } from '../../../Selectors'
@@ -26,18 +19,7 @@ const CouriersAround = props => {
 
 	const { page } = useParams()
 	const classes = useClasses()
-	const isForward = page && page !== 'couriersaround'
-
 	const { setTemporaryValue, viewModalProfile, viewModalCarPicture, onlineCouriers } = props
-	// const onlineCouriers = [{
-	// 	displayName: 'Gigel Fronel',
-	// 	vehicle: 2,
-	// 	id: 1,
-	// },{
-	// 	displayName: 'Alt Gigel',
-	// 	vehicle: 5,
-	// 	id: 2,
-	// }]
 
 	return (
 		<Dialog
@@ -57,7 +39,7 @@ const CouriersAround = props => {
         TransitionComponent={Transition}
         keepMounted
       >
-        <DialogContent style={{backgroundColor: '#fafafa',padding:0}}>
+        <DialogContent classes={{root: classes.couriersAround}}>
 			<Box className={classes.googleMap}>
 				<GoogleMap />
 			</Box>

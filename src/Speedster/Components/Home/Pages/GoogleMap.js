@@ -1,26 +1,23 @@
 import React from 'react'
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import GoogleMapReact from 'google-map-react'
 import Box from '@material-ui/core/Box'
 import useClasses from '../Home.classes'
 import Badge from '@material-ui/core/Badge'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { setTemporaryValue,setMyPosition } from '../../../Actions'
+import { setMyPosition } from '../../../Actions'
 import { myPositionSelector,onlineCouriersSelector } from '../../../Selectors'
 import { defaultAvatar } from '../../../Images'
 import { usePosition } from '../../../Utils'
 
 const renderMarkers = (markers,setCenter) => markers.map((courier,index) => {
-	const { lat, lng } = courier
 
-	const onClick = () => {
-		// setTemporaryValue({viewModalProfile:courier.id})
-		setCenter({lat:parseFloat(lat),lng:parseFloat(lng)})
-	}
+	const { lat, lng } = courier
+	const onClick = () => setCenter({lat:parseFloat(lat),lng:parseFloat(lng)})
 
 	return (
 			<Badge
+				key={courier.id}
 				onClick={onClick}
 				badgeContent={index+1}
 				color="secondary"
@@ -39,7 +36,7 @@ const renderMarkers = (markers,setCenter) => markers.map((courier,index) => {
 
 const GoogleMap = props => {
 
-	const { setTemporaryValue,setMyPosition, lat, lng, avatar, onlineCouriers } = props
+	const { setMyPosition, lat, lng, avatar, onlineCouriers } = props
 	const position = usePosition()
 	const classes = useClasses()
 
@@ -47,7 +44,7 @@ const GoogleMap = props => {
 
 	React.useEffect(() => {
 		setMyPosition(position)
-	},[position])
+	},[position, setMyPosition])
 
 	return (
 		<Box className={classes.googleMap}>
@@ -60,7 +57,7 @@ const GoogleMap = props => {
 				{
 					lat && lng && (
 						<Box lat={lat} lng={lng} className={classes.gBox}>
-							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.gAvatar}/>
+							<img alt="avatar" src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.gAvatar}/>
 						</Box>
 					)
 				}
@@ -79,7 +76,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
-    setTemporaryValue,
 	setMyPosition
 }, dispatch))
 

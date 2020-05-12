@@ -1,10 +1,8 @@
-import React from 'react'
-import { serverErrorNotification, isLoading, sendNotification } from './common'
-import { take, put, call, fork, cancel, cancelled, delay, select } from 'redux-saga/effects'
+import { sendNotification } from './common'
+import { take, put, fork, cancel, cancelled, delay, select } from 'redux-saga/effects'
 import { ActionType } from '../Constants'
 import { isEqual } from '../Utils'
 import axios from 'axios'
-import qs from 'qs'
 
 function* backgroundProcess() {
 	try {
@@ -59,16 +57,14 @@ function* backgroundProcess() {
 					yield put({type: ActionType.SET_MY_PACKS, packs})
 
 			} catch (error) {
-				console.log('error', error)
-				console.log('error.response', error.response)
 				if(error.response && error.response.data && error.response.data.error === 'FORCELOGOUT') {
 
-					yield put({type:ActionType.SEND_PERSISTENT_NOTIFICATION, notification: {
-						type: 'error',
-						title: (<span style={{fontWeight: 900}}>ERROR</span>),
-						message: (<span>Someone else logged into this account. You can login from one device only.</span>),
-						isOpen: true,
-					}})
+					yield sendNotification({
+						message: 'Someone else logged into this account. You can login from one device only.',
+						type: 'warning',
+						persist: true,
+					})
+
 					yield put({type: ActionType.DO_LOGOUT_CLEANUP})
 
 				}

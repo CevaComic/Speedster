@@ -1,17 +1,21 @@
-import React from 'react'
 import { ActionType } from '../Constants'
-import { take, call, put, delay } from 'redux-saga/effects'
+import { enqueueSnackbar } from '../Actions'
+import { put } from 'redux-saga/effects'
 
 const debug = false
 
-export function* serverErrorNotification(error) {
+export function* serverErrorNotification(error, persist = false) {
 	debug && console.log('Server ERROR SAGA',error)
-	yield put({type:ActionType.SEND_NOTIFICATION, notification: {
-		type: 'error',
-		title: (<span style={{fontWeight: 900}}>ERROR</span>),
-		message: (<span>{error || "Something went wrong, try again."}</span>),
-		isOpen: true,
-	}})
+	const key = new Date().getTime() + Math.random()
+	yield put(enqueueSnackbar({
+		message:  error || "Something went wrong, try again.",
+		options: {
+			key,
+			preventDuplicate: true,
+			variant: 'error',
+			persist,
+		}
+	}))
 }
 
 export function* isLoading(status) {
@@ -23,12 +27,16 @@ export function* updateProfileLoading(name,status) {
 	yield put({type:ActionType.SET_UPDATE_PROFILE_VALUE, value: {[name]: status}})
 }
 
-export function* sendNotification({type, title, message}) {
-	debug && console.log('Sending notification with message', message)
-	yield put({type:ActionType.SEND_NOTIFICATION, notification: {
-		type,
-		title,
-		message,
-		isOpen: true,
-	}})
+export function* sendNotification({type, message, persist = false, key = false}) {
+	if(!key)
+		key = new Date().getTime() + Math.random()
+	yield put(enqueueSnackbar({
+		message: message,
+		options: {
+			key,
+			preventDuplicate: true,
+			variant: type,
+			persist,
+		}
+	}))
 }

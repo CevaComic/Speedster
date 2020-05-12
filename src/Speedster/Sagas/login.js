@@ -1,7 +1,5 @@
-import React from 'react'
-import { take, call, put, delay } from 'redux-saga/effects'
+import { take, call, put } from 'redux-saga/effects'
 import { ActionType } from '../Constants'
-import { navigate } from '../Utils'
 import { serverErrorNotification, isLoading, sendNotification } from './common'
 import axios from 'axios'
 import qs from 'qs'
@@ -39,8 +37,7 @@ function* login(data) {
 
 		yield sendNotification({
 			type: 'success',
-			title: 'Information',
-			message: (<span>Logged in successfully</span>),
+			message: 'Logged in successfully',
 		})
 
 		yield put({type: ActionType.SET_MY_VEHICLES, vehicles})
@@ -52,7 +49,6 @@ function* login(data) {
 		yield put({type: ActionType.START_SYNC_APP})
 
 	} catch (error) {
-		console.log('error', error)
 		if(error.response && error.response.data && error.response.data.error)
 			yield serverErrorNotification(error.response.data.error)
 		else

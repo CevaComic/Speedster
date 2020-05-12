@@ -1,21 +1,16 @@
 import React from 'react'
-import { useParams,Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { navigate } from '../../../../Utils'
 import useClasses from './SendPack.classes'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Badge from '@material-ui/core/Badge'
 import Collapse from '@material-ui/core/Collapse'
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Slide from '@material-ui/core/Slide'
 import Transition from '../../../Slider/Transition'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -26,6 +21,7 @@ import { sendPackSelector } from '../../../../Selectors'
 import { renderCouriersSendPack } from '../../../Couriers/common'
 import InputBase from '@material-ui/core/InputBase'
 import { isLoadingIcon,defaultAvatar } from '../../../../Images'
+import clsx from 'clsx'
 import moment from 'moment'
 
 const SendPack = props => {
@@ -33,7 +29,7 @@ const SendPack = props => {
 	const { page } = useParams()
 	const classes = useClasses()
 	const isForward = page && page !== 'sendpack'
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = React.useState(null)
 
 	const handleClick = event => {
 	    setAnchorEl(event.currentTarget)
@@ -57,7 +53,7 @@ const SendPack = props => {
 	  }
 
 	  const { isLoading, setTemporaryValue, packType, couriers, courier, sendPackCourier,quantity } = props
-	  const { phone, price, trySendPack, sender, address,receiver, receiveraddress,receiverphone,error,changedSender } = props
+	  const { phone, price, trySendPack, sender, address,receiver, receiveraddress,receiverphone } = props
 
 	return (
 		<Dialog
@@ -70,7 +66,7 @@ const SendPack = props => {
 			PaperProps={{
 				elevation: 0,
 			}}
-			fullWidth={true}
+			fullWidth
 			maxWidth={false}
 			disableBackdropClick
         open={page === 'sendpack'}
@@ -98,7 +94,7 @@ const SendPack = props => {
 		  >
 			Go to your profile
 		</Button>
-			<Box className={classes.noOnline} style={{marginTop: '10px'}}>
+			<Box className={clsx(classes.noOnline,classes.noOnlineMissingPhone)}>
 				In order to send packs your phone number must be set
 			</Box>
 			</>
@@ -111,7 +107,7 @@ const SendPack = props => {
 					  <>
 					  { (courier && courier[0]) ? <Box className={classes.avatarBox} onClick={() => setTemporaryValue({viewModalProfile:courier[0].id})}>
 						  <Box className={classes.avatarImageBox}>
-							  <img src={courier[0].avatar ? 'https://speedster.cristi.club/media/' + courier[0].avatar : defaultAvatar} className={classes.avatar}/>
+							  <img src={courier[0].avatar ? 'https://speedster.cristi.club/media/' + courier[0].avatar : defaultAvatar} className={classes.avatar} alt="avatar"/>
 						  </Box>
 
 						  <Box className={classes.avatarBoxInner}>
@@ -225,14 +221,14 @@ const SendPack = props => {
 			  className={[classes.buttonType,classes.submitPack].join(' ')}
 			  onClick={() => trySendPack()}
 			>
-				{isLoading && <img src={isLoadingIcon} width="24px" height="24px" style={{marginRight: '10px'}}/> }
+				{isLoading && <img src={isLoadingIcon} width="24px" height="24px" className={classes.isLoadingIcon} alt="loading"/> }
 			   Send pack
 			</Button>
 		  </Collapse>
 
 
 		<Menu
-			style={{zIndex: 2000}}
+			className={classes.menu}
 			anchorEl={anchorEl}
 			keepMounted
 			open={Boolean(anchorEl)}
@@ -243,9 +239,9 @@ const SendPack = props => {
 				{
 					packTypes.map((pack,index) => {
 						return (
-							<MenuItem onClick={() => {setTemporaryValue({packType:index+1,sendPackCourier:0});handleClose()}}>
+							<MenuItem key={`${pack.name}`} onClick={() => {setTemporaryValue({packType:index+1,sendPackCourier:0});handleClose()}}>
 								<ListItemIcon>
-								  <img src={pack.icon} width="30px" height="23px"/>
+								  <img src={pack.icon} width="30px" height="23px" alt="pack"/>
 								</ListItemIcon>
 							<ListItemText primary={pack.name} />
 						  </MenuItem>

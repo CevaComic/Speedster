@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import temporary from './temporary'
-import notification from './notification'
 import register from './register'
 import login from './login'
 import settings from './settings'
@@ -11,10 +10,11 @@ import myVehicle from './myVehicles'
 import couriers from './couriers'
 import prices from './prices'
 import myPacks from './myPacks'
+import notifier from './notifier'
 
 const reducers = combineReducers({
 	temporary,
-	notification,
+	notifier,
 	register,
 	login,
 	settings,

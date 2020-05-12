@@ -8,9 +8,9 @@ const myPacksReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
 		case ActionType.DO_LOGOUT_CLEANUP:
 		case ActionType.RESET_MY_PACKS:
-			return state.filter(pack => pack.id !== pack.id)
+			return []
 		case ActionType.SET_MY_PACKS:
-			return state.filter(pack => pack.id !== pack.id).concat(action.packs || [])
+			return [].concat(action.packs || [])
 		case ActionType.CHANGE_PACK_STATUS:
 			return state.map(item => {
 				if (item.id !== action.id)

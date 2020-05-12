@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
@@ -39,7 +39,7 @@ function Init(props) {
     return (
 		<Box className={classes.initContainer}>
 
-			<img src={require('../../Images/logo.png')} className={classes.logo} />
+			<img src={require('../../Images/logo.png')} className={classes.logo} alt="logo" />
 
 			<Typography className={classes.title}>
 				<i>LOGIN</i>
@@ -58,7 +58,7 @@ function Init(props) {
 	  						<IconButton>
 
 							  <Badge color="error" variant="dot" invisible={!emailError} anchorOrigin={{vertical: 'top',horizontal:'left'}}>
-						          <PersonRoundedIcon style={{fontSize: '10pt'}}/>
+						          <PersonRoundedIcon className={classes.inputIcon}/>
 						       </Badge>
 	  						</IconButton>
 	  					  </InputAdornment>
@@ -86,7 +86,7 @@ function Init(props) {
 	  					  <InputAdornment position="start">
 	  						<IconButton>
 								<Badge color="error" variant="dot" invisible={!passwordError} anchorOrigin={{vertical: 'top',horizontal:'left'}}>
-									<LockRoundedIcon style={{fontSize: '10pt'}}/>
+									<LockRoundedIcon className={classes.inputIcon}/>
 								</Badge>
 	  						</IconButton>
 	  					  </InputAdornment>
@@ -105,7 +105,7 @@ function Init(props) {
 
 
 				<Button className={classes.loginButton} variant="contained" color="secondary" onClick={() => tryLogin()}>
-					{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading}/>}
+					{isLoading && <img src={require('../../Images/loading.svg')} height="24px" width="24px" className={classes.loading} alt="loading"/>}
 					{isLoading ? "CONNECTING..." : "LOGIN"}
 				</Button>
 			</Box>
@@ -116,12 +116,11 @@ function Init(props) {
 
 			<FacebookLogin
 	          appId="303540063884445"
-			  // redirectUri="https://localhost:3000/"
 	          autoLoad={false}
 	          fields="name,first_name,last_name,email,picture.width(500)"
 	          callback={response => fbLogin({...response,platform:'Facebook'})}
 			  onFailure={response => failedLogin(response,'Google')}
-			  disabledStyle={{background: '#7788e7',}}
+			  disabledStyle={{background: '#7788e7'}}
 			  render={renderProps => (
 			    <Button
 					disabled={isLoading}
@@ -132,7 +131,7 @@ function Init(props) {
 						startIcon: classes.loginWithFacebookIcon,
 						disabled: classes.disabled,
 					}}
-					startIcon={<img src={require('../../Images/fb.png')} width="20px" height="20px" />}>
+					startIcon={<img src={require('../../Images/fb.png')} width="20px" height="20px" alt="facebook"/>}>
 					Login with Facebook
 				</Button>
 			  )}
@@ -153,14 +152,14 @@ function Init(props) {
 							startIcon: classes.loginWithGoogleIcon,
 							label: classes.labelGoogle
 						}}
-						startIcon={<img src={require('../../Images/g.png')} width="20px" height="20px"/>}
+						startIcon={<img src={require('../../Images/g.png')} width="20px" height="20px" alt="google"/>}
 					>
 						Login with Google
 					</Button>
   			  )}
 		      />
 
-			  <Box style={{flexGrow: 1}} />
+			  <Box className={classes.loginGrow} />
 
 			  <Box className={classes.initFooter}>
 				  <Box className={classes.spacer} />

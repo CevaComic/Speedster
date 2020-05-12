@@ -3,14 +3,11 @@ import Box from '@material-ui/core/Box'
 import Badge from '@material-ui/core/Badge'
 import useClasses from './Couriers.classes'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from './Icon'
-import { vehicles, defaultAvatar } from '../../Images'
+import { defaultAvatar } from '../../Images'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import { navigate } from '../../Utils'
 import { renderVehicle } from './common'
 import { setTemporaryValue } from '../../Actions'
 import {connect} from 'react-redux'
@@ -42,10 +39,10 @@ const CourierRow = ({courier, black, place, setTemporaryValue, sendpack = false,
 						    vertical: 'top',
 						    horizontal: 'left',
 						}} classes={{badge: classes.badge}}>
-							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={[classes.avatar,classes.avatarAround].join(' ')}/>
+							<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} alt="avatar" className={[classes.avatar,classes.avatarAround].join(' ')}/>
 						</Badge>
 					) : (
-						<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} className={classes.avatar}/>
+						<img src={avatar ? 'https://speedster.cristi.club/media/' + avatar : defaultAvatar} alt="avatar" className={classes.avatar}/>
 					)
 				}
 	        </Box>

@@ -5,12 +5,9 @@ import Box from '@material-ui/core/Box'
 import Modal from '@material-ui/core/Modal'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'
-import Typography from '@material-ui/core/Typography'
 import useClasses from './Couriers.classes'
-import {useHistory} from 'react-router-dom'
 import Search from './Search'
 import { setTemporaryValue } from '../../Actions'
-import { isLoadingIcon } from '../../Images'
 import CourierProfileContent from './CourierProfileContent'
 import { searchValueSelector,onlineCouriersSelector,offlineCouriersSelector,couriersSelector } from '../../Selectors'
 import { viewModalProfileSelector, viewModalCarPictureSelector } from '../../Selectors'
@@ -19,7 +16,6 @@ import { renderCouriers } from './common'
 const Couriers = props => {
 
 	const classes = useClasses()
-	const history = useHistory()
 	const { searchValue,onlineCouriers,offlineCouriers,searchCouriers } = props
 	const { viewModalProfile, viewModalCarPicture,setTemporaryValue } = props
 

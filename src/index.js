@@ -6,12 +6,15 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './Speedster/Store'
 import theme from './Speedster/Themes'
+import NotificationsProvider from './Speedster/Components/Notification/NotificationsProvider'
 
 const App = () => (
 	<Provider store={store}>
 	    <PersistGate persistor={persistor}>
 			<ThemeProvider theme={theme}>
-				<Navigation />
+				<NotificationsProvider>
+					<Navigation />
+				</NotificationsProvider>
 			</ThemeProvider>
 	    </PersistGate>
 	</Provider>

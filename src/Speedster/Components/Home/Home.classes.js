@@ -6,8 +6,8 @@ const useClasses = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-		height: '100%',
-		overflowX: 'scroll',
+        height: '100%',
+        overflowX: 'scroll',
         transition: 'all 0.5s',
         '&$goBack': {
             marginLeft: '-150px'
@@ -16,10 +16,14 @@ const useClasses = makeStyles(theme => ({
     myPages: {
         backgroundColor: '#fafafa',
         transition: 'all 0.5s',
-		padding: '0!important',
+        padding: '0!important',
         '&$goBack': {
             marginLeft: '-150px'
         }
+    },
+    couriersAround: {
+        backgroundColor: '#fafafa',
+        padding: '0!important'
     },
     goBack: {},
     becomeCourier: {
@@ -128,26 +132,26 @@ const useClasses = makeStyles(theme => ({
         width: '100%',
         height: '280px',
         backgroundColor: '#ccc',
-		boxShadow: theme.shadows[1],
+        boxShadow: theme.shadows[1]
     },
     gBox: {
         width: '24px',
         height: '24px',
-		borderRadius: '100px',
-		border: '2px solid white',
-		boxShadow: theme.shadows[2],
-		overflow: 'hidden',
+        borderRadius: '100px',
+        border: '2px solid white',
+        boxShadow: theme.shadows[2],
+        overflow: 'hidden'
     },
     gAvatar: {
         objectFit: 'cover',
         height: '100%',
         width: '100%'
     },
-	uploadPlaceholderCar: {
+    uploadPlaceholderCar: {
         width: '50%',
         maxWidth: '140px',
-		marginTop: '20px',
-    },
+        marginTop: '20px'
+    }
 }))
 
 export default useClasses

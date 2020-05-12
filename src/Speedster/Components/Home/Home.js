@@ -1,14 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Box from '@material-ui/core/Box'
 import Collapse from '@material-ui/core/Collapse'
-import Button from '@material-ui/core/Button'
 import useClasses from './Home.classes'
 import { navigate } from '../../Utils'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import { setSettingsValue } from '../../Actions'
+import { setSettingsValue,enqueueSnackbar } from '../../Actions'
 import { isLoadingSelector, showBecomeCourierSelector } from '../../Selectors'
 import List from '@material-ui/core/List'
 import HomeRow from './HomeRow'
@@ -23,12 +22,14 @@ function Home(props) {
 	const classes = useClasses()
 	const history = useHistory()
 	const isBack = history.location.pathname.split('/')[2] !== undefined
-	const { become, setSettingsValue, courier,startSync } = props
+	const { become, setSettingsValue, courier } = props
+
+	// const getKey = () => `${new Date().getTime() + Math.random()}`
 
     return (
 			<Box className={[classes.home,isBack ? classes.goBack : ''].join(' ')}>
 				<Collapse in={become && !courier} className={classes.becomeCourier}>
-					<img src={becomeCourier} width="100%" />
+					<img src={becomeCourier} width="100%" alt="become courier"/>
 					<Box className={classes.becomeCourierContent}>
 						<Box className={classes.becomeCourierContentInner}>
 							<Typography classes={{body1: classes.aplica}}>
@@ -38,7 +39,7 @@ function Home(props) {
 								Become a courier today
 							</Typography>
 
-							<img src={logoCar} className={classes.uploadPlaceholderCar}/>
+							<img src={logoCar} className={classes.uploadPlaceholderCar} alt="car logo"/>
 
 							<AddNewCar isFirst />
 
@@ -67,6 +68,20 @@ function Home(props) {
 				<PackRequests />
 				<CouriersAround />
 
+				{/* <Box>
+					<Button onClick={() => props.enqueueSnackbar({options: {key:getKey(),variant:'warning'},message:'WARNING'})}>
+						WARNING
+					</Button>
+					<Button onClick={() => props.enqueueSnackbar({options: {key:getKey(),variant:'success'},message:'SUCCESS'})}>
+						SUCCESS
+					</Button>
+					<Button onClick={() => props.enqueueSnackbar({options: {key:getKey(),variant:'info'},message:'INFO'})}>
+						INFO
+					</Button>
+					<Button onClick={() => props.enqueueSnackbar({options: {key:getKey(),variant:'error'},message:'ERROR'})}>
+						ERROR
+					</Button>
+				</Box> */}
 			</Box>
 	)
 }
@@ -81,6 +96,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (bindActionCreators({
     setSettingsValue,
+	enqueueSnackbar
 }, dispatch))
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

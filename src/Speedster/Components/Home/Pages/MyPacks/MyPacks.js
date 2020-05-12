@@ -1,15 +1,11 @@
 import React from 'react'
-import { useParams, Link, useHistory } from 'react-router-dom'
-// import { navigate } from '../../../Utils'
+import { useParams } from 'react-router-dom'
 import useClasses from './MyPacks.classes'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
 import Transition from '../../../Slider/Transition'
 import {connect} from 'react-redux'
@@ -20,7 +16,7 @@ import { myPacksSelector } from '../../../../Selectors'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import { setTemporaryValue,tryDeletePack, tryRateDelivery } from '../../../../Actions'
 import { packTypes } from '../../../../Utils/packTypes'
-import { defaultAvatar,packs,logoCar,isLoadingIcon } from '../../../../Images'
+import { packs,logoCar,isLoadingIcon } from '../../../../Images'
 import { addZeros } from '../../../../Utils'
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -180,12 +176,12 @@ const MyPacks = props => {
 	  	  >
 				<Box className={classes.topImageBox}>
 					<Box className={classes.topImageBoxInner}>
-						<img src={getIcon()} className={classes.topImage} />
+						<img src={getIcon()} className={classes.topImage} alt="top"/>
 					</Box>
 				</Box>
 				<Box className={classes.packContent}>
 					<Box className={[classes.row,classes.packBoxTitle].join(' ')}>
-						<img src={logoCar} width="24px"/><h4 className={classes.packTitle}>SPEEDSTER</h4>
+						<img src={logoCar} width="24px" alt="logo"/><h4 className={classes.packTitle}>SPEEDSTER</h4>
 					</Box>
 					<h4 className={classes.packTitle}>Ref #{addZeros(current.id || 0)}</h4>
 
@@ -229,7 +225,7 @@ const MyPacks = props => {
       </Stepper>
 	  {
 		  (current.status === 3 || current.status === 5) && (
-			  <Box className={classes.rowRating} style={{marginTop: '0!important'}}>
+			  <Box className={classes.rowRating}>
 			{
 				!current.rated ? (
 					<Rating
@@ -247,13 +243,13 @@ const MyPacks = props => {
 					  />
 				)
 			}
-			  <Button disabled={current.rated || isLoading} style={{alignSelf: 'flex-end'}} onClick={() => tryRateDelivery(current,stars)} color="primary" variant="contained">
-				{isLoading && <img src={isLoadingIcon} width="24px" height="24px" style={{marginRight: '10px'}}/>}
+			  <Button disabled={current.rated || isLoading} className={classes.alignEnd} onClick={() => tryRateDelivery(current,stars)} color="primary" variant="contained">
+				{isLoading && <img src={isLoadingIcon} width="24px" height="24px" className={classes.isLoadingIcon} alt="loading"/>}
 				{current.rated ? "Rated" : "Rate courier"}
 			  </Button>
 		 </Box>
 	 	)}
-			<Box style={{visibility: 'hidden'}}>
+			<Box className={classes.hidden}>
 				space
 			</Box>
 				</Box>
@@ -261,7 +257,7 @@ const MyPacks = props => {
 		  		  <Button onClick={() => tryDeletePack(current.id)} variant="contained" disabled={current.status !== 0}>
 		  		  Delete request
 		  		</Button>
-		  		<Button style={{alignSelf: 'flex-end'}} onClick={() => setTemporaryValue({packId:0})} color="primary" variant="contained">
+		  		<Button className={classes.alignEnd} onClick={() => setTemporaryValue({packId:0})} color="primary" variant="contained">
 		  		  Close
 		  		</Button>
 		  	  </DialogActions>

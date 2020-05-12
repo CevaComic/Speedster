@@ -4,6 +4,10 @@ html {
 	background-color: #fafafa;
 }
 
+html.touch *:hover {
+    all:unset!important;
+}
+
 *:not(textarea):not(input) {
 	font-family: Roboto, sans-serif;
 	-webkit-touch-callout: none;
@@ -15,4 +19,8 @@ html {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	scrollbar-width: none;
 	outline: 0;
+}
+
+.MuiGrid-root > .MuiFormControl-root {
+	width: 100%;
 }

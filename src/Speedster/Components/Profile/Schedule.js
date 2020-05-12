@@ -1,6 +1,5 @@
 import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
@@ -13,8 +12,6 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Icon from './Icon'
 import {icons,isLoadingIcon} from '../../Images'
-import Switch from './Switch'
-import TextField from '@material-ui/core/TextField'
 import { MuiPickersUtilsProvider, TimePicker } from '@material-ui/pickers'
 import { setScheduleValues,setScheduleTempValue,resetScheduleTempValues } from '../../Actions'
 import { scheduleSelector } from '../../Selectors'
@@ -60,7 +57,7 @@ const Schedule = (props) => {
 
 		  <ListItemSecondaryAction>
 			<IconButton edge="end" aria-label="edit" onClick={() => setOpen(true)}>
-				<img src={icons.edit} width="21px" height="27px"/>
+				<img alt="edit" src={icons.edit} width="21px" height="27px"/>
 			</IconButton>
 		  </ListItemSecondaryAction>
 		</ListItem>
@@ -74,7 +71,7 @@ const Schedule = (props) => {
 			  <Box className={classes.modalInner}>
 				  <Box className={classes.topImageBox}>
 					  <Box className={classes.topImageBoxInner}>
-						  <img src={require('../../Images/clock.png')} className={classes.topImage} />
+						  <img alt="clock" src={require('../../Images/clock.png')} className={classes.topImage} />
 					  </Box>
 				  </Box>
 

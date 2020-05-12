@@ -33,7 +33,7 @@ export default (watch = true, settings = defaultSettings) => {
         }
 
         return() => watcher && geo.clearWatch(watcher)
-    }, [settings])
+    }, [settings, watch])
 
     return {
         ...position,

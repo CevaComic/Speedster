@@ -106,5 +106,8 @@ export const vehicles = {
 
 // misc
 
+export const logo = require('./logo.png')
+export const car = require('./car.png')
 export const defaultAvatar = require('./defaultAvatar.svg')
 export const logoCar = require('./logocar.png')
+export const library = require('./library.png')
