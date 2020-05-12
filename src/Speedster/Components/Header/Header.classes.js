@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
     Header: {
-        zIndex: 1400
+        zIndex: '1500!important'
     },
     mainBox: {
         display: 'flex',
