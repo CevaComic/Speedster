@@ -1,68 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project : Speedster
 
-## Available Scripts
+## Screenshots
 
-In the project directory, you can run:
+![login](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/login.png) ![main](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/main.png) ![google](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/google.png)
 
-### `yarn start`
+![packs](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/packs.png) ![send](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/send.png) ![work](https://raw.githubusercontent.com/CevaComic/Speedster/master/preview/work.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##### Author : Bogdan Remus Cristian
+###### Romanian description : Aplicația își propune să faciliteze transportul de colete în localitatea utilizatorului indiferent de oră. Această aplicație de curierat individual are mai multe functionalităţi. Utilizatorii pot aplica pentru jobul de curier, prin adăugarea unui vehicul. Curierii pot să-și seteze individual prețurile pe plicuri/colete sau programul de lucru. De asemenea, pot adăuga vehicule noi (în cazul în care un curier dispune de mașină și bicicletă, de exemplu). Utilizatorii pot trimite plicuri/colete cu acei curieri care sunt disponibili. Login-ul este realizat pe baza adresei de e-mail sau cu platformele Google și Facebook. Dacă un utilizator are același mail pe una din cele două platforme, cu oricare dintre ele s-ar loga, accesează același cont. De asemenea, utilizatorii pot evalua serviciul curierului pe baza de steluțe, de la 1 la 7. Este păstrat un istoric al coletelor trimise sau în procesare pentru utilizatori, iar pentru curieri este păstrat și un istoric al coletelor procesate sau în tranzit.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+##### Compatibility : All known browsers except "Opera mini"
+###### Running on : All phones and tablets
+##### Best resolutions : Fits best on width bigger than 320px and lower 1024px
+###### Used technologies :
 
-### `yarn test`
+- ReactJS as main Framework
+- With libraries :
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- - Redux
+- - Material-UI
+- - Redux Saga
+- - React Router
+- - React Persistor
+- - axios
+- - moment
+- - And other libraries in package.json under dependecies
 
-### `yarn build`
+##### Minimum requirements :
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Display width resolution bigger than 320px
+- Mobile phone or tablet
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+###### How to compile and run :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Live demo of Speedster](https://speedster.cristi.club/)
 
-### `yarn eject`
+- Clone the repository
+- Enter the folder from console/terminal
+- For running locally :
+```bash
+yarn
+yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Compile and get the build folder :
+```bash
+yarn
+yarn build
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Code from others :
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Some hooks code got on stackoverflow
+- Some minor functions also from stack or google
+- Also inspired from other's people work
