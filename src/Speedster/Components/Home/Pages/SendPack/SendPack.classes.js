@@ -37,7 +37,7 @@ const useClasses = makeStyles(theme => ({
         marginRight: '10px'
     },
     menu: {
-        zIndex: 2000
+        zIndex: '2000!important',
     },
     noOnline: {
         padding: theme.spacing(2),

@@ -18,6 +18,7 @@ export default ({ children  }) => {
 	        variantError: classes.error,
 	        variantWarning: classes.warning,
 	        variantInfo: classes.info,
+			containerAnchorOriginTopCenter: classes.containerAnchorOriginTopCenter,
 		},
 		ContentProps: {
 			classes: {

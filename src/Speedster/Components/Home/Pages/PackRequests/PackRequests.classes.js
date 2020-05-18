@@ -247,7 +247,7 @@ const useClasses = makeStyles(theme => ({
             zIndex: 2,
             borderRadius: '50%'
         },
-        left: 'calc(50% - 36px)'
+        // left: 'calc(50% - 36px)'
     },
     topImageBoxInner: {
         width: '100%',

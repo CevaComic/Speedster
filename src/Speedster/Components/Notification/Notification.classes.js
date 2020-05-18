@@ -23,6 +23,9 @@ const useClasses = makeStyles(theme => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	containerAnchorOriginTopCenter: {
+		zIndex: '12000!important',
+	},
 	action: {
 		marginRight: -8,
 		paddingLeft: 0,

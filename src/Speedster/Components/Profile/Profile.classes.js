@@ -149,7 +149,7 @@ const useClasses = makeStyles(theme => ({
         marginRight: '3px'
     },
     menu: {
-        zIndex: 2000
+        zIndex: '2000!important',
     },
     modalInner: {
         backgroundColor: '#fafafa',
