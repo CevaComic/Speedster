@@ -98,9 +98,9 @@ const CourierProfileContent = (props) => {
 						black
 					/>
 					<ListRow
-						title="Prices"
-						value={"1leu km..."}
-						icon={icons.price}
+						title="Courier since"
+						value={moment(courierSince).year()}
+						icon={icons.schedule}
 					/>
 					<ListRow
 						title="Working status"
