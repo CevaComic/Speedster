@@ -19,7 +19,7 @@
     "google-maps-react": "^2.0.2",
     "history": "^4.10.1",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
+    "moment-timezone": "^0.5.35",
     "notistack": "^0.9.11",
     "qs": "^6.9.1",
     "react": "^16.12.0",
